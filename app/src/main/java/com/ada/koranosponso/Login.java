@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
         user = sharedPreferences.getString(SETTING_USER,"");
         pass = sharedPreferences.getString(SETTING_PASS,"");
         if(user!="") {
-            etUsu.setText(user);
+                etUsu.setText(user);
             etPass.setText(pass);
             chRec.setChecked(true);
             onEntrar(etUsu);
