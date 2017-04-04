@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
         etUsu = (EditText) findViewById(R.id.etUsu);
         etPass = (EditText) findViewById(R.id.etPass);
         chRec = (CheckBox) findViewById(R.id.chRecordar);
-        sharedPreferences = getApplicationContext().getSharedPreferences("daniel.martin.garcia.veterinario", Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("com.ada.koranosponso", Context.MODE_PRIVATE);
         String user, pass;
         user = sharedPreferences.getString(SETTING_USER,"");
         pass = sharedPreferences.getString(SETTING_PASS,"");
