@@ -1,0 +1,1 @@
+CREATE TABLE `Korano`.`usuarios` ( `id` INT NOT NULL AUTO_INCREMENT , `usuario` TEXT NOT NULL , `password` VARCHAR(255) NOT NULL , `conectado` BOOLEAN NOT NULL , `token` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`, `usuario`(50))) ENGINE = InnoDB;
