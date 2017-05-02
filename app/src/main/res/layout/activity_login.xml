@@ -69,9 +69,19 @@
         android:text="Entrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:id="@+id/bEntrar"
-        android:onClick="onEntrar"
+        android:id="@+id/btnLogin"
+        android:layout_below="@+id/chRecordar"
+        android:layout_toRightOf="@+id/chRecordar"
+        android:layout_toEndOf="@+id/chRecordar"
+        android:layout_marginTop="11dp" />
+
+    <Button
+        android:text="REGISTRARSE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="88dp"
+        android:id="@+id/btnRegisterL" />
 </RelativeLayout>
