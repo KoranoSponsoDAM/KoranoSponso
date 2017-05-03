@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etPass;
     private String user, password;
     static String passwordL, userL;
-    private Button btnLogin;
+    private Button btnLogin, btnRegisterL;
     private CheckBox chRec;
     private static ProgressDialog pd;
     //private final static String SETTING_USER = "setting_user";
@@ -61,6 +61,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         chRec = (CheckBox) findViewById(R.id.chRecordar);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
+        btnRegisterL = (Button) findViewById(R.id.btnRegisterL);
+        btnRegisterL.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -94,6 +96,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void login() {
         userL = etUsu.getText().toString();
         passwordL = etPass.getText().toString();
+        pd = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+        pd.show(this, "LOADING", "Sign on...");
         HashMap<String,String> hashMap = new HashMap<String,String>();
         hashMap.put(Constantes.KEY_USER,userL);
         hashMap.put(Constantes.KEY_PASSWORD, passwordL);

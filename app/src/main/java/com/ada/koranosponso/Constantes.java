@@ -11,6 +11,7 @@ public class Constantes {
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_USER = "username";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_EMAIL = "email";
     //public static final String KEY_NAME = "username";
     //public static final String KEY_LAST_NAME = "last_name";
     //public static final String KEY_NEW_PASSWORD = "newpassword";
