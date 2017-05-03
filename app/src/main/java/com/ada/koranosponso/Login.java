@@ -29,7 +29,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     static String passwordL, userL;
     private Button btnLogin, btnRegisterL;
     private CheckBox chRec;
-    private static ProgressDialog pd;
+    private  ProgressDialog pd;
     //private final static String SETTING_USER = "setting_user";
     //private final static String SETTING_PASS = "setting_pass";
     SharedPreferences sharedPreferences;
@@ -128,7 +128,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                         Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
 
-                        pd.dismiss();
 
 
                         //Starting profile activity
@@ -139,11 +138,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         //If the server response is not success
                         //Displaying an error message on toast
                         Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
-
+                        Intent intent = new Intent(Login.this, Login.class);
+                        startActivity(intent);
+                        finish();
                     }
+                    pd.dismiss();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    pd.dismiss();
                 }
+
             }
         });
     }

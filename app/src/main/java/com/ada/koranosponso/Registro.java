@@ -71,7 +71,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
 
 
                             Toast.makeText(Registro.this, json.getString("message"), Toast.LENGTH_LONG).show();
-                            pd.dismiss();
+
                             Intent intent = new Intent(Registro.this, Login.class);
                             startActivity(intent);
                             finish();
@@ -79,8 +79,12 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
                              //If the server response is not success
                             //Displaying an error message on toast
                             Toast.makeText(Registro.this, json.getString("message"), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Registro.this, Login.class);
+                            startActivity(intent);
+                            finish();
 
                         }
+                        pd.dismiss();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
