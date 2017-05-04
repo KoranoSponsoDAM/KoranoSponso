@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class Registro extends AppCompatActivity implements View.OnClickListener{
-    private static ProgressDialog pd;
+    private ProgressDialog pd;
     private EditText etUser, etPassword, etPasswordConfirm, etEmail;
     static String username, password, passwordConfirm, email;
     Button btnRegistro;
@@ -43,6 +43,14 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    private void showProgressDialog(String title, String message){
+        pd = new ProgressDialog(this);
+        pd.setTitle(title);
+        pd.setMessage(message);
+        pd.setCancelable(false);
+        pd.show();
+    }
+
     public void newUser() {
         username = etUser.getText().toString();
         password = etPassword.getText().toString();
@@ -51,12 +59,11 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
         if (username.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || email.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.vacio, Toast.LENGTH_SHORT).show();
         } else if (password.equals(passwordConfirm)) {
+            showProgressDialog("CARGANDO", "Ingresando...");
             HashMap<String, String> hashMap = new HashMap<String, String>();
             hashMap.put(Constantes.KEY_USER, username);
             hashMap.put(Constantes.KEY_PASSWORD, password);
             hashMap.put(Constantes.KEY_EMAIL, email);
-            pd = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-            pd.show(this, "LOADING", "Sign on...");
             RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.REGISTER);
             res.responseApi(new RestAPIWebServices.VolleyCallback() {
                 @Override
@@ -71,20 +78,15 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
 
 
                             Toast.makeText(Registro.this, json.getString("message"), Toast.LENGTH_LONG).show();
-
+                            pd.dismiss();
                             Intent intent = new Intent(Registro.this, Login.class);
                             startActivity(intent);
                             finish();
                         } else {
-                             //If the server response is not success
-                            //Displaying an error message on toast
                             Toast.makeText(Registro.this, json.getString("message"), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(Registro.this, Login.class);
-                            startActivity(intent);
-                            finish();
-
+                            pd.dismiss();
                         }
-                        pd.dismiss();
+                        //pd.dismiss();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

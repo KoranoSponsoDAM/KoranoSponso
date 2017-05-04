@@ -29,7 +29,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     static String passwordL, userL;
     private Button btnLogin, btnRegisterL;
     private CheckBox chRec;
-    private  ProgressDialog pd;
+    private ProgressDialog pd;
     //private final static String SETTING_USER = "setting_user";
     //private final static String SETTING_PASS = "setting_pass";
     SharedPreferences sharedPreferences;
@@ -93,11 +93,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivityForResult(i, 1);
     }
 
+    private void showProgressDialog(String title, String message){
+        pd = new ProgressDialog(this);
+        pd.setTitle(title);
+        pd.setMessage(message);
+        pd.setCancelable(false);
+        pd.show();
+    }
     public void login() {
         userL = etUsu.getText().toString();
         passwordL = etPass.getText().toString();
-        pd = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-        pd.show(this, "LOADING", "Sign on...");
+        showProgressDialog("CARGANDO", "Ingresando...");
         HashMap<String,String> hashMap = new HashMap<String,String>();
         hashMap.put(Constantes.KEY_USER,userL);
         hashMap.put(Constantes.KEY_PASSWORD, passwordL);
@@ -127,7 +133,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         editor.commit();*/
 
                         Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
-
+                        pd.dismiss();
 
 
                         //Starting profile activity
@@ -135,14 +141,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         startActivity(intent);
                         finish();
                     } else {
-                        //If the server response is not success
-                        //Displaying an error message on toast
+
                         Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Login.this, Login.class);
-                        startActivity(intent);
-                        finish();
+                        pd.dismiss();
+
                     }
-                    pd.dismiss();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -150,6 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
 
             }
+
         });
     }
 
