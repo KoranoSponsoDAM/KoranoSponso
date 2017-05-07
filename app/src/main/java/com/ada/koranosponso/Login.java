@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +23,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //private CrearBD crearBD;
     private EditText etUsu;
     private EditText etPass;
-    private String user, password;
+    //private String user, password;
     static String passwordL, userL;
     private Button btnLogin, btnRegisterL;
     private CheckBox chRec;
@@ -104,14 +102,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         userL = etUsu.getText().toString();
         passwordL = etPass.getText().toString();
         showProgressDialog("CARGANDO", "Ingresando...");
-        HashMap<String,String> hashMap = new HashMap<String,String>();
+        HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER,userL);
         hashMap.put(Constantes.KEY_PASSWORD, passwordL);
         RestAPIWebServices res = new RestAPIWebServices(this,hashMap,Urls.LOGIN);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
-                JSONObject json = null;
+                JSONObject json;
                 try {
                     json = new JSONObject(response);
 
@@ -138,6 +136,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                         //Starting profile activity
                         Intent intent = new Intent(Login.this, prueba.class);
+                        intent.putExtra("USUARIO", etUsu.getText().toString());
                         startActivity(intent);
                         finish();
                     } else {
