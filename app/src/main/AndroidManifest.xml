@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".Login" />
         <activity android:name=".prueba" />
-        <activity android:name=".Registro"></activity>
+        <activity android:name=".Registro" />
     </application>
 
 </manifest>

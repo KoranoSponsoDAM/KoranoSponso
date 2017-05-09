@@ -2,4 +2,5 @@
     <string name="app_name">KoranoSponso</string>
     <string name="vacio">Debes completar todos los campos</string>
     <string name="errorPass">Las contraseñas no coinciden</string>
+    <string name="splash">Realizador por Alejandro Álvarez<br/> , Alejandro Belinchón y David García©</string>
 </resources>
