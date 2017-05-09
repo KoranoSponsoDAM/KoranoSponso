@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ada.koranosponso.ui.ActividadPrincipal;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -135,7 +137,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
                         //Starting profile activity
-                        Intent intent = new Intent(Login.this, prueba.class);
+                        Intent intent = new Intent(Login.this, ActividadPrincipal.class);
                         intent.putExtra("USUARIO", etUsu.getText().toString());
                         startActivity(intent);
                         finish();
