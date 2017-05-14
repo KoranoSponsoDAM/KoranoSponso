@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,41 +10,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ada.koranosponso.Login">
 
+    <Button
+        android:text="REGISTRARSE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:id="@+id/btnRegisterL"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:text="Recordar usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chRecordar"
+        android:layout_alignBaseline="@+id/btnLogin"
+        android:layout_alignBottom="@+id/btnLogin"
+        android:layout_toRightOf="@+id/btnLogin"
+        android:layout_toEndOf="@+id/btnLogin"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logokorano"
+        android:id="@+id/imageView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
         android:id="@+id/etUsu"
-        android:hint="Usuario" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/etPass"
-        android:hint="Contraseña" />
-
-    <TextView
-        android:text="Contraseña:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:id="@+id/textView2"
-        android:textStyle="normal|bold"
-        android:textSize="24sp"
-        android:layout_below="@+id/etUsu"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:hint="Usuario"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:text="Usuario:"
@@ -52,36 +57,42 @@
         android:id="@+id/textView"
         android:textStyle="normal|bold"
         android:textSize="24sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/imageView4"
+        android:layout_toLeftOf="@+id/btnRegisterL"
+        android:layout_toStartOf="@+id/btnRegisterL" />
 
-    <CheckBox
-        android:text="Recordar usuario"
+    <TextView
+        android:text="Contraseña:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/chRecordar" />
+        android:id="@+id/textView2"
+        android:textStyle="normal|bold"
+        android:textSize="24sp"
+        android:layout_above="@+id/etPass"
+        android:layout_alignLeft="@+id/etUsu"
+        android:layout_alignStart="@+id/etUsu" />
 
-    <Button
-        android:text="REGISTRARSE"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="88dp"
-        android:id="@+id/btnRegisterL" />
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/etPass"
+        android:hint="Contraseña"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/btnLogin"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
     <Button
         android:text="Entrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLogin"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/chRecordar"
-        android:layout_toRightOf="@+id/chRecordar"
-        android:layout_toEndOf="@+id/chRecordar" />
+        android:layout_marginBottom="52dp"
+        android:layout_above="@+id/btnRegisterL"
+        android:layout_toLeftOf="@+id/btnRegisterL"
+        android:layout_toStartOf="@+id/btnRegisterL"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
 </RelativeLayout>

@@ -12,21 +12,6 @@
     tools:context="com.ada.koranosponso.Splash"
     android:background="@android:color/background_dark">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:inputType="textPersonName"
-        android:text="@string/splash"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:minHeight="0dp"
-        android:textSize="10sp" />
-
     <ImageView
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logokorano"
@@ -43,4 +28,13 @@
         android:layout_marginBottom="72dp"
         android:layout_alignBottom="@+id/imageView2"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

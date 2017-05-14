@@ -22,7 +22,6 @@ import java.util.HashMap;
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private static JSONObject json;
 
-    //private CrearBD crearBD;
     private EditText etUsu;
     private EditText etPass;
     //private String user, password;
@@ -139,6 +138,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         //Starting profile activity
                         Intent intent = new Intent(Login.this, ActividadPrincipal.class);
                         intent.putExtra("USUARIO", etUsu.getText().toString());
+                        intent.putExtra("PASSWORD", etPass.getText().toString());
                         startActivity(intent);
                         finish();
                     } else {

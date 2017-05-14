@@ -5,7 +5,6 @@ package com.ada.koranosponso;
  */
 
 public class Constantes {
-    //public static final String API = "http://appservices.es/AppservicesCoreAPI/LoginCorePHP";
     public static final String API = "http://koranosponso.000webhostapp.com/webservicesftp/metodos";
 
     //Keys for email and password as defined in our $_POST['key'] in login.php

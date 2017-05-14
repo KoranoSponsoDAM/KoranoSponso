@@ -27,7 +27,7 @@
                 android:value=".ui.ActividadPrincipal" />
         </activity>
         <activity android:name=".Login" />
-        <activity android:name=".prueba" />
+        <activity android:name=".ui.ActividadPrincipal" />
         <activity android:name=".Registro" />
     </application>
 

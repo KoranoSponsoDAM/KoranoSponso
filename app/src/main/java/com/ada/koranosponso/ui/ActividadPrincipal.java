@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.ada.koranosponso.R;
 
@@ -19,16 +20,19 @@ import com.ada.koranosponso.R;
 public class ActividadPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    String username;
+
+    static String passStac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_principal);
-
         agregarToolbar();
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        String password =  getIntent().getStringExtra("PASSWORD");
+        passStac = password;
 
         if (navigationView != null) {
             prepararDrawer(navigationView);
@@ -58,6 +62,7 @@ public class ActividadPrincipal extends AppCompatActivity {
                         seleccionarItem(menuItem);
                         drawerLayout.closeDrawers();
                         return true;
+
                     }
                 });
 
@@ -102,6 +107,10 @@ public class ActividadPrincipal extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                //Inicializamos el nombre de usuario y lo que queramos
+                TextView txt = (TextView) findViewById(R.id.txtUsuarioC);
+                username =  getIntent().getStringExtra("USUARIO");
+                txt.setText("Nombre de usuario: " + username);
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }

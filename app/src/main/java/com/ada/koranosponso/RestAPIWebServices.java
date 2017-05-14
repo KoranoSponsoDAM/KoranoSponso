@@ -53,7 +53,6 @@ public class RestAPIWebServices {
                     public void onErrorResponse(VolleyError error) {
                         //You can handle error here if you want
                         Toast.makeText(context, "No se ha conectado", Toast.LENGTH_LONG).show();
-
                     }
                 }) {
             @Override
