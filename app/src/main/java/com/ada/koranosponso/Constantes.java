@@ -13,8 +13,8 @@ public class Constantes {
     public static final String KEY_EMAIL = "email";
     //public static final String KEY_NAME = "username";
     //public static final String KEY_LAST_NAME = "last_name";
-    //public static final String KEY_NEW_PASSWORD = "newpassword";
-    //public static final String KEY_NEW_PASSWORD_CONFIRM = "newpasswordconfirm";
+    public static final String KEY_NEW_PASSWORD = "newpassword";
+    public static final String KEY_NEW_PASSWORD_CONFIRM = "newpasswordconfirm";
     public static final String KEY_TOKEN = "token";
 
 
@@ -33,6 +33,6 @@ public class Constantes {
     //We will use this to store the boolean in sharedpreference to track user is loggedin or not
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
     public static final String REMEMBER_SHARED_PREF = "remember";
-
+    public static final String EMAIL_SHARED_PREF = "email";
     public static final String TOKEN_SHARED_PREF = "token";
 }

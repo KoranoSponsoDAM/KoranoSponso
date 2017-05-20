@@ -1,6 +1,7 @@
 package com.ada.koranosponso.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,13 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 
 
 public class ActividadPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    String username;
+    String username, userL;
 
     static String passStac;
 
@@ -109,8 +111,9 @@ public class ActividadPrincipal extends AppCompatActivity {
             case android.R.id.home:
                 //Inicializamos el nombre de usuario y lo que queramos
                 TextView txt = (TextView) findViewById(R.id.txtUsuarioC);
-                username =  getIntent().getStringExtra("USUARIO");
-                txt.setText("Nombre de usuario: " + username);
+                SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
+                String nombre = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
+                txt.setText("Nombre de usuarios: " + nombre);
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }

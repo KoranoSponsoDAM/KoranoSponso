@@ -88,7 +88,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void registry() {
         Intent i = new Intent(this, Registro.class);
-
         startActivityForResult(i, 1);
     }
 
@@ -118,7 +117,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
 
-                        /*SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Constantes.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Constantes.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                         //Creating editor to store values to shared preferences
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -127,9 +126,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         editor.putBoolean(Constantes.LOGGEDIN_SHARED_PREF, true);
                         editor.putString(Constantes.USER_SHARED_PREF, userL);
                         editor.putString(Constantes.TOKEN_SHARED_PREF, json.getString("token"));
+                        editor.putString(Constantes.EMAIL_SHARED_PREF, json.getString("email"));
 
                         //Saving values to editor
-                        editor.commit();*/
+                        editor.commit();
 
                         Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
                         pd.dismiss();
@@ -137,8 +137,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                         //Starting profile activity
                         Intent intent = new Intent(Login.this, ActividadPrincipal.class);
-                        intent.putExtra("USUARIO", etUsu.getText().toString());
-                        intent.putExtra("PASSWORD", etPass.getText().toString());
                         startActivity(intent);
                         finish();
                     } else {
