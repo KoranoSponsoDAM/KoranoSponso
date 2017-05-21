@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ada.koranosponso.Login">
 
-    <Button
-        android:text="REGISTRARSE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:id="@+id/btnRegisterL"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <CheckBox
         android:text="Recordar usuario"
         android:layout_width="wrap_content"
@@ -47,19 +38,19 @@
         android:id="@+id/etUsu"
         android:hint="Usuario"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignRight="@+id/btnRegisterL"
+        android:layout_alignEnd="@+id/btnRegisterL" />
 
     <TextView
         android:text="Usuario:"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textStyle="normal|bold"
         android:textSize="24sp"
         android:layout_below="@+id/imageView4"
-        android:layout_toLeftOf="@+id/btnRegisterL"
-        android:layout_toStartOf="@+id/btnRegisterL" />
+        android:layout_alignLeft="@+id/etUsu"
+        android:layout_alignStart="@+id/etUsu" />
 
     <TextView
         android:text="Contraseña:"
@@ -68,9 +59,10 @@
         android:id="@+id/textView2"
         android:textStyle="normal|bold"
         android:textSize="24sp"
-        android:layout_above="@+id/etPass"
+        android:layout_below="@+id/etUsu"
         android:layout_alignLeft="@+id/etUsu"
-        android:layout_alignStart="@+id/etUsu" />
+        android:layout_alignStart="@+id/etUsu"
+        android:layout_marginTop="31dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -79,20 +71,28 @@
         android:ems="10"
         android:id="@+id/etPass"
         android:hint="Contraseña"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/btnLogin"
+        android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="17dp" />
 
     <Button
         android:text="Entrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLogin"
-        android:layout_marginBottom="52dp"
-        android:layout_above="@+id/btnRegisterL"
-        android:layout_toLeftOf="@+id/btnRegisterL"
-        android:layout_toStartOf="@+id/btnRegisterL"
-        android:layout_marginRight="13dp"
-        android:layout_marginEnd="13dp" />
+        android:layout_below="@+id/etPass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:text="REGISTRARSE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRegisterL"
+        android:layout_below="@+id/btnLogin"
+        android:layout_alignLeft="@+id/chRecordar"
+        android:layout_alignStart="@+id/chRecordar"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>
