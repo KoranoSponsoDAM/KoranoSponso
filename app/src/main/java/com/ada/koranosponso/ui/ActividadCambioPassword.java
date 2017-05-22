@@ -1,19 +1,15 @@
 package com.ada.koranosponso.ui;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ada.koranosponso.Constantes;
-import com.ada.koranosponso.Login;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -77,7 +73,7 @@ public class ActividadCambioPassword extends AppCompatActivity{
         RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.CHANGE_PASSWORD);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
-            public void onSuccess(String response) {
+            public View onSuccess(String response) {
                 JSONObject json = null;
                 try {
                     json = new JSONObject(response);
@@ -106,6 +102,7 @@ public class ActividadCambioPassword extends AppCompatActivity{
                     pd.dismiss();
                 }
 
+                return null;
             }
 
         });

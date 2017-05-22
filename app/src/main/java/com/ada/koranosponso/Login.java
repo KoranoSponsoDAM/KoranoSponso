@@ -108,7 +108,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         RestAPIWebServices res = new RestAPIWebServices(this,hashMap,Urls.LOGIN);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
-            public void onSuccess(String response) {
+            public View onSuccess(String response) {
                 JSONObject json;
                 try {
                     json = new JSONObject(response);
@@ -151,6 +151,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     pd.dismiss();
                 }
 
+                return null;
             }
 
         });

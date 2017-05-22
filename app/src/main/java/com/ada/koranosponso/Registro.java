@@ -67,7 +67,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
             RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.REGISTER);
             res.responseApi(new RestAPIWebServices.VolleyCallback() {
                 @Override
-                public void onSuccess(String response) {
+                public View onSuccess(String response) {
                     JSONObject json = null;
                     try {
                         json = new JSONObject(response);
@@ -90,6 +90,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    return null;
                 }
             });
         }else{

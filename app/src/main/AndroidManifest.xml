@@ -35,6 +35,7 @@
         <activity android:name=".ui.ActividadPrincipal" />
         <activity android:name=".Registro" />
         <activity android:name=".ui.ActividadCambioPassword"></activity>
+        <activity android:name=".ui.AdaptadorInicio" />
     </application>
 
 </manifest>

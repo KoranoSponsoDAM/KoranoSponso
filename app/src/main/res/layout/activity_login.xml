@@ -91,8 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnRegisterL"
+        android:layout_marginTop="53dp"
         android:layout_below="@+id/btnLogin"
         android:layout_alignLeft="@+id/chRecordar"
-        android:layout_alignStart="@+id/chRecordar"
-        android:layout_marginTop="20dp" />
+        android:layout_alignStart="@+id/chRecordar" />
 </RelativeLayout>

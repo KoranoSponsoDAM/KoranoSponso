@@ -1,6 +1,7 @@
 package com.ada.koranosponso;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -76,6 +77,6 @@ public class RestAPIWebServices {
     }
 
     public interface VolleyCallback {
-        void onSuccess(String result);
+        View onSuccess(String result);
     }
 }
