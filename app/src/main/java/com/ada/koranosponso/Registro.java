@@ -39,7 +39,12 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
 
     public void onClick(View v) {
         if (v.getId() == R.id.btnRegistro) {
-            newUser();
+            if(etEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]+")&& etEmail.getText().toString().length()>0) {
+                newUser();
+            }else {
+                Toast.makeText(this, R.string.errorEmail, Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

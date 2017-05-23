@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
@@ -16,13 +17,14 @@ import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
 import com.ada.koranosponso.modelo.Pelicula;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.ada.koranosponso.modelo.Pelicula.PELICULAS_POPULARES;
 
 
 /**
@@ -34,7 +36,7 @@ public class FragmentoInicio extends Fragment {
     private AdaptadorInicio adaptador;
     private static JSONObject json;
     private ProgressDialog pd;
-    //static List<Pelicula> PELICULAS_POPULARES = new ArrayList<Pelicula>();
+    public static ArrayList<Pelicula> PELICULAS_POPULARES;
     private String nombre, descripcion, userP, tokenP, idDrawable;
     //private int idDrawable;
 
@@ -63,19 +65,27 @@ public class FragmentoInicio extends Fragment {
             @Override
             public View onSuccess(String response) {
                 JSONObject json = null;
+
                 try {
                     json = new JSONObject(response);
-
-
+                    JSONArray peliculas;
+                    PELICULAS_POPULARES = new ArrayList<Pelicula>();
+                    ArrayList<Pelicula> PELICULAS_P = new ArrayList<Pelicula>();
                     //If we are getting success from server
-                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
-                        nombre = json.getString("nombre");
-                        descripcion = json.getString("descripcion");
-                        idDrawable = json.getString("imagen");
-                        pd.dismiss();
-                        PELICULAS_POPULARES.add(new Pelicula(nombre, descripcion, idDrawable ));
+                      if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        peliculas = json.getJSONArray("peliculas");
+                        //PELICULAS_POPULARES.clear();
+                        for(int i = 0; i < peliculas.length(); i++) {
+                            nombre = peliculas.getJSONObject(i).getString("nombre");
+                            descripcion = peliculas.getJSONObject(i).getString("descripcion");
+                            idDrawable = peliculas.getJSONObject(i).getString("imagen");
+                            PELICULAS_POPULARES.add(i,new Pelicula(nombre, descripcion, idDrawable));
+                            PELICULAS_P.add(i,new Pelicula(nombre, descripcion, idDrawable));
+                            Toast.makeText( getActivity(), PELICULAS_P.get(0).getNombre() , Toast.LENGTH_LONG).show();
+                        }
                         adaptador = new AdaptadorInicio(PELICULAS_POPULARES);
                         reciclador.setAdapter(adaptador);
+                        pd.dismiss();
                         return view;
                     } else {
                         pd.dismiss();
@@ -87,7 +97,7 @@ public class FragmentoInicio extends Fragment {
                     pd.dismiss();
                 }
 
-                return view;
+                return null;
             }
 
         });

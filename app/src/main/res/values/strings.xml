@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">KoranoSponso</string>
     <string name="vacio">Debes completar todos los campos</string>
+    <string name="errorEmail">Email incorrecto</string>
     <string name="errorPass">Las contraseñas no coinciden</string>
     <string name="splash">Realizador por Alejandro Álvarez, Alejandro Belinchón y Daniel García©</string>
     <string name="action_settings">Configuración</string>
@@ -10,7 +11,7 @@
 
     <string name="item_inicio">Inicio</string>
     <string name="item_cuenta">Mi Cuenta</string>
-    <string name="item_categorias">Categorías</string>
+    <string name="item_categorias">Vídeos</string>
     <string name="item_configuracion">Configuración</string>
 
     <string name="titulo_comidas_populares">Lo más pedido</string>

@@ -1,8 +1,5 @@
 package com.ada.koranosponso.ui;
 
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
-import com.ada.koranosponso.RestAPIWebServices;
-import com.ada.koranosponso.Urls;
-import com.ada.koranosponso.modelo.Comida;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.ada.koranosponso.R.id.imageView;
 
 /**
  * Adaptador para mostrar las comidas más pedidas en la sección "Inicio"
@@ -59,7 +44,7 @@ public class AdaptadorInicio
 
     @Override
     public int getItemCount() {
-        return Pelicula.PELICULAS_POPULARES.size();
+        return PELICULAS_POPULARES.size();
     }
 
     @Override
@@ -71,10 +56,10 @@ public class AdaptadorInicio
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Pelicula item = Pelicula.PELICULAS_POPULARES.get(i);
+        Pelicula item = PELICULAS_POPULARES.get(i);
 
         Glide.with(viewHolder.itemView.getContext())
-                .load("http://koranosponso.000webhostapp.com/imagenes/arrow.jpg")//+item.getIdDrawable())
+                .load("http://koranosponso.000webhostapp.com/imagenes/"+item.getIdDrawable())
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());

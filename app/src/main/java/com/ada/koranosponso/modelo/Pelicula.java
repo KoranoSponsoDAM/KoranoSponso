@@ -1,26 +1,5 @@
 package com.ada.koranosponso.modelo;
 
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-
-import com.ada.koranosponso.Constantes;
-import com.ada.koranosponso.R;
-import com.ada.koranosponso.RestAPIWebServices;
-import com.ada.koranosponso.Urls;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Created by Alex on 21/05/2017.
  */
@@ -36,7 +15,7 @@ public class Pelicula{
         this.idDrawable = idDrawable;
     }
 
-    public static final List<Pelicula> PELICULAS_POPULARES = new ArrayList<Pelicula>();
+
     //public static final List<Comida> COMIDAS_POPULARES = new ArrayList<>();
     /*public static final List<Comida> BEBIDAS = new ArrayList<>();
     public static final List<Comida> POSTRES = new ArrayList<>();
