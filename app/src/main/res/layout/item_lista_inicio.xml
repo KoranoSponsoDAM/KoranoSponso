@@ -28,7 +28,7 @@
         android:textSize="48sp"
         android:textStyle="italic" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/miniatura_pelicula"
         android:layout_width="match_parent"
         android:layout_height="@dimen/altura_miniatura_comida"

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,14 +32,14 @@ public class AdaptadorInicio
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
-        public ImageView imagen;
+        public ImageButton imagen;
         public TextView nombre;
         public TextView descripcion;
         public ViewHolder(View v) {
             super(v);
             descripcion = (TextView) v.findViewById(R.id.descripcion );
             nombre = (TextView) v.findViewById(R.id.titulo_pelicula );
-            imagen = (ImageView) v.findViewById(R.id.miniatura_pelicula);
+            imagen = (ImageButton) v.findViewById(R.id.miniatura_pelicula);
         }
     }
 

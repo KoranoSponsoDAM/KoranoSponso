@@ -51,7 +51,6 @@ public class FragmentoInicio extends Fragment {
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
-        //mostrarPeliculas();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userP = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userP);
         tokenP = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenP);
@@ -74,14 +73,11 @@ public class FragmentoInicio extends Fragment {
                     //If we are getting success from server
                       if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         peliculas = json.getJSONArray("peliculas");
-                        //PELICULAS_POPULARES.clear();
                         for(int i = 0; i < peliculas.length(); i++) {
                             nombre = peliculas.getJSONObject(i).getString("nombre");
                             descripcion = peliculas.getJSONObject(i).getString("descripcion");
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");
                             PELICULAS_POPULARES.add(i,new Pelicula(nombre, descripcion, idDrawable));
-                            PELICULAS_P.add(i,new Pelicula(nombre, descripcion, idDrawable));
-                            Toast.makeText( getActivity(), PELICULAS_P.get(0).getNombre() , Toast.LENGTH_LONG).show();
                         }
                         adaptador = new AdaptadorInicio(PELICULAS_POPULARES);
                         reciclador.setAdapter(adaptador);
