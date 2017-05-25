@@ -36,8 +36,13 @@
         <activity android:name=".Registro" />
         <activity android:name=".ui.ActividadCambioPassword" />
         <activity android:name=".ui.AdaptadorInicio" />
-        <activity android:name=".ui.InfoPelicula" />
-        <activity android:name=".ui.reproductoVideo" android:screenOrientation="landscape"></activity>
+        <activity android:name=".ui.reproductoVideo" android:screenOrientation="landscape"/>
+        <activity
+            android:name=".ui.InfoPelicula"
+            android:parentActivityName=".ui.ActividadPrincipal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ActividadPrincipal" />
+        </activity>
     </application>
-
 </manifest>
