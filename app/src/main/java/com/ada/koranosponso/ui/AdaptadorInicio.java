@@ -25,14 +25,11 @@ public class AdaptadorInicio
     private FragmentoInicio mainFragment;
 
 
-    /*public AdaptadorInicio(String nombre, String descripcion, int idDrawable) {
-        PELICULAS_POPULARES.add(new Pelicula(nombre, descripcion, idDrawable ));
-    }*/
-
     public AdaptadorInicio(List<Pelicula> peliculasPopulares, FragmentoInicio mainFragment) {
         PELICULAS_POPULARES = peliculasPopulares;
         this.mainFragment = mainFragment;
     }
+    public AdaptadorInicio(){}
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Campos respectivos de un item

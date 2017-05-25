@@ -37,7 +37,7 @@
         <activity android:name=".ui.ActividadCambioPassword" />
         <activity android:name=".ui.AdaptadorInicio" />
         <activity android:name=".ui.InfoPelicula" />
-        <activity android:name=".ui.reproductoVideo"></activity>
+        <activity android:name=".ui.reproductoVideo" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
