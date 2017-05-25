@@ -1,5 +1,6 @@
 package com.ada.koranosponso.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.bumptech.glide.Glide;
 public class InfoPelicula extends AppCompatActivity {
     TextView descripcion, titulo;
     ImageButton imagen;
-    String ruta;
+    String rutaImagen, url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +33,18 @@ public class InfoPelicula extends AppCompatActivity {
         Pelicula pelicula = (Pelicula) getIntent().getExtras().getSerializable("peliculas");
         titulo.setText(pelicula.getNombre());
         descripcion.setText(pelicula.getDescripcion());
-        ruta = pelicula.getIdDrawable();
+        rutaImagen = pelicula.getIdDrawable();
+        url = pelicula.getUrl();
         Glide.with(this)
-                .load("http://koranosponso.000webhostapp.com/imagenes/"+ruta)
+                .load("http://koranosponso.000webhostapp.com/imagenes/"+rutaImagen)
                 .centerCrop()
                 .into(imagen);
 
     }
 
     public void reproducir(View view) {
-
+        Intent intent = new Intent(this, reproductoVideo.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
     }
 }

@@ -8,12 +8,13 @@ import java.io.Serializable;
 
 public class Pelicula implements Serializable{
 
-    private String nombre, descripcion, idDrawable, userP, tokenP;
+    private String nombre, descripcion, idDrawable, url;
 
-    public Pelicula(String nombre, String descripcion, String idDrawable) {
+    public Pelicula(String nombre, String descripcion, String idDrawable, String url) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.idDrawable = idDrawable;
+        this.url = url;
     }
 
 
@@ -28,6 +29,9 @@ public class Pelicula implements Serializable{
 
     public String getIdDrawable() {
         return idDrawable;
+    }
+    public String getUrl() {
+        return url;
     }
 
 
