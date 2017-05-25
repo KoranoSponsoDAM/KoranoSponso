@@ -81,7 +81,7 @@ public class ActividadPrincipal extends AppCompatActivity {
             case R.id.item_cuenta:
                 fragmentoGenerico = new FragmentoCuenta();
                 break;
-            case R.id.item_categorias:
+            case R.id.item_videos:
                 fragmentoGenerico = new FragmentoCategorias();
                 break;
             case R.id.item_configuracion:
@@ -99,11 +99,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         setTitle(itemDrawer.getTitle());
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_actividad_principal, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
