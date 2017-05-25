@@ -1,5 +1,6 @@
 package com.ada.koranosponso.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,26 +21,34 @@ import java.util.List;
 public class AdaptadorInicio
         extends RecyclerView.Adapter<AdaptadorInicio.ViewHolder> {
     List<Pelicula> PELICULAS_POPULARES;
+    Context context;
+    private FragmentoInicio mainFragment;
 
 
     /*public AdaptadorInicio(String nombre, String descripcion, int idDrawable) {
         PELICULAS_POPULARES.add(new Pelicula(nombre, descripcion, idDrawable ));
     }*/
 
-    public AdaptadorInicio(List<Pelicula> peliculasPopulares) {
+    public AdaptadorInicio(List<Pelicula> peliculasPopulares, FragmentoInicio mainFragment) {
         PELICULAS_POPULARES = peliculasPopulares;
+        this.mainFragment = mainFragment;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Campos respectivos de un item
-        public ImageButton imagen;
+        public ImageView imagen;
         public TextView nombre;
         public TextView descripcion;
         public ViewHolder(View v) {
             super(v);
-            descripcion = (TextView) v.findViewById(R.id.descripcion );
             nombre = (TextView) v.findViewById(R.id.titulo_pelicula );
-            imagen = (ImageButton) v.findViewById(R.id.miniatura_pelicula);
+            imagen = (ImageView) v.findViewById(R.id.miniatura_pelicula);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ((LoadPeliculaInterface)mainFragment).verPelicula(( PELICULAS_POPULARES.get(getAdapterPosition())), getAdapterPosition());
         }
     }
 
@@ -52,6 +61,7 @@ public class AdaptadorInicio
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_lista_inicio, viewGroup, false);
+        context = viewGroup.getContext();
         return new ViewHolder(v);
     }
 
@@ -64,7 +74,6 @@ public class AdaptadorInicio
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());
-        viewHolder.descripcion.setText(item.getDecripcion());
     }
 
 

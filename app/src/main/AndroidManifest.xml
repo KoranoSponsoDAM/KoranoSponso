@@ -34,8 +34,10 @@
         <activity android:name=".Login" />
         <activity android:name=".ui.ActividadPrincipal" />
         <activity android:name=".Registro" />
-        <activity android:name=".ui.ActividadCambioPassword"></activity>
+        <activity android:name=".ui.ActividadCambioPassword" />
         <activity android:name=".ui.AdaptadorInicio" />
+        <activity android:name=".ui.InfoPelicula" />
+        <activity android:name=".ui.reproductoVideo"></activity>
     </application>
 
 </manifest>

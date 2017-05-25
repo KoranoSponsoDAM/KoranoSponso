@@ -1,6 +1,7 @@
 package com.ada.koranosponso.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Fragmento para la sección de "Inicio"
  */
-public class FragmentoInicio extends Fragment {
+public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorInicio adaptador;
@@ -54,7 +55,7 @@ public class FragmentoInicio extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userP = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userP);
         tokenP = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenP);
-
+        PELICULAS_POPULARES = new ArrayList<Pelicula>();
         showProgressDialog("CARGANDO", "");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userP);
@@ -68,8 +69,7 @@ public class FragmentoInicio extends Fragment {
                 try {
                     json = new JSONObject(response);
                     JSONArray peliculas;
-                    PELICULAS_POPULARES = new ArrayList<Pelicula>();
-                    ArrayList<Pelicula> PELICULAS_P = new ArrayList<Pelicula>();
+
                     //If we are getting success from server
                       if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         peliculas = json.getJSONArray("peliculas");
@@ -79,13 +79,10 @@ public class FragmentoInicio extends Fragment {
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");
                             PELICULAS_POPULARES.add(i,new Pelicula(nombre, descripcion, idDrawable));
                         }
-                        adaptador = new AdaptadorInicio(PELICULAS_POPULARES);
-                        reciclador.setAdapter(adaptador);
+                        crearAdaptador();
                         pd.dismiss();
-                        return view;
                     } else {
                         pd.dismiss();
-
                     }
 
                 } catch (JSONException e) {
@@ -100,12 +97,25 @@ public class FragmentoInicio extends Fragment {
         return view;
     }
 
+    private void crearAdaptador() {
+        adaptador = new AdaptadorInicio(PELICULAS_POPULARES, this);
+        reciclador.setAdapter(adaptador);
+    }
+
     private void showProgressDialog(String title, String message){
         pd = new ProgressDialog(this.getActivity());
         pd.setTitle(title);
         pd.setMessage(message);
         pd.setCancelable(false);
         pd.show();
+
+    }public void verPelicula(Pelicula peliculas, int position) {
+        Pelicula p = peliculas;
+        Intent intent = new Intent(getActivity(), InfoPelicula.class);
+        intent.putExtra("username", userP);
+        intent.putExtra("token", tokenP);
+        intent.putExtra("peliculas", peliculas);
+        startActivity(intent);
     }
 
 }

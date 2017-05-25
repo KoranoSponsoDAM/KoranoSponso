@@ -1,10 +1,12 @@
 package com.ada.koranosponso.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by Alex on 21/05/2017.
  */
 
-public class Pelicula{
+public class Pelicula implements Serializable{
 
     private String nombre, descripcion, idDrawable, userP, tokenP;
 
@@ -20,7 +22,7 @@ public class Pelicula{
         return nombre;
     }
 
-    public String getDecripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
