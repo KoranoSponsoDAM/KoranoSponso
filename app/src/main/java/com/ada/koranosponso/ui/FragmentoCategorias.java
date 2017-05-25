@@ -1,5 +1,6 @@
 package com.ada.koranosponso.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -8,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,6 +32,8 @@ public class FragmentoCategorias extends Fragment {
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private MenuItem item;
+
 
     public FragmentoCategorias() {
     }
@@ -77,12 +82,43 @@ public class FragmentoCategorias extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_categorias, menu);
+        item = menu.findItem(R.id.action_search);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         appBarLayout.removeView(tabLayout);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_search:
+                busquedaVideos();
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), ActividadConfiguracion.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void busquedaVideos() {
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Pendiente
+                return false;
+            }
+        });
     }
 
     /**

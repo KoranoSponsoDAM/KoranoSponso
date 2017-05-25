@@ -11,14 +11,14 @@
 
     <string name="item_inicio">Inicio</string>
     <string name="item_cuenta">Mi Cuenta</string>
-    <string name="item_categorias">Vídeos</string>
+    <string name="item_videos">Vídeos</string>
     <string name="item_configuracion">Configuración</string>
 
     <string name="titulo_comidas_populares">Lo más pedido</string>
 
-    <string name="titulo_tab_platillos">PLATILLOS</string>
-    <string name="titulo_tab_bebidas">BEBIDAS</string>
-    <string name="titulo_tab_postres">POSTRES</string>
+    <string name="titulo_tab_platillos">Peliculas</string>
+    <string name="titulo_tab_bebidas">Series</string>
+    <string name="titulo_tab_postres">Animes</string>
 
     <string name="titulo_tab_perfil">PERFIL</string>
     <string name="titulo_tab_direcciones">DIRECCIONES</string>

@@ -12,9 +12,9 @@
             android:icon="@drawable/cuenta"
             android:title="@string/item_cuenta" />
         <item
-            android:id="@+id/item_categorias"
+            android:id="@+id/item_videos"
             android:icon="@drawable/categorias"
-            android:title="@string/item_categorias" />
+            android:title="@string/item_videos" />
         <item
             android:id="@+id/item_configuracion"
             android:icon="@drawable/configuracion"
