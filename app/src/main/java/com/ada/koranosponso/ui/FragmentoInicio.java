@@ -39,7 +39,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
     private ProgressDialog pd;
     public static ArrayList<Pelicula> PELICULAS_POPULARES;
     private String nombre, descripcion, userP, tokenP, idDrawable, url;
-    //private int idDrawable;
+    private int idPelicula;
 
     public FragmentoInicio() {
     }
@@ -78,7 +78,8 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
                             descripcion = peliculas.getJSONObject(i).getString("descripcion");
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");
                             url = peliculas.getJSONObject(i).getString("url");
-                            PELICULAS_POPULARES.add(i,new Pelicula(nombre, descripcion, idDrawable, url));
+                            idPelicula = peliculas.getJSONObject(i).getInt("id_pelicula");
+                            PELICULAS_POPULARES.add(i,new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                         }
                         crearAdaptador();
                         pd.dismiss();

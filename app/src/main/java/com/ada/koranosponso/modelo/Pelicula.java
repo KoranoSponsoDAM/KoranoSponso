@@ -9,8 +9,10 @@ import java.io.Serializable;
 public class Pelicula implements Serializable{
 
     private String nombre, descripcion, idDrawable, url;
+    int idPelicula;
 
-    public Pelicula(String nombre, String descripcion, String idDrawable, String url) {
+    public Pelicula(int idPelicula,String nombre, String descripcion, String idDrawable, String url) {
+        this.idPelicula = idPelicula;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.idDrawable = idDrawable;
@@ -33,6 +35,7 @@ public class Pelicula implements Serializable{
     public String getUrl() {
         return url;
     }
+    public int getIdPelicula(){return idPelicula;}
 
 
 }

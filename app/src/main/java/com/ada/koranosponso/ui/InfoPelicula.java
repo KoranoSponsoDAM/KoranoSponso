@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Login;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -32,9 +34,8 @@ public class InfoPelicula extends AppCompatActivity {
     TextView descripcion, titulo;
     ImageButton imagen;
     ImageView ImageFavorito;
-    String rutaImagen, url ,userF, tokenF, idPelicula;
-
-    private boolean fav=false;
+    String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario;
+    private int fav;
     private SmallBang mSmallBang;
 
     @Override
@@ -56,7 +57,8 @@ public class InfoPelicula extends AppCompatActivity {
 
     }
 
-    public void inicializaElementos(){
+
+    public void inicializarElementos(){
         descripcion = (TextView)findViewById(R.id.descripcion);
         titulo = (TextView)findViewById(R.id.txtTitulo);
         imagen = (ImageButton) findViewById(R.id.ibImagen);
@@ -80,8 +82,51 @@ public class InfoPelicula extends AppCompatActivity {
     }
 
     public void rellenarElementos(){
-        inicializaElementos();
+        inicializarElementos();
         Pelicula pelicula = (Pelicula) getIntent().getExtras().getSerializable("peliculas");
+        idPelicula = String.valueOf(pelicula.getIdPelicula());
+        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
+        userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
+        tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
+        idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userF);
+        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+        hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.SABER_FAVORITO);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+
+                try {
+                    json = new JSONObject(response);
+                    //If we are getting success from server
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        fav = json.getInt("fav");
+                        if(fav == 0){
+                            //fav = 0;
+                            ImageFavorito.setImageResource(R.drawable.heart);
+                        }else{
+                            //fav = 1;
+                            ImageFavorito.setImageResource(R.drawable.heart_red);
+                        }
+                        // pd.dismiss();
+                    } else {
+                        //pd.dismiss();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    //pd.dismiss();
+                }
+
+                return null;
+            }
+
+        });
         titulo.setText(pelicula.getNombre());
         descripcion.setText(pelicula.getDescripcion());
         rutaImagen = pelicula.getIdDrawable();
@@ -90,7 +135,6 @@ public class InfoPelicula extends AppCompatActivity {
                 .load("http://koranosponso.000webhostapp.com/imagenes/"+rutaImagen)
                 .centerCrop()
                 .into(imagen);
-
     }
 
     public void reproducir(View view) {
@@ -100,11 +144,6 @@ public class InfoPelicula extends AppCompatActivity {
     }
 
     public void like(View view){
-        if(fav) {
-            ImageFavorito.setImageResource(R.drawable.heart);
-        }else{
-            ImageFavorito.setImageResource(R.drawable.heart_red);
-        }
         mSmallBang.bang(view);
         mSmallBang.setmListener(new SmallBangListener() {
             @Override
@@ -114,26 +153,28 @@ public class InfoPelicula extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd() {
-                if(fav){
-                    fav = false;
+                if(fav == 1){
+                    fav = 0;
                     ImageFavorito.setImageResource(R.drawable.heart);
                 }else{
-                    fav = true;
+                    fav = 1;
                     ImageFavorito.setImageResource(R.drawable.heart_red);
                 }
             }
         });
+        if(fav == 1) {
+            ImageFavorito.setImageResource(R.drawable.heart);
+        }else{
+            ImageFavorito.setImageResource(R.drawable.heart_red);
+        }
     }
 
     public void btnFavorito() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
-        userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
-        tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
-        //showProgressDialog("CARGANDO", "");
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
 
         RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.DAR_FAVORTIO);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
@@ -143,8 +184,6 @@ public class InfoPelicula extends AppCompatActivity {
 
                 try {
                     json = new JSONObject(response);
-                    JSONArray peliculas;
-
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
 
@@ -163,7 +202,5 @@ public class InfoPelicula extends AppCompatActivity {
             }
 
         });
-
-
     }
 }
