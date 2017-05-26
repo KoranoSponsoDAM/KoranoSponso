@@ -12,7 +12,7 @@
         android:background="@color/background_header_seccion_inicio"
         android:gravity="center"
         android:padding="8dp"
-        android:text="@string/titulo_comidas_populares"
+        android:text="@string/titulo_videos_populares"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/color_light" />
 

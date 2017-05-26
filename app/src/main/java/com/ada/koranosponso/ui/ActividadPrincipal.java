@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -77,12 +76,15 @@ public class ActividadPrincipal extends AppCompatActivity {
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
                 fragmentoGenerico = new FragmentoInicio();
+                setTitle(itemDrawer.getTitle());
                 break;
             case R.id.item_cuenta:
                 fragmentoGenerico = new FragmentoCuenta();
+                setTitle(itemDrawer.getTitle());
                 break;
             case R.id.item_videos:
                 fragmentoGenerico = new FragmentoCategorias();
+                setTitle(itemDrawer.getTitle());
                 break;
             case R.id.item_configuracion:
                 startActivity(new Intent(this, ActividadConfiguracion.class));
@@ -95,8 +97,6 @@ public class ActividadPrincipal extends AppCompatActivity {
                     .commit();
         }
 
-        // Setear título actual
-        setTitle(itemDrawer.getTitle());
     }
 
     /*@Override
