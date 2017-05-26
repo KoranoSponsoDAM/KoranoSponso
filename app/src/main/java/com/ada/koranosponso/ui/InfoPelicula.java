@@ -33,6 +33,7 @@ public class InfoPelicula extends AppCompatActivity {
 
     private void agregarToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(titulo.getText().toString());
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
