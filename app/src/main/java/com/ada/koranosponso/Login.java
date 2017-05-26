@@ -127,6 +127,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         editor.putString(Constantes.USER_SHARED_PREF, userL);
                         editor.putString(Constantes.TOKEN_SHARED_PREF, json.getString("token"));
                         editor.putString(Constantes.EMAIL_SHARED_PREF, json.getString("email"));
+                        editor.putString(Constantes.IDUSUARIO_SHARED_PREF, json.getString("id_usuario"));
+
 
                         //Saving values to editor
                         editor.commit();
