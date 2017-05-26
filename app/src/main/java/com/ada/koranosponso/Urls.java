@@ -10,4 +10,5 @@ public class Urls {
     //public static final String RECOVER = Constants.API+"/recover.php";
     public static final String CHANGE_PASSWORD =  Constantes.API+"/changePassword.php";
     public static final String MOSTRAR_PELICULAS =  Constantes.API+"/mostrarPeliculas.php";
+    public static final String DAR_FAVORTIO =  Constantes.API+"/darFavorito.php";
 }
