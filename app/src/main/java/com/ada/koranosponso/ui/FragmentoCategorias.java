@@ -55,7 +55,6 @@ public class FragmentoCategorias extends Fragment {
 
         return view;
     }
-
     private void insertarTabs(ViewGroup container) {
         View padre = (View) container.getParent();
         appBarLayout = (AppBarLayout) padre.findViewById(R.id.appbar);
