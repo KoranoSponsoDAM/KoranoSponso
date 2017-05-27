@@ -31,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Fragmento para la sección de "Inicio"
  */
-public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
+public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private AdaptadorInicio adaptador;
@@ -57,7 +57,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
         tokenP = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenP);
         PELICULAS_POPULARES = new ArrayList<Pelicula>();
         showProgressDialog("CARGANDO", "");
-        HashMap<String, String> hashMap = new HashMap<>();
+        final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userP);
         hashMap.put(Constantes.KEY_TOKEN, tokenP);
         RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_PELICULAS);
@@ -96,6 +96,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
             }
 
         });
+        pd.dismiss();
         return view;
     }
 
@@ -111,7 +112,8 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface{
         pd.setCancelable(false);
         pd.show();
 
-    }public void verPelicula(Pelicula peliculas, int position) {
+    }
+    public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
         Intent intent = new Intent(getActivity(), InfoPelicula.class);
         intent.putExtra("username", userP);
