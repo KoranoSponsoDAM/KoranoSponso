@@ -35,7 +35,6 @@ public class AdaptadorInicio
         // Campos respectivos de un item
         public ImageView imagen;
         public TextView nombre;
-        public TextView descripcion;
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.titulo_pelicula );
