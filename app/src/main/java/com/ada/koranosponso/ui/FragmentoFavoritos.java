@@ -27,17 +27,17 @@ import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentoDirecciones extends Fragment implements LoadPeliculaInterface {
+public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterface {
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
-    private AdaptadorDirecciones adaptador;
+    private AdaptadorFavoritos adaptador;
     private static JSONObject json;
     private ProgressDialog pd;
     public static ArrayList<Pelicula> PELICULAS_FAVORITAS;
     private String nombre, descripcion, userF, tokenF, idDrawable, url, idUsuario;
     private int idPelicula;
 
-    public FragmentoDirecciones() {
+    public FragmentoFavoritos() {
 
     }
 
@@ -105,7 +105,7 @@ public class FragmentoDirecciones extends Fragment implements LoadPeliculaInterf
     }
 
     private void crearAdaptador() {
-        adaptador = new AdaptadorDirecciones(PELICULAS_FAVORITAS, this);
+        adaptador = new AdaptadorFavoritos(PELICULAS_FAVORITAS, this);
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
     }

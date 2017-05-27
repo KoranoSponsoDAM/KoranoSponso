@@ -19,17 +19,17 @@ import java.util.List;
 /**
  * Adaptador para poblar la lista de direcciones de la sección "Mi Cuenta"
  */
-public class AdaptadorDirecciones
-        extends RecyclerView.Adapter<AdaptadorDirecciones.ViewHolder> {
+public class AdaptadorFavoritos
+        extends RecyclerView.Adapter<AdaptadorFavoritos.ViewHolder> {
 
 
     List<Pelicula> PELICULAS_FAVORITAS;
     Context context;
-    private FragmentoDirecciones mainFragment;
+    private FragmentoFavoritos mainFragment;
 
-    public AdaptadorDirecciones(){}
+    public AdaptadorFavoritos(){}
 
-    public AdaptadorDirecciones(ArrayList<Pelicula> peliculasFavoritas, FragmentoDirecciones mainFragment) {
+    public AdaptadorFavoritos(ArrayList<Pelicula> peliculasFavoritas, FragmentoFavoritos mainFragment) {
         PELICULAS_FAVORITAS = peliculasFavoritas;
         this.mainFragment = mainFragment;
     }
@@ -58,16 +58,16 @@ public class AdaptadorDirecciones
     }
 
     @Override
-    public AdaptadorDirecciones.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public AdaptadorFavoritos.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_lista_direccion, viewGroup, false);
+                .inflate(R.layout.item_lista_favorito, viewGroup, false);
         context = viewGroup.getContext();
-        return new AdaptadorDirecciones.ViewHolder(v);
+        return new AdaptadorFavoritos.ViewHolder(v);
     }
 
 
     @Override
-    public void onBindViewHolder(AdaptadorDirecciones.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(AdaptadorFavoritos.ViewHolder viewHolder, int i) {
         Pelicula item = PELICULAS_FAVORITAS.get(i);
 
         Glide.with(viewHolder.itemView.getContext())
