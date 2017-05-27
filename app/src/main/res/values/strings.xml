@@ -20,7 +20,7 @@
     <string name="titulo_tab_anime">Animes</string>
 
     <string name="titulo_tab_perfil">PERFIL</string>
-    <string name="titulo_tab_direcciones">DIRECCIONES</string>
+    <string name="titulo_tab_favoritos">FAVORITOS</string>
     <string name="titulo_tab_tarjetas">TARJETAS</string>
 
     <string name="texto_no_tarjetas">No tienes ninguna tarjeta asociada</string>

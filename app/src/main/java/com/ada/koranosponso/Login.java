@@ -152,7 +152,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     e.printStackTrace();
                     pd.dismiss();
                 }
-
                 return null;
             }
 
