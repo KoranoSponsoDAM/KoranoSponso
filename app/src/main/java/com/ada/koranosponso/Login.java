@@ -36,8 +36,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sharedPreferences = getApplicationContext().getSharedPreferences("com.ada.koranosponso", Context.MODE_PRIVATE);
+        sharedPreferences = Login.this.getSharedPreferences(Constantes.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         inicializarComponentes();
+        String prefsav = sharedPreferences.getString(Constantes.PREF_SAVE,"");
+        if(prefsav!="") {
+            Intent intent = new Intent(Login.this, ActividadPrincipal.class);
+            startActivity(intent);
+            finish();
+        }
         /*crearBD = new CrearBD(this);
         etUsu = (EditText) findViewById(R.id.etUsu);
         etPass = (EditText) findViewById(R.id.etPass);
@@ -117,10 +123,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
 
-                        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Constantes.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
                         //Creating editor to store values to shared preferences
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        if(chRec.isChecked()) {
+                            editor.putString(Constantes.PREF_SAVE, "true");
+                            editor.commit();
+                        }else{
+                            editor.clear();
+                            editor.commit();
+                        }
 
                         //Adding values to editor
                         editor.putBoolean(Constantes.LOGGEDIN_SHARED_PREF, true);
