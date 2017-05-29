@@ -5,19 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
-import com.ada.koranosponso.modelo.Comida;
 import com.ada.koranosponso.modelo.Pelicula;
 
 import org.json.JSONArray;
@@ -33,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Fragmento que representa el contenido de cada pestaña dentro de la sección "Categorías"
  */
-public class FragmentoCategoria extends Fragment implements LoadPeliculaInterface {
+public class FragmentoCategoria extends Fragment implements LoadPeliculaInterface, SearchView.OnQueryTextListener {
 
     private static final String INDICE_SECCION
             = "com.restaurantericoparico.FragmentoCategoriasTab.extra.INDICE_SECCION";
@@ -83,7 +81,9 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                 try {
                     json = new JSONObject(response);
                     JSONArray peliculas, series, animes;
-
+                    PELICULAS_PELICULAS.clear();
+                    PELICULAS_SERIES.clear();
+                    PELICULAS_ANIMES.clear();
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         peliculas = json.getJSONArray("peliculas");
@@ -142,7 +142,7 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
         return view;
     }
 
-    private void crearAdaptardor(int indiceSeccion){
+    public void crearAdaptardor(int indiceSeccion){
         switch (indiceSeccion) {
             case 0:
                 adaptador = new AdaptadorCategorias(PELICULAS_PELICULAS, this);
@@ -172,6 +172,30 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
         intent.putExtra("token", tokenC);
         intent.putExtra("peliculas", peliculas);
         startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        ArrayList<Pelicula> filtrada = filter(PELICULAS_PELICULAS, newText);
+        return false;
+    }
+
+    private ArrayList<Pelicula> filter(ArrayList<Pelicula> pelis, String query) {
+        query = query.toLowerCase();
+        final ArrayList<Pelicula> filteredModelList = new ArrayList<>();
+        for (Pelicula peli : pelis) {
+            final String text = peli.getNombre().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(peli);
+            }
+        }
+        return filteredModelList;
     }
 
 }
