@@ -38,4 +38,6 @@ public class Constantes {
     public static final String EMAIL_SHARED_PREF = "email";
     public static final String TOKEN_SHARED_PREF = "token";
     public static final String IDUSUARIO_SHARED_PREF = "id_usuario";
+
+    public static final String PREF_SAVE = "prefsave";
 }

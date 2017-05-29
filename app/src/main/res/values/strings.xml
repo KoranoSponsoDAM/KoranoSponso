@@ -28,4 +28,7 @@
     <string name="texto_cambiar_contrasena">Cambia tu contraseña</string>
     <string name="etiqueta_contrasena">Contraseña</string>
     <string name="etiqueta_info_usuario">Información del usuario</string>
+
+    <string name="etiqueta_logout">Salir</string>
+    <string name="texto_logout">Salir de tu cuenta</string>
 </resources>

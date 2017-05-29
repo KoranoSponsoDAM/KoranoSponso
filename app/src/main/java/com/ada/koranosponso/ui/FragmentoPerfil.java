@@ -1,5 +1,6 @@
 package com.ada.koranosponso.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,11 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Login;
 import com.ada.koranosponso.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -24,7 +25,8 @@ public class FragmentoPerfil extends Fragment{
     TextView username, email;
     View view;
     String userL, emailL;
-    ImageButton change;
+    ImageButton change, logout;
+    SharedPreferences sharedPreferences;
     public FragmentoPerfil() {
 
     }
@@ -40,6 +42,19 @@ public class FragmentoPerfil extends Fragment{
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), ActividadCambioPassword.class);
                 startActivity(intent);
+            }
+        });
+        logout = (ImageButton)view.findViewById(R.id.logoutButton);
+        logout.setOnClickListener( new View.OnClickListener() {
+
+            public void onClick(View view){
+                sharedPreferences =  getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(getActivity(), Login.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         return view;
