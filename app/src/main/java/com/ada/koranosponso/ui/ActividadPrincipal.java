@@ -82,6 +82,10 @@ public class ActividadPrincipal extends AppCompatActivity {
                 fragmentoGenerico = new FragmentoCuenta();
                 setTitle(itemDrawer.getTitle());
                 break;
+            case R.id.item_amigos:
+                fragmentoGenerico = new FragmentoAmigos();
+                setTitle(itemDrawer.getTitle());
+                break;
             case R.id.item_videos:
                 fragmentoGenerico = new FragmentoCategorias();
                 setTitle(itemDrawer.getTitle());

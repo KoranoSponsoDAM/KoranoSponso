@@ -23,17 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Fragmento que contiene otros fragmentos anidados para representar las categorías
- * de comidas
- */
-public class FragmentoCategorias extends Fragment {
-    private AppBarLayout appBarLayout;
-    private TabLayout tabLayout;
+public class FragmentoAmigos extends Fragment {
+    private AppBarLayout appBar;
+    private TabLayout pestanas;
     private ViewPager viewPager;
 
-
-    public FragmentoCategorias() {
+    public FragmentoAmigos() {
     }
 
     @Override
@@ -47,26 +42,24 @@ public class FragmentoCategorias extends Fragment {
             // Setear adaptador al viewpager.
             viewPager = (ViewPager) view.findViewById(R.id.pager);
             poblarViewPager(viewPager);
-
-            tabLayout.setupWithViewPager(viewPager);
+            pestanas.setupWithViewPager(viewPager);
         }
 
         return view;
     }
+
     private void insertarTabs(ViewGroup container) {
         View padre = (View) container.getParent();
-        appBarLayout = (AppBarLayout) padre.findViewById(R.id.appbar);
-
-        tabLayout = new TabLayout(getActivity());
-        tabLayout.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
-        appBarLayout.addView(tabLayout);
+        appBar = (AppBarLayout) padre.findViewById(R.id.appbar);
+        pestanas = new TabLayout(getActivity());
+        pestanas.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
+        appBar.addView(pestanas);
     }
 
     private void poblarViewPager(ViewPager viewPager) {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
-        adapter.addFragment(FragmentoCategoria.nuevaInstancia(0), getString(R.string.titulo_tab_peliculas));
-        adapter.addFragment(FragmentoCategoria.nuevaInstancia(1), getString(R.string.titulo_tab_series));
-        adapter.addFragment(FragmentoCategoria.nuevaInstancia(2), getString(R.string.titulo_tab_anime));
+        adapter.addFragment(new FragmentoAniadirAmigos(), getString(R.string.titulo_tab_agregar));
+        adapter.addFragment(new FragmentoFavoritos(), getString(R.string.titulo_tab_aceptar));
         viewPager.setAdapter(adapter);
     }
 
@@ -81,16 +74,14 @@ public class FragmentoCategorias extends Fragment {
         inflater.inflate(R.menu.menu_categorias, menu);
         final MenuItem itemG = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemG);
-        searchView.setOnQueryTextListener(new FragmentoCategoria());
+        searchView.setOnQueryTextListener(new FragmentoAniadirAmigos());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        appBarLayout.removeView(tabLayout);
+        appBar.removeView(pestanas);
     }
-
-
 
     /**
      * Un {@link FragmentStatePagerAdapter} que gestiona las secciones, fragmentos y
@@ -105,7 +96,7 @@ public class FragmentoCategorias extends Fragment {
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public android.support.v4.app.Fragment getItem(int position) {
             return fragmentos.get(position);
         }
 
@@ -114,7 +105,7 @@ public class FragmentoCategorias extends Fragment {
             return fragmentos.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        public void addFragment(android.support.v4.app.Fragment fragment, String title) {
             fragmentos.add(fragment);
             titulosFragmentos.add(title);
         }

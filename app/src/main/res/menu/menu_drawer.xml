@@ -12,6 +12,9 @@
             android:icon="@drawable/cuenta"
             android:title="@string/item_cuenta" />
         <item
+            android:id="@+id/item_amigos"
+            android:title="@string/item_amigos" />
+        <item
             android:id="@+id/item_videos"
             android:icon="@drawable/categorias"
             android:title="@string/item_videos" />
