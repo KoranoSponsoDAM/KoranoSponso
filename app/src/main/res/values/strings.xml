@@ -10,6 +10,7 @@
 
     <string name="item_inicio">Inicio</string>
     <string name="item_cuenta">Mi Cuenta</string>
+    <string name="item_amigos">Buscar Amigos</string>
     <string name="item_videos">Vídeos</string>
     <string name="item_configuracion">Configuración</string>
 
@@ -18,6 +19,9 @@
     <string name="titulo_tab_peliculas">Peliculas</string>
     <string name="titulo_tab_series">Series</string>
     <string name="titulo_tab_anime">Animes</string>
+
+    <string name="titulo_tab_agregar">Agregar Amigos</string>
+    <string name="titulo_tab_aceptar">Aceptar Amigos</string>
 
     <string name="titulo_tab_perfil">PERFIL</string>
     <string name="titulo_tab_favoritos">FAVORITOS</string>
