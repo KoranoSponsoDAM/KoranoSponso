@@ -46,8 +46,8 @@ public class FragmentoCategorias extends Fragment {
 
             // Setear adaptador al viewpager.
             viewPager = (ViewPager) view.findViewById(R.id.pager);
+            viewPager.setOffscreenPageLimit(3);//limita las cargas a 3
             poblarViewPager(viewPager);
-
             tabLayout.setupWithViewPager(viewPager);
         }
 

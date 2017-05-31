@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;
@@ -66,7 +67,7 @@ public class AdaptadorInicio
         Pelicula item = PELICULAS_POPULARES.get(i);
 
         Glide.with(viewHolder.itemView.getContext())
-                .load("http://koranosponso.000webhostapp.com/imagenes/"+item.getIdDrawable())
+                .load(Constantes.IMAGENES+item.getIdDrawable())
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());

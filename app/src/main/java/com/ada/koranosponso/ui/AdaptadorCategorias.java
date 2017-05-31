@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Comida;
 import com.ada.koranosponso.modelo.Pelicula;
@@ -67,7 +68,7 @@ public class AdaptadorCategorias
         Pelicula item = PELICULAS_CATEGORIA.get(i);
 
         Glide.with(viewHolder.itemView.getContext())
-                .load("http://koranosponso.000webhostapp.com/imagenes/"+item.getIdDrawable())
+                .load(Constantes.IMAGENES+item.getIdDrawable())
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());

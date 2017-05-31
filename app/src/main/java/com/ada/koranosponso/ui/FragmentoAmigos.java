@@ -1,5 +1,7 @@
 package com.ada.koranosponso.ui;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -27,6 +29,7 @@ public class FragmentoAmigos extends Fragment {
     private AppBarLayout appBar;
     private TabLayout pestanas;
     private ViewPager viewPager;
+    SearchView searchView = null;
 
     public FragmentoAmigos() {
     }
@@ -71,10 +74,25 @@ public class FragmentoAmigos extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_categorias, menu);
+        /*inflater.inflate(R.menu.menu_categorias, menu);
         final MenuItem itemG = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemG);
-        searchView.setOnQueryTextListener(new FragmentoAniadirAmigos());
+        searchView.setOnQueryTextListener(new FragmentoAniadirAmigos());*/
+        inflater.inflate(R.menu.menu_categorias, menu);
+        final MenuItem itemG = menu.findItem(R.id.action_search);
+        // adds item to action bar
+        getActivity().getMenuInflater().inflate(R.menu.menu_categorias, menu);
+
+        // Get Search item from action bar and Get Search service
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setIconified(false);
+        }
     }
 
     @Override

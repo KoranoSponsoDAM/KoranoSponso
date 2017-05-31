@@ -14,4 +14,5 @@ public class Urls {
     public static final String SABER_FAVORITO =  Constantes.API+"/saberFavorito.php";
     public static final String MOSTRAR_FAVORITOS =  Constantes.API+"/mostrarFavoritos.php";
     public static final String MOSTRAR_CATEGORIAS =  Constantes.API+"/mostrarCategorias.php";
+    public static final String MOSTRAR_USUARIOS =  Constantes.API+"/listarAmigos.php";
 }

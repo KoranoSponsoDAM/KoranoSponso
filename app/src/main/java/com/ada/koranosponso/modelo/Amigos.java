@@ -9,10 +9,10 @@ import java.io.Serializable;
 public class Amigos implements Serializable {
     private String nombre, direccion, favorito;
 
-    public Amigos(String nombre, String direccion, String favorito) {
+    public Amigos(String nombre, String direccion){//, String favorito) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.favorito = favorito;
+        //this.favorito = favorito;
     }
 
     public String getNombre() {
@@ -23,7 +23,7 @@ public class Amigos implements Serializable {
         return direccion;
     }
 
-    public String getFavorito() {
+    /*public String getFavorito() {
         return favorito;
-    }
+    }*/
 }

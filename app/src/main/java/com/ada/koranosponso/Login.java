@@ -145,7 +145,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         //Saving values to editor
                         editor.commit();
 
-                        Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Login.this, json.getString("message"), Toast.LENGTH_LONG).show();
                         pd.dismiss();
 
 
@@ -168,7 +168,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
 
         });
-        pd.dismiss();
     }
 
 

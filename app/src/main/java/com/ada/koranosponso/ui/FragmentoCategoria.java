@@ -40,11 +40,12 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
     private LinearLayoutManager layoutManager;
     private AdaptadorCategorias adaptador;
     private String nombre, descripcion, userC, tokenC, idDrawable, url;
-    public static ArrayList<Pelicula> PELICULAS_PELICULAS;
-    public static ArrayList<Pelicula> PELICULAS_SERIES;
-    public static ArrayList<Pelicula> PELICULAS_ANIMES;
     private int idPelicula;
+    private static ArrayList<Pelicula> PELICULAS_PELICULAS = new ArrayList<Pelicula>();
+    private static ArrayList<Pelicula> PELICULAS_SERIES = new ArrayList<Pelicula>();
+    private static ArrayList<Pelicula> PELICULAS_ANIMES = new ArrayList<Pelicula>();
     private ProgressDialog pd;
+    private boolean cargado = false;
 
     public static FragmentoCategoria nuevaInstancia(int indiceSeccion) {
         FragmentoCategoria fragment = new FragmentoCategoria();
@@ -65,31 +66,29 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userC = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userC);
         tokenC = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenC);
-        PELICULAS_PELICULAS = new ArrayList<Pelicula>();
-        PELICULAS_SERIES = new ArrayList<Pelicula>();
-        PELICULAS_ANIMES = new ArrayList<Pelicula>();
-        showProgressDialog("CARGANDO", "");
+        //showProgressDialog("CARGANDO", "");
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userC);
         hashMap.put(Constantes.KEY_TOKEN, tokenC);
         RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_CATEGORIAS);
-        res.responseApi(new RestAPIWebServices.VolleyCallback() {
-            @Override
-            public View onSuccess(String response) {
-                JSONObject json = null;
+        if(!cargado) {
+            res.responseApi(new RestAPIWebServices.VolleyCallback() {
+                @Override
+                public View onSuccess(String response) {
+                    JSONObject json = null;
 
-                try {
-                    json = new JSONObject(response);
-                    JSONArray peliculas, series, animes;
-                    PELICULAS_PELICULAS.clear();
-                    PELICULAS_SERIES.clear();
-                    PELICULAS_ANIMES.clear();
-                    //If we are getting success from server
-                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
-                        peliculas = json.getJSONArray("peliculas");
-                        series = json.getJSONArray("series");
-                        animes = json.getJSONArray("animes");
-                            if(peliculas!=null) {
+                    try {
+                        json = new JSONObject(response);
+                        JSONArray peliculas, series, animes;
+                        /*PELICULAS_PELICULAS.clear();
+                        PELICULAS_SERIES.clear();
+                        PELICULAS_ANIMES.clear();*/
+                        //If we are getting success from server
+                        if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                            peliculas = json.getJSONArray("peliculas");
+                            series = json.getJSONArray("series");
+                            animes = json.getJSONArray("animes");
+                            if (peliculas != null) {
                                 for (int i = 0; i < peliculas.length(); i++) {
                                     nombre = peliculas.getJSONObject(i).getString("nombre");
                                     descripcion = peliculas.getJSONObject(i).getString("descripcion");
@@ -99,7 +98,7 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                                     PELICULAS_PELICULAS.add(new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                                 }
                             }
-                            if(series!=null) {
+                            if (series != null) {
                                 for (int i = 0; i < series.length(); i++) {
                                     nombre = series.getJSONObject(i).getString("nombre");
                                     descripcion = series.getJSONObject(i).getString("descripcion");
@@ -109,7 +108,7 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                                     PELICULAS_SERIES.add(new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                                 }
                             }
-                            if(animes!=null){
+                            if (animes != null) {
                                 for (int i = 0; i < animes.length(); i++) {
                                     nombre = animes.getJSONObject(i).getString("nombre");
                                     descripcion = animes.getJSONObject(i).getString("descripcion");
@@ -119,41 +118,40 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                                     PELICULAS_ANIMES.add(new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                                 }
                             }
+                            int indiceSeccion = getArguments().getInt(INDICE_SECCION);
+                            crearAdaptardor(indiceSeccion);
+                            //pd.dismiss();
+                        } else {
+                            //pd.dismiss();
+                        }
 
-                        int indiceSeccion = getArguments().getInt(INDICE_SECCION);
-                        crearAdaptardor(indiceSeccion);
-                        pd.dismiss();
-                    } else {
-                        pd.dismiss();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                       // pd.dismiss();
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    pd.dismiss();
+                    return null;
                 }
 
-                return null;
-            }
-
-        });
-        pd.dismiss();
-
+            });
+        }
+        cargado = true;
 
         return view;
     }
 
     public void crearAdaptardor(int indiceSeccion){
-        switch (indiceSeccion) {
-            case 0:
-                adaptador = new AdaptadorCategorias(PELICULAS_PELICULAS, this);
-                break;
-            case 1:
-                adaptador = new AdaptadorCategorias(PELICULAS_SERIES, this);
-                break;
-            case 2:
-                adaptador = new AdaptadorCategorias(PELICULAS_ANIMES, this);
-                break;
-        }
+            switch (indiceSeccion) {
+                case 0:
+                        adaptador = new AdaptadorCategorias(PELICULAS_PELICULAS, this);
+                    break;
+                case 1:
+                        adaptador = new AdaptadorCategorias(PELICULAS_SERIES, this);
+                    break;
+                case 2:
+                        adaptador = new AdaptadorCategorias(PELICULAS_ANIMES, this);
+                    break;
+            }
         reciclador.setAdapter(adaptador);
     }
 
@@ -196,6 +194,9 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
             }
         }
         return filteredModelList;
+    }
+
+    private void cargarVideos() {
     }
 
 }
