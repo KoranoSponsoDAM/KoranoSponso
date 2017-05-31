@@ -7,7 +7,7 @@
     <EditText android:id="@+id/inputSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search products.."
+        android:hint="@string/buscar_amigos"
         android:inputType="textVisiblePassword"/>
 
     <android.support.v7.widget.RecyclerView
