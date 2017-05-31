@@ -7,15 +7,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import com.ada.koranosponso.R;
 
@@ -76,13 +71,13 @@ public class FragmentoCategorias extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_categorias, menu);
         final MenuItem itemG = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemG);
         searchView.setOnQueryTextListener(new FragmentoCategoria());
-    }
+    }*/
 
     @Override
     public void onDestroyView() {

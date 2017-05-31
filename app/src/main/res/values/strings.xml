@@ -35,4 +35,5 @@
 
     <string name="etiqueta_logout">Salir</string>
     <string name="texto_logout">Salir de tu cuenta</string>
+    <string name="buscar_amigos">Buscar amigos...</string>
 </resources>

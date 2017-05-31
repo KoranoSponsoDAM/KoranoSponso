@@ -1,7 +1,5 @@
 package com.ada.koranosponso.ui;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -9,12 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -62,7 +56,7 @@ public class FragmentoAmigos extends Fragment {
     private void poblarViewPager(ViewPager viewPager) {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
         adapter.addFragment(new FragmentoAniadirAmigos(), getString(R.string.titulo_tab_agregar));
-        adapter.addFragment(new FragmentoFavoritos(), getString(R.string.titulo_tab_aceptar));
+        adapter.addFragment(new FragmentoAceptarAmigos(), getString(R.string.titulo_tab_aceptar));
         viewPager.setAdapter(adapter);
     }
 
@@ -72,12 +66,12 @@ public class FragmentoAmigos extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         /*inflater.inflate(R.menu.menu_categorias, menu);
         final MenuItem itemG = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemG);
-        searchView.setOnQueryTextListener(new FragmentoAniadirAmigos());*/
+        searchView.setOnQueryTextListener(new FragmentoAniadirAmigos());
         inflater.inflate(R.menu.menu_categorias, menu);
         final MenuItem itemG = menu.findItem(R.id.action_search);
         // adds item to action bar
@@ -93,7 +87,7 @@ public class FragmentoAmigos extends Fragment {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setIconified(false);
         }
-    }
+    }*/
 
     @Override
     public void onDestroyView() {

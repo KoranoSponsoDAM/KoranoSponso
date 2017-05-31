@@ -39,7 +39,7 @@ public class AdaptadorBuscarAmigos
     @Override
     public AdaptadorBuscarAmigos.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.fragmento_lista_amigos, viewGroup, false);
+                .inflate(R.layout.item_lista_amigos, viewGroup, false);
         context = viewGroup.getContext();
         return new AdaptadorBuscarAmigos.ViewHolder(v);
     }
