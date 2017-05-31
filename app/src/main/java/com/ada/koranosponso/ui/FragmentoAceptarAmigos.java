@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
@@ -28,43 +25,27 @@ import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentoAniadirAmigos extends Fragment {
+public class FragmentoAceptarAmigos extends Fragment {
     View view;
     private String username, email, idUsuario, userF, tokenF;
-    private AdaptadorBuscarAmigos adaptador;
+    private AdaptadorAceptarAmigos adaptador;
     private RecyclerView reciclador;
     private ProgressDialog pd;
     private LinearLayoutManager layoutManager;
     public static ArrayList<Amigos> amigos;
-    public EditText inputSearch;
 
-    public FragmentoAniadirAmigos() {
+    public FragmentoAceptarAmigos() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragmento_aniadir_amigos, container, false);
+        view = inflater.inflate(R.layout.fragmento_aceptar_amigos, container, false);
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
-        inputSearch = (EditText) view.findViewById(R.id.inputSearch);
-        inputSearch.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                FragmentoAniadirAmigos.this.adaptador.getFilter().filter(arg0);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-            }
-        });
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
@@ -121,8 +102,7 @@ public class FragmentoAniadirAmigos extends Fragment {
     }
 
     public void crearAdaptardor(){
-        adaptador = new AdaptadorBuscarAmigos(amigos, this);
+        adaptador = new AdaptadorAceptarAmigos(amigos, this);
         reciclador.setAdapter(adaptador);
     }
-
 }
