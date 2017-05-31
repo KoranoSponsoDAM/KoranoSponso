@@ -80,9 +80,9 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                     try {
                         json = new JSONObject(response);
                         JSONArray peliculas, series, animes;
-                        /*PELICULAS_PELICULAS.clear();
+                        PELICULAS_PELICULAS.clear();
                         PELICULAS_SERIES.clear();
-                        PELICULAS_ANIMES.clear();*/
+                        PELICULAS_ANIMES.clear();
                         //If we are getting success from server
                         if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                             peliculas = json.getJSONArray("peliculas");

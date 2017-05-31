@@ -100,7 +100,6 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
             }
 
         });
-        pd.dismiss();
         return view;
     }
 

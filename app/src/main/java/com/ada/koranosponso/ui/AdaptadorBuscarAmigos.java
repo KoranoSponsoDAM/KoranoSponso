@@ -24,13 +24,16 @@ public class AdaptadorBuscarAmigos
 
 
     List<Amigos> amigos ;
-    List<Amigos> amigoslist= new ArrayList<>();;
+    List<Amigos> amigoslist= new ArrayList<>();
+    List<Amigos> amigosAux= new ArrayList<>();
     Context context;
+    boolean primeraVez = false;
     private FragmentoAniadirAmigos mainFragment;
 
     public AdaptadorBuscarAmigos(List<Amigos> amigos, FragmentoAniadirAmigos mainFragment) {
         this.amigos = amigos;
         this.mainFragment = mainFragment;
+        amigosAux = amigos;
     }
 
     @Override
@@ -60,6 +63,8 @@ public class AdaptadorBuscarAmigos
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
                 List filtList = new ArrayList<>();
+                amigos = amigosAux;
+
                 if (amigoslist == null) {
                     amigoslist = new ArrayList(amigos);
                 }
@@ -77,6 +82,7 @@ public class AdaptadorBuscarAmigos
                         String da = data.getNombre();
                         if (da.toLowerCase().contains(constraint)) {
                             filtList.add(amigos.get(i));
+                            amigoslist.add(amigos.get(i));
                         }
                     }
 
