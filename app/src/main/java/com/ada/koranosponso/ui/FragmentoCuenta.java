@@ -61,7 +61,7 @@ public class FragmentoCuenta extends Fragment {
         AdaptadorSecciones adapter = new AdaptadorSecciones(getFragmentManager());
         adapter.addFragment(new FragmentoPerfil(), getString(R.string.titulo_tab_perfil));
         adapter.addFragment(new FragmentoFavoritos(), getString(R.string.titulo_tab_favoritos));
-        adapter.addFragment(new FragmentoTarjetas(), getString(R.string.titulo_tab_tarjetas));
+        adapter.addFragment(new FragmentoAmigosActuales(), getString(R.string.titulo_tab_amigos));
         viewPager.setAdapter(adapter);
     }
 
