@@ -66,7 +66,6 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userC = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userC);
         tokenC = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenC);
-        //showProgressDialog("CARGANDO", "");
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userC);
         hashMap.put(Constantes.KEY_TOKEN, tokenC);
@@ -120,14 +119,11 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
                             }
                             int indiceSeccion = getArguments().getInt(INDICE_SECCION);
                             crearAdaptardor(indiceSeccion);
-                            //pd.dismiss();
                         } else {
-                            //pd.dismiss();
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                       // pd.dismiss();
                     }
 
                     return null;
@@ -194,9 +190,6 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
             }
         }
         return filteredModelList;
-    }
-
-    private void cargarVideos() {
     }
 
 }

@@ -107,20 +107,15 @@ public class InfoPelicula extends AppCompatActivity {
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         fav = json.getInt("fav");
                         if(fav == 0){
-                            //fav = 0;
                             ImageFavorito.setImageResource(R.drawable.heart);
                         }else{
-                            //fav = 1;
                             ImageFavorito.setImageResource(R.drawable.heart_red);
                         }
-                        // pd.dismiss();
                     } else {
-                        //pd.dismiss();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //pd.dismiss();
                 }
 
                 return null;

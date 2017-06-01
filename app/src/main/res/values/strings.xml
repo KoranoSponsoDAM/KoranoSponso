@@ -10,7 +10,7 @@
 
     <string name="item_inicio">Inicio</string>
     <string name="item_cuenta">Mi Cuenta</string>
-    <string name="item_amigos">Buscar Amigos</string>
+    <string name="item_amigos">Amigos</string>
     <string name="item_videos">Vídeos</string>
     <string name="item_configuracion">Configuración</string>
 
@@ -25,7 +25,7 @@
 
     <string name="titulo_tab_perfil">PERFIL</string>
     <string name="titulo_tab_favoritos">FAVORITOS</string>
-    <string name="titulo_tab_tarjetas">TARJETAS</string>
+    <string name="titulo_tab_amigos">AMIGOS</string>
 
     <string name="texto_no_tarjetas">No tienes ninguna tarjeta asociada</string>
 

@@ -6,14 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
@@ -30,44 +25,32 @@ import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInterface {
+
+/**
+ * Fragmento para la pestaña "TARJETAS" de la sección "Mi Cuenta"
+ */
+public class FragmentoAmigosActuales extends Fragment {
+
     View view;
-    private String username, idUsuario, idUsuarioA,  userF, tokenF;
+    private String username, idUsuario, idUsuarioA, userF, tokenF;
     private int id_usuarioA;
-    private AdaptadorBuscarAmigos adaptador;
+    private AdaptadorAmigos adaptador;
     private RecyclerView reciclador;
     private ProgressDialog pd;
     private LinearLayoutManager layoutManager;
     public static ArrayList<Amigos> amigos;
-    public EditText inputSearch;
 
-    public FragmentoAniadirAmigos() {
-
+    public FragmentoAmigosActuales() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragmento_aniadir_amigos, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragmento_amigos, container, false);
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
-        inputSearch = (EditText) view.findViewById(R.id.inputSearch);
-        inputSearch.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                FragmentoAniadirAmigos.this.adaptador.getFilter().filter(arg0);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-            }
-        });
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
@@ -78,7 +61,7 @@ public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInte
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_USUARIOS);
+        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.VER_SOLICITUD);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public View onSuccess(String response) {
@@ -93,7 +76,6 @@ public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInte
                         usuarios = json.getJSONArray("usuarios");
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
-                            id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
                             amigos.add(i,new Amigos(username, id_usuarioA));
                         }
                         crearAdaptardor();
@@ -124,40 +106,8 @@ public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInte
     }
 
     public void crearAdaptardor(){
-        adaptador = new AdaptadorBuscarAmigos(amigos, this);
+        adaptador = new AdaptadorAmigos(amigos, this);
         reciclador.setAdapter(adaptador);
     }
 
-    @Override
-    public void agregarAmigo(Amigos amigo, int position) {
-        idUsuarioA = String.valueOf(amigo.getIdUsuario());
-        final HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put(Constantes.KEY_USER, userF);
-        hashMap.put(Constantes.KEY_TOKEN, tokenF);
-        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-        hashMap.put(Constantes.KEY_IDUSUARIOA, idUsuarioA);
-        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.SOLICITUD_AMIGO);
-        res.responseApi(new RestAPIWebServices.VolleyCallback() {
-            @Override
-            public View onSuccess(String response) {
-                JSONObject json = null;
-
-                try {
-                    json = new JSONObject(response);
-
-                    //If we are getting success from server
-                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
-
-                    } else {
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
-
-        });
-    }
 }
