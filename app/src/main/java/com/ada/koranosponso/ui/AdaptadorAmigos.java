@@ -28,6 +28,22 @@ public class AdaptadorAmigos
         this.mainFragment = mainFragment;
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        public TextView nombre;
+
+        public ViewHolder(View v) {
+            super(v);
+            nombre = (TextView) v.findViewById(R.id.texto_amigos_actuales);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+
+        }
+    }
+
     @Override
     public AdaptadorAmigos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -45,21 +61,5 @@ public class AdaptadorAmigos
     @Override
     public int getItemCount() {
         return amigos.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        public TextView nombre;
-
-        public ViewHolder(View v) {
-            super(v);
-            nombre = (TextView) v.findViewById(R.id.texto_amigos_actuales);
-            v.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-
-        }
     }
 }

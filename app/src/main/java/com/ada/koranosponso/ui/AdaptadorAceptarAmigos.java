@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Interfaces.ResponderSolicitudInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
 
@@ -28,6 +30,37 @@ public class AdaptadorAceptarAmigos
         this.mainFragment = mainFragment;
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView nombre;
+        public Button btnAceptarAmigo, btnDenegarAmigo;
+        public ViewHolder(View v) {
+            super(v);
+            nombre = (TextView) v.findViewById(R.id.texto_nombre_añadir);
+            btnAceptarAmigo = (Button) v.findViewById(R.id.btnAceptarAmigo);
+            btnDenegarAmigo = (Button) v.findViewById(R.id.btnDenegarAmigo);
+            btnAceptarAmigo.setOnClickListener(this);
+            btnDenegarAmigo.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnAceptarAmigo:
+                    ((ResponderSolicitudInterface) mainFragment).aceptarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
+                    amigos.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                    break;
+                case R.id.btnDenegarAmigo:
+                    ((ResponderSolicitudInterface) mainFragment).denegarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
+                    amigos.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     @Override
     public AdaptadorAceptarAmigos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -47,13 +80,4 @@ public class AdaptadorAceptarAmigos
         return amigos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-        public TextView nombre, direccion;
-
-        public ViewHolder(View v) {
-            super(v);
-            nombre = (TextView) v.findViewById(R.id.texto_nombre_añadir);
-        }
-    }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Interfaces.LoadPeliculaInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;

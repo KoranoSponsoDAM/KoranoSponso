@@ -1,4 +1,4 @@
-package com.ada.koranosponso.ui;
+package com.ada.koranosponso.Interfaces;
 
 import com.ada.koranosponso.modelo.Pelicula;
 
