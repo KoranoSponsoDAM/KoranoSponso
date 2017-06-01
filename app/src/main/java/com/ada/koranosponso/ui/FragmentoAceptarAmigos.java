@@ -41,7 +41,7 @@ public class FragmentoAceptarAmigos extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container , Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragmento_aceptar_amigos, container, false);
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
