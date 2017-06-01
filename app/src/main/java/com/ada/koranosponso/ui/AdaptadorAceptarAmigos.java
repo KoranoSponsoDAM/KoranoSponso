@@ -40,7 +40,6 @@ public class AdaptadorAceptarAmigos
     public void onBindViewHolder(AdaptadorAceptarAmigos.ViewHolder holder, int position) {
         Amigos item = amigos.get(position);
         holder.nombre.setText(item.getNombre());
-        holder.direccion.setText(item.getDireccion());
     }
 
     @Override
@@ -55,7 +54,6 @@ public class AdaptadorAceptarAmigos
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.texto_nombre_añadir);
-            direccion = (TextView) v.findViewById(R.id.texto_direccion_añadir);
         }
     }
 }

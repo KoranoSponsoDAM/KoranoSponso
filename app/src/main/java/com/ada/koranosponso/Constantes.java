@@ -13,6 +13,7 @@ public class Constantes {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_IDPELICULA = "id_pelicula";
     public static final String KEY_IDUSUARIO = "id_usuario";
+    public static final String KEY_IDUSUARIOA = "id_usuarioA";
     //public static final String KEY_NAME = "username";
     //public static final String KEY_LAST_NAME = "last_name";
     public static final String KEY_NEW_PASSWORD = "newpassword";

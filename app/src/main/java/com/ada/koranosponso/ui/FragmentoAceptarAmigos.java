@@ -27,7 +27,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentoAceptarAmigos extends Fragment {
     View view;
-    private String username, email, idUsuario, userF, tokenF;
+    private String username, idUsuario, idUsuarioA, userF, tokenF;
+    private int id_usuarioA;
     private AdaptadorAceptarAmigos adaptador;
     private RecyclerView reciclador;
     private ProgressDialog pd;
@@ -56,7 +57,7 @@ public class FragmentoAceptarAmigos extends Fragment {
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_USUARIOS);
+        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.VER_SOLICITUD);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public View onSuccess(String response) {
@@ -71,8 +72,7 @@ public class FragmentoAceptarAmigos extends Fragment {
                         usuarios = json.getJSONArray("usuarios");
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
-                            email = usuarios.getJSONObject(i).getString("email");
-                            amigos.add(i,new Amigos(username, email));
+                            amigos.add(i,new Amigos(username, id_usuarioA));
                         }
                         crearAdaptardor();
                         pd.dismiss();

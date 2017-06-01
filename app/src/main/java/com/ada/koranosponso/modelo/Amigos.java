@@ -8,10 +8,12 @@ import java.io.Serializable;
 
 public class Amigos implements Serializable {
     private String nombre, direccion, favorito;
+    private int id_usuario;
 
-    public Amigos(String nombre, String direccion){//, String favorito) {
+    public Amigos(String nombre, int id_usuario) {//}, String direccion), String favorito) {
         this.nombre = nombre;
-        this.direccion = direccion;
+        this.id_usuario = id_usuario;
+        //this.direccion = direccion;
         //this.favorito = favorito;
     }
 
@@ -19,11 +21,15 @@ public class Amigos implements Serializable {
         return nombre;
     }
 
-    public String getDireccion() {
+    public int getIdUsuario() {
+        return id_usuario;
+    }
+
+    /*public String getDireccion() {
         return direccion;
     }
 
-    /*public String getFavorito() {
+    public String getFavorito() {
         return favorito;
     }*/
 }
