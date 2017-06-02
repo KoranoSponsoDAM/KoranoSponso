@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Interfaces.AgregarAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -28,9 +29,10 @@ import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentoAniadirAmigos extends Fragment {
+public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInterface {
     View view;
-    private String username, email, idUsuario, userF, tokenF;
+    private String username, idUsuario, idUsuarioA,  userF, tokenF;
+    private int id_usuarioA;
     private AdaptadorBuscarAmigos adaptador;
     private RecyclerView reciclador;
     private ProgressDialog pd;
@@ -90,8 +92,8 @@ public class FragmentoAniadirAmigos extends Fragment {
                         usuarios = json.getJSONArray("usuarios");
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
-                            email = usuarios.getJSONObject(i).getString("email");
-                            amigos.add(i,new Amigos(username, email));
+                            id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
+                            amigos.add(i,new Amigos(username, id_usuarioA));
                         }
                         crearAdaptardor();
                         pd.dismiss();
@@ -125,4 +127,36 @@ public class FragmentoAniadirAmigos extends Fragment {
         reciclador.setAdapter(adaptador);
     }
 
+    @Override
+    public void agregarAmigo(Amigos amigo, int position) {
+        idUsuarioA = String.valueOf(amigo.getIdUsuario());
+        final HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userF);
+        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        hashMap.put(Constantes.KEY_IDUSUARIOA, idUsuarioA);
+        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.SOLICITUD_AMIGO);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+
+                try {
+                    json = new JSONObject(response);
+
+                    //If we are getting success from server
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+
+                    } else {
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+        });
+    }
 }

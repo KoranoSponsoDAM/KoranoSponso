@@ -14,6 +14,10 @@ public class Urls {
     public static final String SABER_FAVORITO =  Constantes.API+"/saberFavorito.php";
     public static final String MOSTRAR_FAVORITOS =  Constantes.API+"/mostrarFavoritos.php";
     public static final String MOSTRAR_CATEGORIAS =  Constantes.API+"/mostrarCategorias.php";
-    public static final String MOSTRAR_USUARIOS =  Constantes.API+"/listarAmigos.php";
-    public static final String MOSTRAR_USUARIO =  Constantes.API+"/listarAmigos.php";
+    public static final String MOSTRAR_USUARIOS =  Constantes.API+"/listarUsuarios.php";
+    public static final String SOLICITUD_AMIGO =  Constantes.API+"/solicitudAmigo.php";
+    public static final String VER_SOLICITUD =  Constantes.API+"/verSolicitud.php";
+    public static final String ACEPTAR_SOLICITUD =  Constantes.API+"/aceptarSolicitud.php";
+    public static final String DENEGAR_SOLICITUD =  Constantes.API+"/denegarSolicitud.php";
+    public static final String MOSTRAR_AMIGOS =  Constantes.API+"/mostrarAmigos.php";
 }

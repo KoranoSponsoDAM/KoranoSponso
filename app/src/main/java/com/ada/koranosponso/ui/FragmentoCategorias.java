@@ -71,13 +71,6 @@ public class FragmentoCategorias extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_categorias, menu);
-        final MenuItem itemG = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemG);
-        searchView.setOnQueryTextListener(new FragmentoCategoria());
-    }*/
 
     @Override
     public void onDestroyView() {

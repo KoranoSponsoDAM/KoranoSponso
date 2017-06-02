@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Interfaces.AgregarAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
 
@@ -27,13 +29,28 @@ public class AdaptadorBuscarAmigos
     List<Amigos> amigoslist= new ArrayList<>();
     List<Amigos> amigosAux= new ArrayList<>();
     Context context;
-    boolean primeraVez = false;
     private FragmentoAniadirAmigos mainFragment;
 
     public AdaptadorBuscarAmigos(List<Amigos> amigos, FragmentoAniadirAmigos mainFragment) {
         this.amigos = amigos;
         this.mainFragment = mainFragment;
         amigosAux = amigos;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView nombre;
+        public Button btnAgregar;
+        public ViewHolder(View v) {
+            super(v);
+            nombre = (TextView) v.findViewById(R.id.texto_nombre_amigo);
+            btnAgregar = (Button) v.findViewById(R.id.btnAgregarAmigo);
+            btnAgregar.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            ((AgregarAmigoInterface) mainFragment).agregarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
+            btnAgregar.setEnabled(false);
+        }
     }
 
     @Override
@@ -48,7 +65,6 @@ public class AdaptadorBuscarAmigos
     public void onBindViewHolder(AdaptadorBuscarAmigos.ViewHolder viewHolder, int i) {
         Amigos item = amigos.get(i);
         viewHolder.nombre.setText(item.getNombre());
-        viewHolder.direccion.setText(item.getDireccion());
     }
 
     @Override
@@ -101,16 +117,4 @@ public class AdaptadorBuscarAmigos
         };
         return filter;
     }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-        public TextView nombre, direccion;
-
-        public ViewHolder(View v) {
-            super(v);
-            nombre = (TextView) v.findViewById(R.id.texto_nombre_amigo);
-            direccion = (TextView) v.findViewById(R.id.texto_direccion_amigo);
-        }
-    }
-
 }

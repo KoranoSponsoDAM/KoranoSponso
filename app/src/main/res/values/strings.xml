@@ -25,7 +25,7 @@
 
     <string name="titulo_tab_perfil">PERFIL</string>
     <string name="titulo_tab_favoritos">FAVORITOS</string>
-    <string name="titulo_tab_tarjetas">TARJETAS</string>
+    <string name="titulo_tab_amigos">AMIGOS</string>
 
     <string name="texto_no_tarjetas">No tienes ninguna tarjeta asociada</string>
 
