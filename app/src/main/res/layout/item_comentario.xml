@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/txtFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -16,22 +16,27 @@
         android:text="Fecha" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/txtComentario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView14"
-        android:layout_alignStart="@+id/textView14"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="15dp"
-        android:text="Comentario" />
+        android:layout_above="@+id/txtUsuario"
+        android:layout_alignLeft="@+id/txtUsuario"
+        android:layout_alignStart="@+id/txtUsuario"
+        android:layout_toLeftOf="@+id/txtFecha"
+        android:layout_toStartOf="@+id/txtFecha"
+        android:background="@android:color/background_light"
+        android:text="Comentario"
+        android:textColor="@color/background_header_seccion_inicio" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/txtUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView11"
+        android:layout_below="@+id/txtFecha"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:autoLink="none"
         android:text="Usuario" />
 </RelativeLayout>

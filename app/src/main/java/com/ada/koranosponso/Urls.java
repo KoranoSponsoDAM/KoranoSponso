@@ -22,4 +22,6 @@ public class Urls {
     public static final String MOSTRAR_AMIGOS =  Constantes.API+"/mostrarAmigos.php";
     public static final String MOSTRAR_FAVORITOS_AMIGO = Constantes.API+"/saberFavoritoAmigo.php";
     public static final String ELIMINAR_AMIGO = Constantes.API+"/eliminarAmigo.php";
+    public static final String MOSTRAR_COMENTARIOS = Constantes.API+"/mostrarComentarios.php";
+    public static final String PUBLICAR_COMENTARIO = Constantes.API+"/publicarComentario.php";
 }

@@ -7,11 +7,11 @@
 
     <color name="primaryDarkColor">#323232</color>
     <color name="primaryColor">#484848</color>
-    <color name="accentColor">#F87652</color>
+    <color name="accentColor">#f87652</color>
 
     <color name="background_footer_item_grid_categorias">#90000000</color>
 
     <color name="color_light">#ffffff</color>
 
-    <color name="background_header_seccion_inicio">#4b4b4b</color>
+    <color name="background_header_seccion_inicio">#616161</color>
 </resources>
