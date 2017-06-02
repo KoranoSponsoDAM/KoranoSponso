@@ -60,6 +60,12 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
         PELICULAS_FAVORITAS = new ArrayList<Pelicula>();
+        listFavoritos();
+        return view;
+    }
+
+    private void listFavoritos() {
+        PELICULAS_FAVORITAS.clear();
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
@@ -100,10 +106,12 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
             }
 
         });
-        return view;
     }
 
+
+
     private void crearAdaptador() {
+
         adaptador = new AdaptadorFavoritos(PELICULAS_FAVORITAS, this);
         reciclador.setAdapter(adaptador);
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));

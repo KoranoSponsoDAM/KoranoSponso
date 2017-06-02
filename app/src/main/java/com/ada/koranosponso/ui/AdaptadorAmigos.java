@@ -47,8 +47,7 @@ public class AdaptadorAmigos
             switch (v.getId()){
                 case R.id.btnEliminarAmigo:
                     ((InfoAmigoInterface) mainFragment).eliminarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
-                    amigos.remove(getAdapterPosition());
-                    notifyDataSetChanged();
+
                     break;
                 default:
                     ((InfoAmigoInterface) mainFragment).verAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());

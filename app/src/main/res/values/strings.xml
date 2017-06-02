@@ -7,7 +7,9 @@
     <string name="action_settings">Configuración</string>
     <string name="action_search">Buscar</string>
     <string name="username">Nombre de usuario:</string>
-
+    <string name="mensajeDialogo">¿Estás seguro de eliminar el amigo?</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
     <string name="item_inicio">Inicio</string>
     <string name="item_cuenta">Mi Cuenta</string>
     <string name="item_amigos">Amigos</string>
