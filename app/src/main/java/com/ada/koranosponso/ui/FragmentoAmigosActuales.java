@@ -1,9 +1,12 @@
 package com.ada.koranosponso.ui;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Interfaces.InfoAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -26,17 +30,13 @@ import java.util.HashMap;
 import static android.content.Context.MODE_PRIVATE;
 
 
-/**
- * Fragmento para la pestaña "TARJETAS" de la sección "Mi Cuenta"
- */
-public class FragmentoAmigosActuales extends Fragment {
+public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterface {
 
     View view;
     private String username, idUsuario, idUsuarioA, userF, tokenF;
     private int id_usuarioA;
     private AdaptadorAmigos adaptador;
     private RecyclerView reciclador;
-    private ProgressDialog pd;
     private LinearLayoutManager layoutManager;
     public static ArrayList<Amigos> amigos;
 
@@ -56,12 +56,11 @@ public class FragmentoAmigosActuales extends Fragment {
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
         amigos = new ArrayList<Amigos>();
-        showProgressDialog("CARGANDO", "");
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.VER_SOLICITUD);
+        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_AMIGOS);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public View onSuccess(String response) {
@@ -76,17 +75,15 @@ public class FragmentoAmigosActuales extends Fragment {
                         usuarios = json.getJSONArray("usuarios");
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
+                            id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
                             amigos.add(i,new Amigos(username, id_usuarioA));
                         }
                         crearAdaptardor();
-                        pd.dismiss();
                     } else {
-                        pd.dismiss();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    pd.dismiss();
                 }
 
                 return null;
@@ -96,18 +93,68 @@ public class FragmentoAmigosActuales extends Fragment {
         return view;
     }
 
-    private void showProgressDialog(String title, String message){
-        pd = new ProgressDialog(this.getActivity());
-        pd.setTitle(title);
-        pd.setMessage(message);
-        pd.setCancelable(false);
-        pd.show();
-
-    }
-
     public void crearAdaptardor(){
         adaptador = new AdaptadorAmigos(amigos, this);
         reciclador.setAdapter(adaptador);
+    }
+
+    @Override
+    public void verAmigo(Amigos amigo, int position) {
+        Intent intent = new Intent(getActivity(), InfoAmigo.class);
+        intent.putExtra("amigo", amigo);
+        startActivity(intent);
+    }
+
+    @Override
+    public void eliminarAmigo(Amigos amigo, final int position) {
+
+        idUsuarioA = String.valueOf(amigo.getIdUsuario());
+        new AlertDialog.Builder(getActivity())
+                .setTitle("")
+                .setMessage(getActivity().getResources().getString(R.string.mensajeDialogo))
+                .setPositiveButton(getActivity().getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        amigos.remove(position);
+                        adaptador.notifyDataSetChanged();
+                        //Ir a la tienda
+                        final HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put(Constantes.KEY_USER, userF);
+                        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+                        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+                        hashMap.put(Constantes.KEY_IDUSUARIOA, idUsuarioA);
+                        RestAPIWebServices res = new RestAPIWebServices(getActivity(), hashMap, Urls.ELIMINAR_AMIGO);
+                        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+                            @Override
+                            public View onSuccess(String response) {
+                                JSONObject json = null;
+
+                                try {
+                                    json = new JSONObject(response);
+
+                                    //If we are getting success from server
+                                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+
+                                    } else {
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                return null;
+                            }
+
+                        });
+                    }
+
+                })
+                .setNegativeButton(getActivity().getResources().getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }
