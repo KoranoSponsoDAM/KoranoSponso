@@ -1,10 +1,12 @@
 package com.ada.koranosponso;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         inicializarComponentes();
+        focoEditText();
     }
 
     private void inicializarComponentes(){
@@ -104,4 +107,44 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
     public void onBackPressed() {
         finish();
     }//Esto es para volver a la actividad anterior, esa login()MIRAR
+
+    public void focoEditText() {
+        etUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etPassword.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etPasswordConfirm.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etPasswordConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etEmail.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }
