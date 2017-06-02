@@ -45,7 +45,6 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
     private static ArrayList<Pelicula> PELICULAS_PELICULAS = new ArrayList<Pelicula>();
     private static ArrayList<Pelicula> PELICULAS_SERIES = new ArrayList<Pelicula>();
     private static ArrayList<Pelicula> PELICULAS_ANIMES = new ArrayList<Pelicula>();
-    private ProgressDialog pd;
     private boolean cargado = false;
 
     public static FragmentoCategoria nuevaInstancia(int indiceSeccion) {
@@ -152,14 +151,6 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
         reciclador.setAdapter(adaptador);
     }
 
-    private void showProgressDialog(String title, String message){
-        pd = new ProgressDialog(this.getActivity());
-        pd.setTitle(title);
-        pd.setMessage(message);
-        pd.setCancelable(false);
-        pd.show();
-
-    }
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
         Intent intent = new Intent(getActivity(), InfoPelicula.class);

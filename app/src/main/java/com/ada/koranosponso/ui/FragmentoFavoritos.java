@@ -60,7 +60,6 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
         PELICULAS_FAVORITAS = new ArrayList<Pelicula>();
-        showProgressDialog("CARGANDO", "");
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
@@ -87,14 +86,14 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
                             PELICULAS_FAVORITAS.add(i,new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                         }
                         crearAdaptador();
-                        pd.dismiss();
+
                     } else {
-                        pd.dismiss();
+
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    pd.dismiss();
+
                 }
 
                 return null;
@@ -110,14 +109,6 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
         reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
     }
 
-    private void showProgressDialog(String title, String message){
-        pd = new ProgressDialog(this.getActivity());
-        pd.setTitle(title);
-        pd.setMessage(message);
-        pd.setCancelable(false);
-        pd.show();
-
-    }
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
         Intent intent = new Intent(getActivity(), InfoPelicula.class);

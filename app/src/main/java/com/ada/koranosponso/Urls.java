@@ -20,4 +20,6 @@ public class Urls {
     public static final String ACEPTAR_SOLICITUD =  Constantes.API+"/aceptarSolicitud.php";
     public static final String DENEGAR_SOLICITUD =  Constantes.API+"/denegarSolicitud.php";
     public static final String MOSTRAR_AMIGOS =  Constantes.API+"/mostrarAmigos.php";
+    public static final String MOSTRAR_FAVORITOS_AMIGO = Constantes.API+"/saberFavoritoAmigo.php";
+    public static final String ELIMINAR_AMIGO = Constantes.API+"/eliminarAmigo.php";
 }

@@ -13,6 +13,7 @@
     <string name="item_amigos">Amigos</string>
     <string name="item_videos">Vídeos</string>
     <string name="item_configuracion">Configuración</string>
+    <string name="texto_Favorito">Vídeos Favoritos</string>
 
     <string name="titulo_videos_populares">Video mas populares</string>
 

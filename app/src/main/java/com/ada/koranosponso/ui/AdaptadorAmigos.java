@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Interfaces.InfoAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
 
@@ -31,16 +33,27 @@ public class AdaptadorAmigos
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView nombre;
-
+        public Button btnEliminar;
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.texto_amigos_actuales);
+            btnEliminar = (Button) v.findViewById(R.id.btnEliminarAmigo);
             v.setOnClickListener(this);
+            btnEliminar.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View view) {
-
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnEliminarAmigo:
+                    ((InfoAmigoInterface) mainFragment).eliminarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
+                    amigos.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                    break;
+                default:
+                    ((InfoAmigoInterface) mainFragment).verAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
+                    break;
+            }
         }
     }
 

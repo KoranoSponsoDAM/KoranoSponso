@@ -22,17 +22,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    private static JSONObject json;
 
+    private static JSONObject json;
     private EditText etUsu;
     private EditText etPass;
-    //private String user, password;
     static String passwordL, userL;
     private Button btnLogin, btnRegisterL;
     private CheckBox chRec;
     private ProgressDialog pd;
-    //private final static String SETTING_USER = "setting_user";
-    //private final static String SETTING_PASS = "setting_pass";
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +45,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         focoEditText();
 
-        /*crearBD = new CrearBD(this);
-        etUsu = (EditText) findViewById(R.id.etUsu);
-        etPass = (EditText) findViewById(R.id.etPass);
-        chRec = (CheckBox) findViewById(R.id.chRecordar);
-        sharedPreferences = getApplicationContext().getSharedPreferences("com.ada.koranosponso", Context.MODE_PRIVATE);
-        String user, pass;
-        user = sharedPreferences.getString(SETTING_USER,"");
-        pass = sharedPreferences.getString(SETTING_PASS,"");
-        if(user!="") {
-                etUsu.setText(user);
-            etPass.setText(pass);
-            chRec.setChecked(true);
-            onEntrar(etUsu);
-        }*/
+
     }
 
     private void inicializarComponentes(){
