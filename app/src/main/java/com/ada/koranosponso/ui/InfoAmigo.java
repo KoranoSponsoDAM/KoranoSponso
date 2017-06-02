@@ -34,7 +34,7 @@ import static com.ada.koranosponso.R.string.username;
 
 public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterface {
 
-    TextView nombreU, titulo, nombreV;
+    TextView nombreU;
     private String userF, tokenF,id_usuarioA, id_usuario, descripcion, idDrawable, url, nombreP;
     private int idPelicula;
     private static List<Pelicula> videosFA;

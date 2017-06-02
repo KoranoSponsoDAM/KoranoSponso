@@ -5,18 +5,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ada.koranosponso.Constantes;
-import com.ada.koranosponso.Login;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
+import com.ada.koranosponso.modelo.Comentario;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;
 
@@ -24,23 +26,32 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import xyz.hanks.library.SmallBang;
 import xyz.hanks.library.SmallBangListener;
 
 
 public class InfoPelicula extends AppCompatActivity {
-    TextView descripcion, titulo;
-    ImageButton imagen;
-    ImageView ImageFavorito;
-    String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario;
+    private EditText EtTexto;
+    private TextView descripcion, titulo;
+    private ImageButton imagen;
+    private ImageView ImageFavorito;
+    private String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario, username, texto, fecha;
+    private int  idUsuarioC;
     private int fav;
     private SmallBang mSmallBang;
+    private AdaptadorComentario adaptador;
+    private RecyclerView reciclador;
+    private LinearLayoutManager layoutManager;
+    private static List<Comentario> comentariosP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.item_comentario);
         setContentView(R.layout.activity_info_pelicula);
         rellenarElementos();
         agregarToolbar();
@@ -57,12 +68,15 @@ public class InfoPelicula extends AppCompatActivity {
 
     }
 
-
     public void inicializarElementos(){
+        reciclador = (RecyclerView) this.findViewById(R.id.reciclador);
+        layoutManager = new LinearLayoutManager(this);
+        reciclador.setLayoutManager(layoutManager);
         descripcion = (TextView)findViewById(R.id.descripcion);
         titulo = (TextView)findViewById(R.id.txtTitulo);
         imagen = (ImageButton) findViewById(R.id.ibImagen);
         ImageFavorito = (ImageView) findViewById(R.id.ImageFavorito);
+        EtTexto = (EditText) findViewById(R.id.etComentario);
     }
 
     private void agregarToolbar() {
@@ -89,12 +103,66 @@ public class InfoPelicula extends AppCompatActivity {
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
+        inicializarFavorito();
+        inicializarComentarios();
+        titulo.setText(pelicula.getNombre());
+        descripcion.setText(pelicula.getDescripcion());
+        rutaImagen = pelicula.getIdDrawable();
+        url = pelicula.getUrl();
+        Glide.with(this)
+                .load("http://koranosponso.000webhostapp.com/imagenes/"+rutaImagen)
+                .centerCrop()
+                .into(imagen);
+    }
+
+    private void inicializarComentarios() {
+        comentariosP = new ArrayList<Comentario>();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userF);
+        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+        hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.MOSTRAR_COMENTARIOS);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+                JSONArray comentarios;
+                try {
+                    json = new JSONObject(response);
+                    comentarios = json.getJSONArray("comentarios");
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        for(int i = 0; i < comentarios.length(); i++) {
+                            username = comentarios.getJSONObject(i).getString("username");
+                            texto = comentarios.getJSONObject(i).getString("texto");
+                            fecha = comentarios.getJSONObject(i).getString("fecha");
+                            idUsuarioC = comentarios.getJSONObject(i).getInt("id_usuario");
+                            comentariosP.add(i,new Comentario(idUsuarioC, username, texto, fecha));
+                        }
+                        crearAdaptardor();
+                    } else {
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+        });
+    }
+
+    private void crearAdaptardor() {
+        adaptador = new AdaptadorComentario(comentariosP, this);
+        reciclador.setAdapter(adaptador);
+    }
+
+    private void inicializarFavorito() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-
         RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.SABER_FAVORITO);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
@@ -122,14 +190,6 @@ public class InfoPelicula extends AppCompatActivity {
             }
 
         });
-        titulo.setText(pelicula.getNombre());
-        descripcion.setText(pelicula.getDescripcion());
-        rutaImagen = pelicula.getIdDrawable();
-        url = pelicula.getUrl();
-        Glide.with(this)
-                .load("http://koranosponso.000webhostapp.com/imagenes/"+rutaImagen)
-                .centerCrop()
-                .into(imagen);
     }
 
     public void reproducir(View view) {
@@ -181,16 +241,40 @@ public class InfoPelicula extends AppCompatActivity {
                     json = new JSONObject(response);
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    //pd.dismiss();
+                }
 
+                return null;
+            }
 
-                        // pd.dismiss();
+        });
+    }
+
+    public void publicarComentario(View view) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userF);
+        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+        hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        hashMap.put(Constantes.KEY_COMENTARIO, String.valueOf(EtTexto.getText()));
+        EtTexto.setText(" ");
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.PUBLICAR_COMENTARIO);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(response);
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        rellenarElementos();
                     } else {
-                        //pd.dismiss();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //pd.dismiss();
                 }
 
                 return null;
