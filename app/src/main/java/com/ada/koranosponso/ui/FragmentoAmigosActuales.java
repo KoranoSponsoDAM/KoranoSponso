@@ -26,9 +26,6 @@ import java.util.HashMap;
 import static android.content.Context.MODE_PRIVATE;
 
 
-/**
- * Fragmento para la pestaña "TARJETAS" de la sección "Mi Cuenta"
- */
 public class FragmentoAmigosActuales extends Fragment {
 
     View view;
@@ -61,7 +58,7 @@ public class FragmentoAmigosActuales extends Fragment {
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
-        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.VER_SOLICITUD);
+        RestAPIWebServices res = new RestAPIWebServices(this.getActivity(), hashMap, Urls.MOSTRAR_AMIGOS);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public View onSuccess(String response) {
