@@ -1,5 +1,6 @@
 package com.ada.koranosponso;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -44,6 +46,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
             finish();
         }
+        focoEditText();
+
         /*crearBD = new CrearBD(this);
         etUsu = (EditText) findViewById(R.id.etUsu);
         etPass = (EditText) findViewById(R.id.etPass);
@@ -169,4 +173,77 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         });
     }
+
+    public void focoEditText(){
+        etUsu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etPass.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+    /*public void onEntrar(View view){
+        String usuario=etUsu.getText().toString();
+        String pass=etPass.getText().toString();
+        boolean entrar=false;
+        if(!usuario.equals("") && !pass.equals("")) {
+            if (registrado(usuario, pass) == true) {
+                entrar = true;
+            }else{
+                verMensaje("Error en las credenciales");
+            }
+            if (entrar) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if(chRec.isChecked()) {
+                    editor.putString(SETTING_USER, usuario);
+                    editor.putString(SETTING_PASS, pass);
+                    editor.commit();
+                }else{
+                    editor.clear();
+                    editor.commit();
+                }
+                //Intent intent = new Intent(this, Main.class);
+                //intent.putExtra("USUARIO", etUsu.getText().toString());
+                //startActivity(intent);
+                finish();
+            }
+        }else{
+            verMensaje("Campos vacíos");
+        }
+    }
+
+    public boolean registrado(String usuario, String pass){
+        SQLiteDatabase bd = crearBD.getReadableDatabase();
+        Cursor contenido = bd.rawQuery("select usuario from usuarios where usuario='"+usuario+"' and pass='"+pass+"'", null);
+        boolean existe=false;
+        if (contenido.moveToNext()){
+            existe=true;
+        }
+        contenido.close();
+        bd.close();
+        return existe;
+    }
+
+    public void verMensaje(String s){
+        Context contexto = getApplicationContext();
+        Toast toast = Toast.makeText (contexto, s, Toast.LENGTH_LONG);
+        toast.show();
+    }*/
 }
