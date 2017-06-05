@@ -60,7 +60,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ActividadPrincipal" />
         </activity>
-        <activity android:name=".ui.InfoAmigo"></activity>
+        <activity android:name=".ui.InfoAmigo" />
+        <activity android:name=".RecuperarPass"></activity>
     </application>
 
 </manifest>

@@ -73,6 +73,15 @@
                 android:hint="Contraseña"
                 android:inputType="textPassword" />
 
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="recordarPass"
+                android:text="@string/olvContraseña"
+                android:textColor="@android:color/holo_blue_dark" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -82,7 +91,7 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="Entrar" />
 
@@ -91,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="Recordar usuario" />
 

@@ -6,6 +6,10 @@
     <string name="splash">Realizador por Alejandro Álvarez, Alejandro Belinchón y Daniel García©</string>
     <string name="action_settings">Configuración</string>
     <string name="action_search">Buscar</string>
+    <string name="olvContraseña">¿Olvidaste tu contraseña?</string>
+    <string name="emailRecu">Introduzca el email donde quiera que se le envie la nueva contraseña</string>
+    <string name="btnRecuperar">Recuperar Contraseña</string>
+    <string name="msgEnviar">Si no has recibido un email con tu nueva contraseña revisa la categoría de Spam</string>
     <string name="username">Nombre de usuario:</string>
     <string name="mensajeDialogo">¿Estás seguro de eliminar el amigo?</string>
     <string name="aceptar">Aceptar</string>
