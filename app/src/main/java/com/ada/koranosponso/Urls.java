@@ -25,5 +25,5 @@ public class Urls {
     public static final String MOSTRAR_COMENTARIOS = Constantes.API+"/mostrarComentarios.php";
     public static final String PUBLICAR_COMENTARIO = Constantes.API+"/publicarComentario.php";
     public static final String ELIMINAR_COMENTARIO = Constantes.API+"/eliminarComentario.php";
-    public static final String ENVIAR_EMAIL = Constantes.API+"/enviarEmailphp";
+    public static final String ENVIAR_EMAIL = Constantes.API+"/enviarEmail.php";
 }
