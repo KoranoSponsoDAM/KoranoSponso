@@ -1,17 +1,14 @@
 package com.ada.koranosponso.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Constantes;
@@ -29,8 +26,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.ada.koranosponso.R.string.username;
 
 public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterface {
 
@@ -50,10 +45,27 @@ public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterfac
         layoutManager = new LinearLayoutManager(this);
         reciclador.setLayoutManager(layoutManager);
         rellenarDatos();
+        agregarToolbar();
     }
 
     public void inicializarElementos(){
         nombreU = (TextView) findViewById(R.id.texto_nombre_añadir);
+    }
+
+    private void agregarToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(nombreU.getText().toString());
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                finish();
+            }
+        });
     }
 
 

@@ -1,10 +1,15 @@
 package com.ada.koranosponso.ui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DialogTitle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Interfaces.EliminarComentarioInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -34,19 +40,20 @@ import xyz.hanks.library.SmallBang;
 import xyz.hanks.library.SmallBangListener;
 
 
-public class InfoPelicula extends AppCompatActivity {
+public class InfoPelicula extends AppCompatActivity implements EliminarComentarioInterface {
     private EditText EtTexto;
     private TextView descripcion, titulo;
     private ImageButton imagen;
     private ImageView ImageFavorito;
     private String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario, username, texto, fecha;
-    private int  idUsuarioC;
+    private int  idUsuarioC, idComentario;
     private int fav;
     private SmallBang mSmallBang;
     private AdaptadorComentario adaptador;
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     private static List<Comentario> comentariosP;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,11 +139,12 @@ public class InfoPelicula extends AppCompatActivity {
                     comentarios = json.getJSONArray("comentarios");
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         for(int i = 0; i < comentarios.length(); i++) {
+                            idComentario = comentarios.getJSONObject(i).getInt("id_comentario");
                             username = comentarios.getJSONObject(i).getString("username");
                             texto = comentarios.getJSONObject(i).getString("texto");
                             fecha = comentarios.getJSONObject(i).getString("fecha");
                             idUsuarioC = comentarios.getJSONObject(i).getInt("id_usuario");
-                            comentariosP.add(i,new Comentario(idUsuarioC, username, texto, fecha));
+                            comentariosP.add(i,new Comentario(idComentario, idUsuarioC, username, texto, fecha));
                         }
                         crearAdaptardor();
                     } else {
@@ -230,6 +238,7 @@ public class InfoPelicula extends AppCompatActivity {
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
         hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        hashMap.put(Constantes.KEY_IDCOMENTARIO, idUsuario);
 
         RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.DAR_FAVORTIO);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
@@ -270,6 +279,62 @@ public class InfoPelicula extends AppCompatActivity {
                     json = new JSONObject(response);
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         rellenarElementos();
+                    } else {
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+        });
+    }
+
+    @Override
+    public void eliminarComentarios(final Comentario comentario, final int position) {
+        if(idUsuario.equals(String.valueOf(comentario.getIdUsuario()))){
+            new AlertDialog.Builder(this)
+                    .setTitle("")
+                    .setMessage(this.getResources().getString(R.string.mensajeDialogo))
+                    .setPositiveButton(this.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            comentariosP.remove(position);
+                            adaptador.notifyDataSetChanged();
+                            eliminarComentario(comentario);
+                        }
+
+                    })
+                    .setNegativeButton(this.getResources().getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+    }
+
+    public void eliminarComentario(Comentario comentario){
+        final HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userF);
+        hashMap.put(Constantes.KEY_TOKEN, tokenF);
+        hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        hashMap.put(Constantes.KEY_IDCOMENTARIO, String.valueOf(comentario.getIdComentario()));
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.ELIMINAR_COMENTARIO);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+
+                try {
+                    json = new JSONObject(response);
+
+                    //If we are getting success from server
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+
                     } else {
                     }
 

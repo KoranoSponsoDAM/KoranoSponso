@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Interfaces.EliminarComentarioInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Comentario;
 
@@ -37,7 +38,7 @@ public class AdaptadorComentario
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         // Campos respectivos de un item
         public TextView nombre, fecha, texto;
         public Button btnPublicar;
@@ -46,12 +47,13 @@ public class AdaptadorComentario
             nombre = (TextView) v.findViewById(R.id.txtUsuario);
             texto = (TextView) v.findViewById(R.id.txtComentario);
             fecha = (TextView) v.findViewById(R.id.txtFecha);
-            v.setOnClickListener(this);
+            v.setOnLongClickListener((View.OnLongClickListener) this);
         }
 
         @Override
-        public void onClick(View v) {
-
+        public boolean onLongClick(View v) {
+            ((EliminarComentarioInterface) mainFragment).eliminarComentarios((comentarios.get(getAdapterPosition())), getAdapterPosition());
+            return false;
         }
     }
 

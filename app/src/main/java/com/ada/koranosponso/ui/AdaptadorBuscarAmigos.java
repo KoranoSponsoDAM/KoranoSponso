@@ -17,6 +17,12 @@ import com.ada.koranosponso.modelo.Amigos;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.hanks.library.SmallBang;
+import xyz.hanks.library.SmallBangListener;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 /**
  * Created by Alejandro on 30/05/2017.
  */
@@ -29,6 +35,7 @@ public class AdaptadorBuscarAmigos
     List<Amigos> amigoslist= new ArrayList<>();
     List<Amigos> amigosAux= new ArrayList<>();
     Context context;
+    private SmallBang mSmallBang;
     private FragmentoAniadirAmigos mainFragment;
 
     public AdaptadorBuscarAmigos(List<Amigos> amigos, FragmentoAniadirAmigos mainFragment) {
@@ -38,20 +45,39 @@ public class AdaptadorBuscarAmigos
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView nombre;
+        public TextView nombre,enviar;
         public Button btnAgregar;
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.texto_nombre_amigo);
             btnAgregar = (Button) v.findViewById(R.id.btnAgregarAmigo);
+            enviar = (TextView) v.findViewById(R.id.tv_enviar_amigo);
+            mSmallBang = SmallBang.attach2Window(mainFragment.getActivity());
             btnAgregar.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
             ((AgregarAmigoInterface) mainFragment).agregarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
-            btnAgregar.setEnabled(false);
+            addNumber(v);
+            btnAgregar.setVisibility(INVISIBLE);
+
+        }
+
+        public void addNumber(View view){
+            mSmallBang.bang(view,new SmallBangListener() {
+                @Override
+                public void onAnimationStart() {
+                }
+
+                @Override
+                public void onAnimationEnd() {
+                    enviar.setVisibility(VISIBLE);
+                }
+            });
         }
     }
+
+
 
     @Override
     public AdaptadorBuscarAmigos.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
