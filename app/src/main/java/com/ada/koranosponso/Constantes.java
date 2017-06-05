@@ -14,6 +14,7 @@ public class Constantes {
     public static final String KEY_IDPELICULA = "id_pelicula";
     public static final String KEY_IDUSUARIO = "id_usuario";
     public static final String KEY_IDUSUARIOA = "id_usuarioA";
+    public static final String KEY_IDCOMENTARIO = "id_comentario";
     public static final String KEY_COMENTARIO = "comentario";
     public static final String KEY_NEW_PASSWORD = "newpassword";
     public static final String KEY_NEW_PASSWORD_CONFIRM = "newpasswordconfirm";

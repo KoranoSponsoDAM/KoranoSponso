@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 public class Comentario implements Serializable {
     String texto, fecha, username;
-    int id_usuario;
+    int id_usuario, id_comentario;
 
-    public Comentario(int id_usuario, String username, String texto, String fecha) {
+    public Comentario(int id_comentario, int id_usuario, String username, String texto, String fecha) {
+        this.id_comentario = id_comentario;
         this.id_usuario = id_usuario;
         this.username = username;
         this.texto = texto;
@@ -29,7 +30,11 @@ public class Comentario implements Serializable {
         return fecha;
     }
 
-    public int getId_usuario() {
+    public int getIdUsuario() {
         return id_usuario;
+    }
+
+    public int getIdComentario() {
+        return id_comentario;
     }
 }
