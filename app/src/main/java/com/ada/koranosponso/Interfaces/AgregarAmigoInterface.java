@@ -1,5 +1,7 @@
 package com.ada.koranosponso.Interfaces;
 
+import android.widget.Button;
+
 import com.ada.koranosponso.modelo.Amigos;
 import com.ada.koranosponso.modelo.Pelicula;
 

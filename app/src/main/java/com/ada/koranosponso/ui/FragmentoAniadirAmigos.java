@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.ada.koranosponso.Constantes;
@@ -95,6 +96,7 @@ public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInte
                             id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
                             amigos.add(i,new Amigos(username, id_usuarioA));
                         }
+
                         crearAdaptardor();
                         pd.dismiss();
                     } else {
@@ -129,6 +131,8 @@ public class FragmentoAniadirAmigos extends Fragment implements AgregarAmigoInte
 
     @Override
     public void agregarAmigo(Amigos amigo, int position) {
+
+        adaptador.notifyDataSetChanged();
         idUsuarioA = String.valueOf(amigo.getIdUsuario());
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);

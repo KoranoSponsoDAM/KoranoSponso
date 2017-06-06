@@ -19,6 +19,8 @@ import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
 import com.ada.koranosponso.modelo.Amigos;
+import com.ada.koranosponso.ui.AdaptadorAmigos;
+import com.ada.koranosponso.ui.InfoAmigo;
 
 import org.json.JSONArray;
 import org.json.JSONException;

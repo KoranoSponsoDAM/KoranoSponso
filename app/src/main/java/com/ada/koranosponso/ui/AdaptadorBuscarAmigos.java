@@ -57,10 +57,9 @@ public class AdaptadorBuscarAmigos
         }
         @Override
         public void onClick(View v) {
-            ((AgregarAmigoInterface) mainFragment).agregarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
             addNumber(v);
             btnAgregar.setVisibility(INVISIBLE);
-
+            ((AgregarAmigoInterface) mainFragment).agregarAmigo((amigos.get(getAdapterPosition())), getAdapterPosition());
         }
 
         public void addNumber(View view){
