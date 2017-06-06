@@ -115,7 +115,7 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
         titulo.setText(pelicula.getNombre());
         descripcion.setText(pelicula.getDescripcion());
         rutaImagen = pelicula.getIdDrawable();
-        url = pelicula.getUrl();
+        url = "http://files.fromsmash.com/791f7a17-4a96-11e7-81a7-0afbd0dc3e17/videoplayback.mp4";//pelicula.getUrl();
         Glide.with(this)
                 .load("http://koranosponso.000webhostapp.com/imagenes/"+rutaImagen)
                 .centerCrop()
