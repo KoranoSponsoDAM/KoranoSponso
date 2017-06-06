@@ -32,6 +32,7 @@ public class AdaptadorAmigos
     public AdaptadorAmigos(List<Amigos> amigos, FragmentoAmigosActuales mainFragment) {
         this.amigos = amigos;
         this.mainFragment = mainFragment;
+        amigosAux = amigos;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

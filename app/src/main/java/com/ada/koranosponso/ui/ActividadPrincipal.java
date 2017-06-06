@@ -1,34 +1,53 @@
 package com.ada.koranosponso.ui;
 
-import android.content.ClipData;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
-import com.ada.koranosponso.modelo.Amigos;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class ActividadPrincipal extends AppCompatActivity {
@@ -38,6 +57,14 @@ public class ActividadPrincipal extends AppCompatActivity {
     NavigationView navigationView;
     Menu menu;
     MenuItem nav_amigos;
+    ImageView mOptionButton;
+    private static String APP_DIRECTORY = "MyPictureApp/";
+    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "PictureApp";
+    private final int MY_PERMISSIONS = 100;
+    private final int PHOTO_CODE = 200;
+    private final int SELECT_PICTURE = 300;
+    private LinearLayout mRlView;
+    private String mPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +204,181 @@ public class ActividadPrincipal extends AppCompatActivity {
                 String nombre = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
                 txt.setText("Nombre de usuario: " + nombre);
                 drawerLayout.openDrawer(GravityCompat.START);
+                mOptionButton = (ImageView) findViewById(R.id.imageView5);
+                mRlView = (LinearLayout) findViewById(R.id.ll_view);
+                if(mayRequestStoragePermission())//saber si los permisos se han aplicado
+                    mOptionButton.setEnabled(true);
+                else
+                    mOptionButton.setEnabled(false);
+
+
+                mOptionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showOptions();
+                    }
+                });
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean mayRequestStoragePermission() {//PARA LAS VERSIONES DE API SUPERIORES A 21(PERMISOS)
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M)//VER SI LA APL ES MENOR QUE 21
+            return true;
+
+        if((checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&//VER SI ESTAN ACEPTADOS LOS PERMISOS
+                (checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED))
+            return true;
+
+        if((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) || (shouldShowRequestPermissionRationale(CAMERA))){//PEDIR PERMISOS
+            Snackbar.make(mRlView, "Los permisos son necesarios para poder usar la aplicación",//APARECE ESTO SI ALGUNO DE LOS PERMISOS NO SON ACEPTADOS
+                    Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {//APARECE ESTE MENSAJE HASTA QUE EL USUARIO LE DE AL OK
+                @TargetApi(Build.VERSION_CODES.M)
+                @Override
+                public void onClick(View v) {
+                    //ESTOS ES PARA CUANDO HAS ENTRADO UNA VEZ Y NO HAS ACEPTADO
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
+                }
+            }).show();
+        }else{
+            //ESTO ES PARA LA PRIMERA VEZ
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
+        }
+
+        return false;
+    }
+
+    private void showOptions() {
+        final CharSequence[] option = {"Tomar foto", "Elegir de galeria", "Cancelar"};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActividadPrincipal.this);
+        builder.setTitle("Eleige una opción");
+        builder.setItems(option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                if(option[position] == "Tomar foto"){
+                    openCamera();
+                }else if(option[position] == "Elegir de galeria"){
+                    //ELEGIR IMAGEN DE GALERIA
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/*");//Seleccionar todas las imagenes de cualquier extension
+                    startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
+                }else {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        builder.show();
+    }
+
+    private void openCamera() {
+        //FILE GUARDA LA RUTA DEL ALMACENAMIENTO INTERNO DEL MÓVIL
+        File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
+        boolean isDirectoryCreated = file.exists();
+
+        if(!isDirectoryCreated)
+            isDirectoryCreated = file.mkdirs();
+
+        if(isDirectoryCreated){
+            Long timestamp = System.currentTimeMillis() / 1000;//PONER NOMBRE A LA FOTO
+            String imageName = timestamp.toString() + ".jpg";//TIMESTAMP SOBRE ESCRIBE LA IMAGEN
+
+            mPath = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY
+                    + File.separator + imageName;//DONDE QUEREMOS QUE SE GUARDE LA IMAGEN
+            //AQUI METODO DE WEBSERVICE
+            File newFile = new File(mPath);//CREAMOS ARCHIVO NUEVO
+
+            //ABRIMOS LA CAMARA
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile));
+            startActivityForResult(intent, PHOTO_CODE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("file_path", mPath);//GUARDAMOS EL PATH DE LA IMAGEN SOLO CON LA CAMARA
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        //SE MANTIENE LA IMAGEN
+        super.onRestoreInstanceState(savedInstanceState);
+        mPath = savedInstanceState.getString("file_path");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case PHOTO_CODE:
+                    MediaScannerConnection.scanFile(this,//PARA VER NUESTRAS FOTOS EN LA GALERIA
+                            new String[]{mPath}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("ExternalStorage", "Scanned " + path + ":");
+                                    Log.i("ExternalStorage", "-> Uri = " + uri);
+                                }
+                            });
+
+                    //PARA CONFIGURAR QUE LA IMAGEN SELECCIONADA QUE APARECEZCA EN EL IMAGEVIEW
+                    Bitmap bitmap = BitmapFactory.decodeFile(mPath);
+                    mOptionButton.setImageBitmap(bitmap);
+                    break;
+                case SELECT_PICTURE:
+                    Uri path = data.getData();
+                    mOptionButton.setImageURI(path);
+                    break;
+
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //AQUI ES DONDE VAMOS CUANDO LE DAMOS A ACEPTAR CUANDO NOS APRAREZCA LO DE ACEPTAR PERMISOS
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == MY_PERMISSIONS){
+            if(grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(ActividadPrincipal.this, "Permisos aceptados", Toast.LENGTH_SHORT).show();
+                mOptionButton.setEnabled(true);
+            }
+        }else{
+            showExplanation();
+        }
+    }
+
+    private void showExplanation() {
+        //ESTO ES UNA EXPLICACION PARA EL USUARIO PARA QUE SEPA PARA QUE UTILIZAMOS LOS PERMISOS
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActividadPrincipal.this);
+        builder.setTitle("Permisos denegados");
+        builder.setMessage("Para usar las funciones de la app necesitas aceptar los permisos");
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);//ABRE APLICACION DE CONFIGURACIONES
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            //SI LOS PERMISOS NO ESTAN CEPTADOS LE CERRAMOS LA APLICACION
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        builder.show();
     }
 }

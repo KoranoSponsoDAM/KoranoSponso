@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primaryColor"
@@ -18,16 +19,16 @@
         android:src="@drawable/logokorano" />
 
     <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="105dp"
         android:layout_height="97dp"
-        app:srcCompat="@drawable/usuario"
-        android:id="@+id/imageView5" />
+        app:srcCompat="@drawable/usuario" />
 
     <TextView
-        android:text="@string/username"
+        android:id="@+id/txtUsuarioC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtUsuarioC" />
+        android:text="@string/username" />
 
     <TableLayout
         android:layout_width="match_parent"
