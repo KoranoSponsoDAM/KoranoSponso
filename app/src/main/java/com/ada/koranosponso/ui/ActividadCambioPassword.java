@@ -1,11 +1,13 @@
 package com.ada.koranosponso.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class ActividadCambioPassword extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_cambio_password);
         inicializarComponentes();
+        focoEditText();
     }
 
     private void inicializarComponentes(){
@@ -107,5 +110,37 @@ public class ActividadCambioPassword extends AppCompatActivity{
 
         });
 
+    }
+
+    public void focoEditText(){
+        etPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etNewPass.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etNewPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && !etConfNewPass.hasFocus()) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        etConfNewPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
