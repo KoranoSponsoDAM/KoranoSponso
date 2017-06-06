@@ -114,7 +114,6 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
 
         adaptador = new AdaptadorFavoritos(PELICULAS_FAVORITAS, this);
         reciclador.setAdapter(adaptador);
-        reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
     }
 
     public void verPelicula(Pelicula peliculas, int position) {

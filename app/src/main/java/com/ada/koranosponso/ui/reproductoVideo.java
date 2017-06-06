@@ -147,49 +147,41 @@ public class reproductoVideo extends AppCompatActivity implements MediaPlayer.On
         pause = true;
     }
 
-    @Override
+
     public int getDuration() {
-        return 0;
+        return mediaPlayer.getDuration();
     }
 
-    @Override
     public int getCurrentPosition() {
-        return 0;
+        return mediaPlayer.getCurrentPosition();
     }
 
-    @Override
-    public void seekTo(int pos) {
-
+    public void seekTo(int i) {
+        mediaPlayer.seekTo(i);
     }
 
-    @Override
     public boolean isPlaying() {
-        return false;
+        return mediaPlayer.isPlaying();
     }
 
-    @Override
     public int getBufferPercentage() {
         return 0;
     }
 
-    @Override
     public boolean canPause() {
-        return false;
+        return true;
     }
 
-    @Override
     public boolean canSeekBackward() {
-        return false;
+        return true;
     }
 
-    @Override
     public boolean canSeekForward() {
-        return false;
+        return true;
     }
 
     @Override
     public int getAudioSessionId() {
         return 0;
     }
-
 }
