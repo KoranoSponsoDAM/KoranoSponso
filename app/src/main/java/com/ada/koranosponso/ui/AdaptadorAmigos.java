@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Interfaces.InfoAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +24,8 @@ public class AdaptadorAmigos
         extends RecyclerView.Adapter<AdaptadorAmigos.ViewHolder>{
 
     List<Amigos> amigos ;
+    List<Amigos> amigoslist= new ArrayList<>();
+    List<Amigos> amigosAux= new ArrayList<>();
     Context context;
     private FragmentoAmigosActuales mainFragment;
 
@@ -73,5 +77,51 @@ public class AdaptadorAmigos
     @Override
     public int getItemCount() {
         return amigos.size();
+    }
+
+    public Filter getFilter() {
+
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                List filtList = new ArrayList<>();
+                amigos = amigosAux;
+
+                if (amigoslist == null) {
+                    amigoslist = new ArrayList(amigos);
+                }
+
+
+                if (constraint == null || constraint.length() == 0) {
+
+                    // set the Original result to return
+                    results.count = amigos.size();
+                    results.values = amigos;
+                } else {
+                    constraint = constraint.toString().toLowerCase();
+                    for(int i=0; i < amigos.size() ; i++) {
+                        Amigos data = (Amigos) amigos.get(i);
+                        String da = data.getNombre();
+                        if (da.toLowerCase().contains(constraint)) {
+                            filtList.add(amigos.get(i));
+                            amigoslist.add(amigos.get(i));
+                        }
+                    }
+
+                    results.count = filtList.size();
+                    results.values = filtList;
+                }
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                amigos = (List) results.values;
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
     }
 }

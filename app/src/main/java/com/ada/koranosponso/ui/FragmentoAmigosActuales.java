@@ -9,9 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.Interfaces.InfoAmigoInterface;
@@ -41,6 +44,7 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
     public static ArrayList<Amigos> amigos;
+    public EditText inputSearch;
 
     public FragmentoAmigosActuales() {
     }
@@ -52,6 +56,23 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
         reciclador = (RecyclerView) view.findViewById(R.id.reciclador);
         layoutManager = new LinearLayoutManager(getActivity());
         reciclador.setLayoutManager(layoutManager);
+
+        inputSearch = (EditText) view.findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                FragmentoAmigosActuales.this.adaptador.getFilter().filter(arg0);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+        });
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
