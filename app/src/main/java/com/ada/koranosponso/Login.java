@@ -185,6 +185,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void recordarPass(View view) {
         Intent intent = new Intent(Login.this, RecuperarPass.class);
         startActivity(intent);
-        finish();
     }
 }
