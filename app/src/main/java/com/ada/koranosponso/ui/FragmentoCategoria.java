@@ -35,7 +35,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentoCategoria extends Fragment implements LoadPeliculaInterface, SearchView.OnQueryTextListener {
 
     private static final String INDICE_SECCION
-            = "com.restaurantericoparico.FragmentoCategoriasTab.extra.INDICE_SECCION";
+            = "com.ada.koranosponso.ui.FragmentoCategoriasTab.extra.INDICE_SECCION";
 
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
