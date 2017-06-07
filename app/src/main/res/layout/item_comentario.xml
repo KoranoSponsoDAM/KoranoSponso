@@ -54,6 +54,6 @@
         android:layout_below="@+id/txtUsuario"
         android:layout_marginTop="7dp"
         android:text="Comentario"
-        android:textColor="@color/color_light" />
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
