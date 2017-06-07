@@ -1,6 +1,7 @@
 package com.ada.koranosponso.ui;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -19,12 +21,14 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +47,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
 import static android.Manifest.permission.CAMERA;
@@ -58,13 +65,16 @@ public class ActividadPrincipal extends AppCompatActivity {
     Menu menu;
     MenuItem nav_amigos;
     ImageView mOptionButton;
-    private static String APP_DIRECTORY = "MyPictureApp/";
-    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "PictureApp";
+    private static String APP_DIRECTORY = "KoranoSponsoApp/";
+    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "KoranoSponsoApp";
     private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
     private LinearLayout mRlView;
     private String mPath;
+    Context context = this;
+    SharedPreferences sharedPreferences;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,9 +212,12 @@ public class ActividadPrincipal extends AppCompatActivity {
                 TextView txt = (TextView) findViewById(R.id.txtUsuarioC);
                 SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
                 String nombre = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
+                String imagen;
                 txt.setText("Nombre de usuario: " + nombre);
                 drawerLayout.openDrawer(GravityCompat.START);
                 mOptionButton = (ImageView) findViewById(R.id.imageView5);
+                Bitmap bitmap = BitmapFactory.decodeFile(mPath);
+                mOptionButton.setImageBitmap(bitmap);
                 mRlView = (LinearLayout) findViewById(R.id.ll_view);
                 if(mayRequestStoragePermission())//saber si los permisos se han aplicado
                     mOptionButton.setEnabled(true);
@@ -261,7 +274,8 @@ public class ActividadPrincipal extends AppCompatActivity {
                     openCamera();
                 }else if(option[position] == "Elegir de galeria"){
                     //ELEGIR IMAGEN DE GALERIA
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");//Seleccionar todas las imagenes de cualquier extension
                     startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
                 }else {
@@ -287,13 +301,15 @@ public class ActividadPrincipal extends AppCompatActivity {
 
             mPath = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY
                     + File.separator + imageName;//DONDE QUEREMOS QUE SE GUARDE LA IMAGEN
-            //AQUI METODO DE WEBSERVICE
-            File newFile = new File(mPath);//CREAMOS ARCHIVO NUEVO
-
             //ABRIMOS LA CAMARA
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile));
-            startActivityForResult(intent, PHOTO_CODE);
+            try {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(mPath)));//EL PROBLEMA ESTA AQUÍ
+                startActivityForResult(intent, PHOTO_CODE);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -328,14 +344,26 @@ public class ActividadPrincipal extends AppCompatActivity {
                             });
 
                     //PARA CONFIGURAR QUE LA IMAGEN SELECCIONADA QUE APARECEZCA EN EL IMAGEVIEW
-                    Bitmap bitmap = BitmapFactory.decodeFile(mPath);
-                    mOptionButton.setImageBitmap(bitmap);
+                   // Bitmap bitmap = BitmapFactory.decodeFile(mPath);
+                    /*SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constantes.KEY_IMAGEN, mPath);*/
+                    //subirImagen(bitmap);
+                    //mOptionButton.setImageBitmap(bitmap);
                     break;
                 case SELECT_PICTURE:
                     Uri path = data.getData();
-                    mOptionButton.setImageURI(path);
-                    break;
+                    try {
+                        //Getting the Bitmap from Gallery
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
+                        //Setting the Bitmap to ImageView
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Bitmap bitmapresize = Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*0.5), (int)(bitmap.getHeight()*0.5), true);
+                    subirImagen(bitmapresize, path);
+
+                    break;
             }
         }
     }
@@ -381,4 +409,44 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         builder.show();
     }
+
+    public void subirImagen(Bitmap bitmapresize, final Uri path){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmapresize.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        String typeImage = "jpg";
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
+        userL = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
+        tokenL = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenL);
+        idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
+        final HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userL);
+        hashMap.put(Constantes.KEY_TOKEN, tokenL);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        hashMap.put("type_img", typeImage);
+        hashMap.put("base64_string", encodedImage);
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.SUBIR_IMAGEN);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+
+                try {
+                    json = new JSONObject(response);
+
+                    //If we are getting success from server
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        mOptionButton.setImageURI(path);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+        });
+    }
+
 }
