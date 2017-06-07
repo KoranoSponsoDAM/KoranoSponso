@@ -58,7 +58,6 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.item_comentario);
         setContentView(R.layout.activity_info_pelicula);
         rellenarElementos();
         agregarToolbar();
