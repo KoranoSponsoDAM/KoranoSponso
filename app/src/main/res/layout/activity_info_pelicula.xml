@@ -70,7 +70,7 @@
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:layout_margin="10dp"
-            android:background="@color/color_light" />
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/txtUsuario"
