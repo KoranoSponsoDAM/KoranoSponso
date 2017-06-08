@@ -510,9 +510,9 @@ public class ActividadPrincipal extends AppCompatActivity {
     }
 
     public void cargarImagen(String imagenS) {
-         if(imagenS != null) {
+         if(imagenS != " ") {
              Glide.with(this)
-                     .load(Constantes.IMAGENES + imagenS)
+                     .load(Constantes.IMAGENES_PERFIL + imagenS)
                      .diskCacheStrategy(DiskCacheStrategy.NONE)
                      .skipMemoryCache(true)
                      .into(mOptionButton);

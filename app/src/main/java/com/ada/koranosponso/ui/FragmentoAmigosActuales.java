@@ -38,7 +38,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterface {
 
     View view;
-    private String username, idUsuario, idUsuarioA, userF, tokenF;
+    private String username, idUsuario, idUsuarioA, userF, tokenF, imagen;
     private int id_usuarioA;
     private AdaptadorAmigos adaptador;
     private RecyclerView reciclador;
@@ -99,7 +99,8 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
                             id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
-                            amigos.add(i,new Amigos(username, id_usuarioA));
+                            imagen = usuarios.getJSONObject(i).getString("imagen");
+                            amigos.add(i,new Amigos(username, id_usuarioA, imagen));
                         }
                         crearAdaptardor();
                     } else {
