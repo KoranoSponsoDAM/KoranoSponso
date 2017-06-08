@@ -1,6 +1,5 @@
 package com.ada.koranosponso.ui;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -153,7 +152,7 @@ public class FragmentoCategoria extends Fragment implements LoadPeliculaInterfac
 
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
-        Intent intent = new Intent(getActivity(), InfoPelicula.class);
+        Intent intent = new Intent(getActivity(), infoEpisodios.class);
         intent.putExtra("username", userC);
         intent.putExtra("token", tokenC);
         intent.putExtra("peliculas", peliculas);

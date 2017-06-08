@@ -142,7 +142,7 @@ public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterfac
 
     @Override
     public void verPelicula(Pelicula peliculas, int position) {
-        Intent intent = new Intent(this, InfoPelicula.class);
+        Intent intent = new Intent(this, infoEpisodios.class);
         intent.putExtra("username", userF);
         intent.putExtra("token", tokenF);
         intent.putExtra("peliculas", peliculas);
