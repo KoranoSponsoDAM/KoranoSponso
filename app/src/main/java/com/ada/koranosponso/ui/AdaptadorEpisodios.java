@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ada.koranosponso.Interfaces.EliminarComentarioInterface;
+import com.ada.koranosponso.Interfaces.LoadPeliculaInterface;
 import com.ada.koranosponso.R;
-import com.ada.koranosponso.modelo.Capitulos;
-import com.ada.koranosponso.modelo.Comentario;
+import com.ada.koranosponso.modelo.Pelicula;
 
 import java.util.List;
 
@@ -22,31 +21,30 @@ import java.util.List;
 public class AdaptadorEpisodios
         extends RecyclerView.Adapter<AdaptadorEpisodios.ViewHolder> {
 
-    List<Capitulos> capitulos;
+    List<Pelicula> capitulos;
     Context context;
     infoEpisodios mainFragment;
 
     public AdaptadorEpisodios() {}
 
-    public AdaptadorEpisodios(List<Capitulos> capitulos, infoEpisodios mainFragment) {
+    public AdaptadorEpisodios(List<Pelicula> capitulos, infoEpisodios mainFragment) {
         this.capitulos = capitulos;
         this.mainFragment = mainFragment;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Campos respectivos de un item
-        public TextView nombre, capi;
-        public Button btnPublicar;
+        public TextView nombre;
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.tvTitulo);
-            capi = (TextView) v.findViewById(R.id.tvNumCapi);
             v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             //Aactivity InfoPelicula(arrayFiltradoConCapi,posicion)
+            ((LoadPeliculaInterface)mainFragment).verPelicula(( capitulos.get(getAdapterPosition())), getAdapterPosition());
         }
     }
 
@@ -60,9 +58,8 @@ public class AdaptadorEpisodios
 
     @Override
     public void onBindViewHolder(AdaptadorEpisodios.ViewHolder holder, int position) {
-        Capitulos item = capitulos.get(position);
+        Pelicula item = capitulos.get(position);
         holder.nombre.setText(item.getNombre());
-        holder.capi.setText(item.getCapi());
     }
 
     @Override

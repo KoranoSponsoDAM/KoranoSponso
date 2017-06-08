@@ -27,4 +27,5 @@ public class Urls {
     public static final String ENVIAR_EMAIL = Constantes.API+"/enviarEmail.php";
     public static final String SUBIR_IMAGEN = Constantes.API+"/subirImagen.php";
     public static final String INICILIALIZAR_IMAGEN = Constantes.API+"/inicializarImagen.php";
+    public static final String VER_CAPITULOS = Constantes.API+"/numCapitulos.php";
 }

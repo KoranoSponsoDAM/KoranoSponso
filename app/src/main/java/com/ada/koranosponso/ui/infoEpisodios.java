@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,8 +18,6 @@ import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
-import com.ada.koranosponso.modelo.Capitulos;
-import com.ada.koranosponso.modelo.Comentario;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;
 
@@ -44,14 +41,16 @@ public class infoEpisodios extends AppCompatActivity {
     private TextView descripcion, titulo;
     private ImageButton imagen;
     private ImageView ImageFavorito;
-    private String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario;
+    private String rutaImagen,userF, tokenF, idPelicula, idUsuario;
     private int fav;
     private SmallBang mSmallBang;
     private AdaptadorEpisodios adaptador;
     private RecyclerView reciclador;
     private LinearLayoutManager layoutManager;
-    private static List<Capitulos> listaEpisodios;
+    private static List<Pelicula> listaEpisodios;
     private Context context;
+    private String nombreEpi, descripcionEpi, userC, tokenC, idDrawableEpi, urlEpi;
+    private int idPeliculaEpi;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +108,6 @@ public class infoEpisodios extends AppCompatActivity {
         titulo.setText(pelicula.getNombre());
         descripcion.setText(pelicula.getDescripcion());
         rutaImagen = pelicula.getIdDrawable();
-        url = "http://files.fromsmash.com/791f7a17-4a96-11e7-81a7-0afbd0dc3e17/videoplayback.mp4";//pelicula.getUrl();
         Glide.with(this)
                 .load(Constantes.IMAGENES+pelicula.getIdDrawable())
                 .centerCrop()
@@ -149,12 +147,6 @@ public class infoEpisodios extends AppCompatActivity {
             }
 
         });
-    }
-
-    public void reproducir(View view) {
-        Intent intent = new Intent(this, reproductoVideo.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
     }
 
     public void like(View view){
@@ -214,28 +206,28 @@ public class infoEpisodios extends AppCompatActivity {
     }
 
     private void inicializarEpisodios() {
-        listaEpisodios = new ArrayList<Capitulos>();
+        listaEpisodios = new ArrayList<Pelicula>();
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
         hashMap.put(Constantes.KEY_TOKEN, tokenF);
         hashMap.put(Constantes.KEY_IDPELICULA, idPelicula);
-        RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.MOSTRAR_COMENTARIOS);
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap,  Urls.VER_CAPITULOS);
         res.responseApi(new RestAPIWebServices.VolleyCallback() {
             @Override
             public View onSuccess(String response) {
                 JSONObject json = null;
-                JSONArray comentarios;
+                JSONArray episodios;
                 try {
                     json = new JSONObject(response);
-                    comentarios = json.getJSONArray("comentarios");
+                    episodios = json.getJSONArray("peliculas");
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
-                        for(int i = 0; i < comentarios.length(); i++) {
-                            /*idComentario = comentarios.getJSONObject(i).getInt("id_comentario");
-                            username = comentarios.getJSONObject(i).getString("username");
-                            texto = comentarios.getJSONObject(i).getString("texto");
-                            fecha = comentarios.getJSONObject(i).getString("fecha");
-                            idUsuarioC = comentarios.getJSONObject(i).getInt("id_usuario");
-                            listaEpisodios.add(i,new Comentario(idComentario, idUsuarioC, username, texto, fecha));*/
+                        for(int i = 0; i < episodios.length(); i++) {
+                            nombreEpi = episodios.getJSONObject(i).getString("nombre");
+                            descripcionEpi = episodios.getJSONObject(i).getString("descripcion");
+                            idDrawableEpi = episodios.getJSONObject(i).getString("imagen");
+                            urlEpi = episodios.getJSONObject(i).getString("url");
+                            idPeliculaEpi = episodios.getJSONObject(i).getInt("id_pelicula");
+                            listaEpisodios.add(new Pelicula(idPeliculaEpi, nombreEpi, descripcionEpi, idDrawableEpi, urlEpi));
                         }
                         crearAdaptardor();
                     } else {
@@ -254,5 +246,13 @@ public class infoEpisodios extends AppCompatActivity {
     private void crearAdaptardor() {
         adaptador = new AdaptadorEpisodios(listaEpisodios, this);
         reciclador.setAdapter(adaptador);
+    }
+
+    public void verPelicula(Pelicula peliculas, int position) {
+        Intent intent = new Intent(this, InfoPelicula.class);
+        intent.putExtra("username", userF);
+        intent.putExtra("token", tokenF);
+        intent.putExtra("peliculas", peliculas);
+        startActivity(intent);
     }
 }
