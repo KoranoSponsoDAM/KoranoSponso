@@ -11,7 +11,6 @@
     android:padding="@dimen/padding_izquierdo_cabecera"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!-- Logo Rico Pa' Rico -->
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="@dimen/ancho_logo"
