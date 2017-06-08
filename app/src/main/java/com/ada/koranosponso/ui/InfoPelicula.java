@@ -45,7 +45,7 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
     private TextView descripcion, titulo;
     private ImageButton imagen;
     private ImageView ImageFavorito;
-    private String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario, username, texto, fecha;
+    private String rutaImagen, url ,userF, tokenF, idPelicula, idUsuario, username, texto, fecha, imagenP;
     private int  idUsuarioC, idComentario;
     private int fav;
     private SmallBang mSmallBang;
@@ -143,7 +143,8 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
                             texto = comentarios.getJSONObject(i).getString("texto");
                             fecha = comentarios.getJSONObject(i).getString("fecha");
                             idUsuarioC = comentarios.getJSONObject(i).getInt("id_usuario");
-                            comentariosP.add(i,new Comentario(idComentario, idUsuarioC, username, texto, fecha));
+                            imagenP = comentarios.getJSONObject(i).getString("imagen");
+                            comentariosP.add(i,new Comentario(idComentario, idUsuarioC, username, texto, fecha, imagenP));
                         }
                         crearAdaptardor();
                     } else {

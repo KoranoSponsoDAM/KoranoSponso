@@ -23,14 +23,17 @@
             android:padding="@dimen/espacio_norma_1"
             android:rowCount="2">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageAmigoC"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="@dimen/espacio_norma_2"
-                android:src="@drawable/usuario" />
+                android:src="@drawable/usuario"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"/>
 
             <TextView
                 android:id="@+id/texto_amigos_actuales"

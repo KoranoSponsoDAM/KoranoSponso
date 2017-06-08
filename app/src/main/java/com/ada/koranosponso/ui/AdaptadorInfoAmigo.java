@@ -18,6 +18,7 @@ import com.ada.koranosponso.Interfaces.LoadPeliculaInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Pelicula;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 
 import java.util.List;
@@ -40,12 +41,14 @@ public class AdaptadorInfoAmigo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Campos respectivos de un item
-        public ImageView imagen;
-        public TextView nombre;
+        public ImageView imagen, imagenAmigo;
+        public TextView nombre, email;
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.titulo_pelicula );
+            email = (TextView) v.findViewById(R.id.txtEmail );
             imagen = (ImageView) v.findViewById(R.id.miniatura_pelicula);
+            imagenAmigo = (ImageView) v.findViewById(R.id.imagenAC);
             v.setOnClickListener(this);
         }
 
@@ -77,6 +80,7 @@ public class AdaptadorInfoAmigo
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());
+
     }
 
 

@@ -7,11 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.Interfaces.InfoAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +43,13 @@ public class AdaptadorAmigos
 
         public TextView nombre;
         public Button btnEliminar;
+        public ImageView imagenAmigo;
+
         public ViewHolder(View v) {
             super(v);
             nombre = (TextView) v.findViewById(R.id.texto_amigos_actuales);
             btnEliminar = (Button) v.findViewById(R.id.btnEliminarAmigo);
+            imagenAmigo = (ImageView) v.findViewById(R.id.imageAmigoC);
             v.setOnClickListener(this);
             btnEliminar.setOnClickListener(this);
         }
@@ -66,13 +73,26 @@ public class AdaptadorAmigos
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_lista_actuales_amigos, parent, false);
         context = parent.getContext();
-        return new AdaptadorAmigos.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(AdaptadorAmigos.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Amigos item = amigos.get(position);
         holder.nombre.setText(item.getNombre());
+        if(!item.getImagen().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Constantes.IMAGENES_PERFIL + item.getImagen())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(holder.imagenAmigo);
+        }else{
+            Glide.with(holder.itemView.getContext())
+                    .load(Constantes.IMAGENES_PERFIL + "defectou.png")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(holder.imagenAmigo);
+        }
     }
 
     @Override

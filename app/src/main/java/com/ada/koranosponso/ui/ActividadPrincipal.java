@@ -1,6 +1,7 @@
 package com.ada.koranosponso.ui;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +29,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +46,8 @@ import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +80,8 @@ public class ActividadPrincipal extends AppCompatActivity {
     Context context = this;
     SharedPreferences sharedPreferences;
     Bitmap bitmap;
+    private int aux = 0;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +184,16 @@ public class ActividadPrincipal extends AppCompatActivity {
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         usuarios = json.getJSONArray("usuarios");
                         if(usuarios.length() != 0){
-                            nav_amigos.setTitle("*Amigos");
+                            String before = nav_amigos.getTitle().toString();
+                            String counter = Integer.toString(usuarios.length());
+                            String s = before + "   "+counter+" ";
+                            SpannableString sColored = new SpannableString( s );
+
+                            sColored.setSpan(new BackgroundColorSpan( Color.RED ), s.length()-(counter.length()+2), s.length(), 0);
+                            sColored.setSpan(new ForegroundColorSpan( Color.WHITE ), s.length()-(counter.length()+2), s.length(), 0);
+
+
+                            nav_amigos.setTitle(sColored);
                             if (navigationView != null) {
                                 prepararDrawer(navigationView);
                                 // Seleccionar item por defecto
@@ -210,18 +228,20 @@ public class ActividadPrincipal extends AppCompatActivity {
                 TextView txt = (TextView) findViewById(R.id.txtUsuarioC);
                 SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
                 String nombre = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
-                String imagen;
                 txt.setText("Nombre de usuario: " + nombre);
                 drawerLayout.openDrawer(GravityCompat.START);
                 mOptionButton = (ImageView) findViewById(R.id.imageView5);
-                Bitmap bitmap = BitmapFactory.decodeFile(mPath);
-                mOptionButton.setImageBitmap(bitmap);
+                if(aux == 0){
+                    inicializarImagen();
+                    aux = 1;
+                }
+
                 mRlView = (LinearLayout) findViewById(R.id.ll_view);
+
                 if(mayRequestStoragePermission())//saber si los permisos se han aplicado
                     mOptionButton.setEnabled(true);
                 else
                     mOptionButton.setEnabled(false);
-
 
                 mOptionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -414,10 +434,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         String typeImage = "jpg";
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = this.getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userL = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userL);
         tokenL = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenL);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
+        showProgressDialog("CARGANDO", "Modificando foto de perfil...");
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userL);
         hashMap.put(Constantes.KEY_TOKEN, tokenL);
@@ -436,7 +457,40 @@ public class ActividadPrincipal extends AppCompatActivity {
                     //If we are getting success from server
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         mOptionButton.setImageURI(path);
+                        pd.dismiss();
                     }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    pd.dismiss();
+                }
+                return null;
+            }
+
+        });
+
+    }
+
+    public void inicializarImagen(){
+        final HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(Constantes.KEY_USER, userL);
+        hashMap.put(Constantes.KEY_TOKEN, tokenL);
+        hashMap.put(Constantes.KEY_IDUSUARIO, idUsuario);
+        RestAPIWebServices res = new RestAPIWebServices(this, hashMap, Urls.INICILIALIZAR_IMAGEN);
+        res.responseApi(new RestAPIWebServices.VolleyCallback() {
+            @Override
+            public View onSuccess(String response) {
+                JSONObject json = null;
+
+                try {
+                    json = new JSONObject(response);
+
+                    //If we are getting success from server
+                    if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
+                        String imagenS = json.getString("imagen");
+                        cargarImagen(imagenS);
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -445,6 +499,31 @@ public class ActividadPrincipal extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void showProgressDialog(String title, String message){
+        pd = new ProgressDialog(this);
+        pd.setTitle(title);
+        pd.setMessage(message);
+        pd.setCancelable(false);
+        pd.show();
+    }
+
+    public void cargarImagen(String imagenS) {
+         if(!imagenS.isEmpty()) {
+             Glide.with(this)
+                     .load(Constantes.IMAGENES_PERFIL + imagenS)
+                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                     .skipMemoryCache(true)
+                     .into(mOptionButton);
+         }else{
+             Glide.with(this)
+                     .load(Constantes.IMAGENES_PERFIL + "defectou.png")
+                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                     .skipMemoryCache(true)
+                     .into(mOptionButton);
+         }
+
     }
 
 }

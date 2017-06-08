@@ -38,7 +38,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterface {
 
     View view;
-    private String username, idUsuario, idUsuarioA, userF, tokenF;
+    private String username, idUsuario, idUsuarioA, userF, tokenF, imagen, direccion;
     private int id_usuarioA;
     private AdaptadorAmigos adaptador;
     private RecyclerView reciclador;
@@ -78,6 +78,11 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
         tokenF = sharedPreferences.getString(Constantes.TOKEN_SHARED_PREF, tokenF);
         idUsuario = String.valueOf(sharedPreferences.getString(Constantes.IDUSUARIO_SHARED_PREF, idUsuario));
+        mostrarUsuarios();
+        return view;
+    }
+
+    private void mostrarUsuarios() {
         amigos = new ArrayList<Amigos>();
         final HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(Constantes.KEY_USER, userF);
@@ -99,7 +104,9 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
                             id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
-                            amigos.add(i,new Amigos(username, id_usuarioA));
+                            imagen = usuarios.getJSONObject(i).getString("imagen");
+                            direccion = usuarios.getJSONObject(i).getString("email");
+                            amigos.add(i,new Amigos(username, id_usuarioA, imagen, direccion));
                         }
                         crearAdaptardor();
                     } else {
@@ -113,7 +120,6 @@ public class FragmentoAmigosActuales extends Fragment implements InfoAmigoInterf
             }
 
         });
-        return view;
     }
 
     public void crearAdaptardor(){

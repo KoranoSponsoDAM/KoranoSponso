@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ada.koranosponso.Constantes;
 import com.ada.koranosponso.Interfaces.AgregarAmigoInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.modelo.Amigos;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +91,7 @@ public class AdaptadorBuscarAmigos
     }
 
     @Override
-    public void onBindViewHolder(AdaptadorBuscarAmigos.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Amigos item = amigos.get(i);
         viewHolder.nombre.setText(item.getNombre());
     }

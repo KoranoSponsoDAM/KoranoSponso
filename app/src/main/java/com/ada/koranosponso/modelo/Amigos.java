@@ -7,14 +7,15 @@ import java.io.Serializable;
  */
 
 public class Amigos implements Serializable {
-    private String nombre, direccion, favorito;
+    private String nombre, imagen, direccion;
     private int id_usuario;
 
-    public Amigos(String nombre, int id_usuario) {//}, String direccion), String favorito) {
+
+    public Amigos(String nombre, int id_usuario, String imagen, String direccion) {
         this.nombre = nombre;
         this.id_usuario = id_usuario;
-        //this.direccion = direccion;
-        //this.favorito = favorito;
+        this.imagen = imagen;
+        this.direccion = direccion;
     }
 
     public String getNombre() {
@@ -25,11 +26,11 @@ public class Amigos implements Serializable {
         return id_usuario;
     }
 
-    /*public String getDireccion() {
-        return direccion;
+    public String getImagen() {
+        return imagen;
     }
 
-    public String getFavorito() {
-        return favorito;
-    }*/
+    public String getDireccion() {
+        return direccion;
+    }
 }

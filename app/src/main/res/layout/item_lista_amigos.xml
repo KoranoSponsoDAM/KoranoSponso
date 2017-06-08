@@ -32,9 +32,9 @@
             android:rowCount="2">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imageAmigo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="32dp"
                 android:layout_marginRight="@dimen/espacio_norma_2"
