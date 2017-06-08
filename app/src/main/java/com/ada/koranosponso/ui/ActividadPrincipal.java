@@ -510,9 +510,15 @@ public class ActividadPrincipal extends AppCompatActivity {
     }
 
     public void cargarImagen(String imagenS) {
-         if(imagenS != " ") {
+         if(!imagenS.isEmpty()) {
              Glide.with(this)
                      .load(Constantes.IMAGENES_PERFIL + imagenS)
+                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                     .skipMemoryCache(true)
+                     .into(mOptionButton);
+         }else{
+             Glide.with(this)
+                     .load(Constantes.IMAGENES_PERFIL + "defectou.png")
                      .diskCacheStrategy(DiskCacheStrategy.NONE)
                      .skipMemoryCache(true)
                      .into(mOptionButton);

@@ -49,7 +49,7 @@ public class AdaptadorAmigos
             super(v);
             nombre = (TextView) v.findViewById(R.id.texto_amigos_actuales);
             btnEliminar = (Button) v.findViewById(R.id.btnEliminarAmigo);
-            imagenAmigo = (ImageView) v.findViewById(R.id.imageAmigo);
+            imagenAmigo = (ImageView) v.findViewById(R.id.imageAmigoC);
             v.setOnClickListener(this);
             btnEliminar.setOnClickListener(this);
         }
@@ -80,6 +80,19 @@ public class AdaptadorAmigos
     public void onBindViewHolder(ViewHolder holder, int position) {
         Amigos item = amigos.get(position);
         holder.nombre.setText(item.getNombre());
+        if(!item.getImagen().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Constantes.IMAGENES_PERFIL + item.getImagen())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(holder.imagenAmigo);
+        }else{
+            Glide.with(holder.itemView.getContext())
+                    .load(Constantes.IMAGENES_PERFIL + "defectou.png")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(holder.imagenAmigo);
+        }
     }
 
     @Override

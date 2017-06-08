@@ -88,12 +88,6 @@ public class AdaptadorComentario
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(viewHolder.imagenP);
-        }else{
-            Glide.with(viewHolder.itemView.getContext())
-                    .load(Constantes.IMAGENES_PERFIL + "defectou.png")
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(viewHolder.imagenP);
         }
     }
 

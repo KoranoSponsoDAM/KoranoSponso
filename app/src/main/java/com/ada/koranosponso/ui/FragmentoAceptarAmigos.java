@@ -31,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentoAceptarAmigos extends Fragment implements ResponderSolicitudInterface {
     View view;
-    private String username, idUsuario, idUsuarioA, userF, tokenF, imagen;
+    private String username, direccion = " ", idUsuario, idUsuarioA, userF, tokenF, imagen = "";
     private int id_usuarioA;
     private AdaptadorAceptarAmigos adaptador;
     private RecyclerView reciclador;
@@ -78,8 +78,7 @@ public class FragmentoAceptarAmigos extends Fragment implements ResponderSolicit
                         for(int i = 0; i < usuarios.length(); i++) {
                             username = usuarios.getJSONObject(i).getString("username");
                             id_usuarioA = usuarios.getJSONObject(i).getInt("id_usuario");
-                            imagen = usuarios.getJSONObject(i).getString("imagen");
-                            amigos.add(i,new Amigos(username, id_usuarioA, imagen));
+                            amigos.add(i,new Amigos(username, id_usuarioA, imagen, direccion));
                         }
                         crearAdaptardor();
                         pd.dismiss();

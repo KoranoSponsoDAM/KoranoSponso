@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Constantes;
@@ -18,6 +19,8 @@ import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
 import com.ada.koranosponso.modelo.Amigos;
 import com.ada.koranosponso.modelo.Pelicula;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +32,8 @@ import java.util.List;
 
 public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterface {
 
-    TextView nombreU;
+    private TextView nombreU, email;
+    private ImageView imagenU;
     private String userF, tokenF,id_usuarioA, id_usuario, descripcion, idDrawable, url, nombreP;
     private int idPelicula;
     private static List<Pelicula> videosFA;
@@ -50,6 +54,8 @@ public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterfac
 
     public void inicializarElementos(){
         nombreU = (TextView) findViewById(R.id.texto_nombre_añadir);
+        email = (TextView) findViewById(R.id.txtEmail);
+        imagenU = (ImageView) findViewById (R.id.imagenAC);
     }
 
     private void agregarToolbar() {
@@ -72,7 +78,16 @@ public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterfac
     public void rellenarDatos(){
         inicializarElementos();
         Amigos amigo = (Amigos) getIntent().getExtras().getSerializable("amigo");
+        String i = amigo.getNombre();
         nombreU.setText(amigo.getNombre());
+        email.setText(amigo.getDireccion());
+        if(!amigo.getImagen().isEmpty()) {
+            Glide.with(this)
+                    .load(Constantes.IMAGENES_PERFIL + amigo.getImagen())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(imagenU);
+        }
         id_usuarioA = String.valueOf(amigo.getIdUsuario());
         //CONSULTAR WEBSERVICE
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
