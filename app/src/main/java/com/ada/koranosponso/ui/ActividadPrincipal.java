@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +28,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -175,7 +179,16 @@ public class ActividadPrincipal extends AppCompatActivity {
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         usuarios = json.getJSONArray("usuarios");
                         if(usuarios.length() != 0){
-                            nav_amigos.setTitle("*Amigos");
+                            String before = nav_amigos.getTitle().toString();
+                            String counter = Integer.toString(usuarios.length());
+                            String s = before + "   "+counter+" ";
+                            SpannableString sColored = new SpannableString( s );
+
+                            sColored.setSpan(new BackgroundColorSpan( Color.RED ), s.length()-(counter.length()+2), s.length(), 0);
+                            sColored.setSpan(new ForegroundColorSpan( Color.WHITE ), s.length()-(counter.length()+2), s.length(), 0);
+
+
+                            nav_amigos.setTitle(sColored);
                             if (navigationView != null) {
                                 prepararDrawer(navigationView);
                                 // Seleccionar item por defecto
