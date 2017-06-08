@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ada.koranosponso.Constantes;
+import com.ada.koranosponso.Interfaces.LoadPeliculaInterface;
 import com.ada.koranosponso.R;
 import com.ada.koranosponso.RestAPIWebServices;
 import com.ada.koranosponso.Urls;
@@ -36,7 +37,7 @@ import xyz.hanks.library.SmallBangListener;
  * Created by abelinchon on 07/06/2017.
  */
 
-public class infoEpisodios extends AppCompatActivity {
+public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInterface {
 
     private TextView descripcion, titulo;
     private ImageButton imagen;

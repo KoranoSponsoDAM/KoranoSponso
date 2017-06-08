@@ -23,7 +23,7 @@ public class AdaptadorEpisodios
 
     List<Pelicula> capitulos;
     Context context;
-    infoEpisodios mainFragment;
+    private infoEpisodios mainFragment;
 
     public AdaptadorEpisodios() {}
 
