@@ -7,6 +7,7 @@ package com.ada.koranosponso;
 public class Constantes {
     public static final String API = "http://164.132.116.6/desarrollandolo.occamagenciadigital.com/alex/korano/webservices/metodos";//"http://koranosponso.000webhostapp.com/webservicesftp/metodos";
     public static final String IMAGENES = "http://164.132.116.6/desarrollandolo.occamagenciadigital.com/alex/korano/imagenes/";
+    public static final String IMAGENES_PERFIL = "http://164.132.116.6/desarrollandolo.occamagenciadigital.com/alex/korano/imagenes/usuarios/";
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_USER = "username";
     public static final String KEY_PASSWORD = "password";
@@ -15,7 +16,6 @@ public class Constantes {
     public static final String KEY_IDUSUARIO = "id_usuario";
     public static final String KEY_IDUSUARIOA = "id_usuarioA";
     public static final String KEY_IDCOMENTARIO = "id_comentario";
-    public static final String KEY_IMAGEN = "imagen";
     public static final String KEY_COMENTARIO = "comentario";
     public static final String KEY_NEW_PASSWORD = "newpassword";
     public static final String KEY_NEW_PASSWORD_CONFIRM = "newpasswordconfirm";

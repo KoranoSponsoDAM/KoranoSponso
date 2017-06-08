@@ -30,7 +30,6 @@
             android:id="@+id/ibImagenEpi"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:onClick="reproducir"
             app:srcCompat="@color/primaryDarkColor" />
 
         <ImageView
