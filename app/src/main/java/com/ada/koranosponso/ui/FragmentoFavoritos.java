@@ -118,7 +118,12 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
 
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
-        Intent intent = new Intent(getActivity(), infoEpisodios.class);
+        Intent intent;
+        if(p.getUrl().equals("")) {
+            intent = new Intent(getActivity(), infoEpisodios.class);
+        }else{
+            intent = new Intent(getActivity(), infoSoloPeliculas.class);
+        }
         intent.putExtra("username", userF);
         intent.putExtra("token", tokenF);
         intent.putExtra("peliculas", peliculas);
