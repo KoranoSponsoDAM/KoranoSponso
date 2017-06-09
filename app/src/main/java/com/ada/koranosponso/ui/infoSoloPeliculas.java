@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -202,9 +204,37 @@ public class infoSoloPeliculas extends AppCompatActivity implements EliminarCome
     }
 
     public void reproducir(View view) {
-        Intent intent = new Intent(this, reproductoVideo.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(infoSoloPeliculas.this);
+        builderSingle.setTitle("Selecciona reproductor:");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(infoSoloPeliculas.this, android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("Nativo");
+        arrayAdapter.add("Otro");
+
+        builderSingle.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String opcion = arrayAdapter.getItem(which);
+                AlertDialog.Builder builderInner = new AlertDialog.Builder(infoSoloPeliculas.this);
+                if(opcion == "Nativo"){
+                    Intent intent = new Intent(infoSoloPeliculas.this, reproductoVideo.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }else if (opcion == "Otro"){
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.setDataAndType(Uri.parse(url), "video/mp4");
+                    startActivity(intent);
+                }
+            }
+        });
+        builderSingle.show();
     }
 
     public void like(View view){
