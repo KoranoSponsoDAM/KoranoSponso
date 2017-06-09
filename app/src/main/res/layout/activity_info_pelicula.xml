@@ -26,12 +26,27 @@
             android:text="TextView"
             android:textSize="30sp" />
 
-        <ImageButton
-            android:id="@+id/ibImagen"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:onClick="reproducir"
-            app:srcCompat="@color/primaryDarkColor" />
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ibImagen"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentBottom="true"
+                android:onClick="reproducir"
+                app:srcCompat="@color/primaryDarkColor" />
+
+            <ImageView
+                android:id="@+id/playicon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:onClick="reproducir"
+                app:srcCompat="@drawable/play" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txtUsuario"
@@ -64,6 +79,7 @@
             android:id="@+id/reciclador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:scrollbars="vertical" />
 
     </LinearLayout>
