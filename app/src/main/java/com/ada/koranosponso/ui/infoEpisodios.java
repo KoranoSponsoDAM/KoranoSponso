@@ -52,6 +52,7 @@ public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInte
     private Context context;
     private String nombreEpi, descripcionEpi, userC, tokenC, idDrawableEpi, urlEpi;
     private int idPeliculaEpi;
+    private Pelicula pelicula;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +99,7 @@ public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInte
 
     public void rellenarElementos(){
         inicializarElementos();
-        Pelicula pelicula = (Pelicula) getIntent().getExtras().getSerializable("peliculas");
+        pelicula = (Pelicula) getIntent().getExtras().getSerializable("peliculas");
         idPelicula = String.valueOf(pelicula.getIdPelicula());
         SharedPreferences sharedPreferences = getSharedPreferences(Constantes.SHARED_PREF_NAME, MODE_PRIVATE);
         userF = sharedPreferences.getString(Constantes.USER_SHARED_PREF, userF);
@@ -242,9 +243,13 @@ public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInte
             }
 
         });
+        crearAdaptardor();
     }
 
     private void crearAdaptardor() {
+        if(listaEpisodios.size() == 0){
+            listaEpisodios.add(new Pelicula(pelicula.getIdPelicula(), pelicula.getNombre(), pelicula.getDescripcion(), pelicula.getIdDrawable(), pelicula.getUrl()));
+        }
         adaptador = new AdaptadorEpisodios(listaEpisodios, this);
         reciclador.setAdapter(adaptador);
     }

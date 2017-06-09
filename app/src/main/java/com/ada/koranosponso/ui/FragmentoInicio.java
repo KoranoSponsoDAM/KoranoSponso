@@ -115,7 +115,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
     }
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
-        Intent intent = new Intent(getActivity(), InfoPelicula.class);
+        Intent intent = new Intent(getActivity(), infoEpisodios.class);
         intent.putExtra("username", userP);
         intent.putExtra("token", tokenP);
         intent.putExtra("peliculas", peliculas);
