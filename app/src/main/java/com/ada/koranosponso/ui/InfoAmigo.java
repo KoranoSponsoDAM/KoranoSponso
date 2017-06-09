@@ -119,7 +119,7 @@ public class InfoAmigo extends AppCompatActivity implements LoadPeliculaInterfac
                             idDrawable = videos.getJSONObject(i).getString("imagen");
                             url = videos.getJSONObject(i).getString("url");
                             idPelicula = videos.getJSONObject(i).getInt("id_pelicula");
-                            videosFA.add(i,new Pelicula(idPelicula, nombreP, descripcion, idDrawable, url));
+                            videosFA.add(new Pelicula(idPelicula, nombreP, descripcion, idDrawable, url));
                         }
                         crearAdaptardor();
                     } else {
