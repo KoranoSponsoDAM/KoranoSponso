@@ -80,7 +80,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
                             url = peliculas.getJSONObject(i).getString("url");
                             idPelicula = peliculas.getJSONObject(i).getInt("id_pelicula");
                             if(!descripcion.equals("")) {
-                                PELICULAS_POPULARES.add(i, new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
+                                PELICULAS_POPULARES.add(new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                             }
                         }
                         crearAdaptador();

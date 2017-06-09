@@ -89,7 +89,7 @@ public class FragmentoFavoritos extends Fragment implements LoadPeliculaInterfac
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");
                             url = peliculas.getJSONObject(i).getString("url");
                             idPelicula = peliculas.getJSONObject(i).getInt("id_pelicula");
-                            PELICULAS_FAVORITAS.add(i,new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
+                            PELICULAS_FAVORITAS.add(new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
                         }
                         crearAdaptador();
 
