@@ -221,7 +221,7 @@ public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInte
                 JSONArray episodios;
                 try {
                     json = new JSONObject(response);
-                    episodios = json.getJSONArray("peliculas");
+                    episodios = json.getJSONArray("capitulos");
                     if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         for(int i = 0; i < episodios.length(); i++) {
                             nombreEpi = episodios.getJSONObject(i).getString("nombre");

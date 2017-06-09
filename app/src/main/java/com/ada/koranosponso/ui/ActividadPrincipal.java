@@ -71,7 +71,7 @@ public class ActividadPrincipal extends AppCompatActivity {
     MenuItem nav_amigos;
     ImageView mOptionButton;
     private static String APP_DIRECTORY = "KoranoSponsoApp/";
-    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "KoranoSponsoApp";
+    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "KoranoSponso";
     private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
@@ -259,38 +259,35 @@ public class ActividadPrincipal extends AppCompatActivity {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M)//VER SI LA APL ES MENOR QUE 21
             return true;
 
-        if((checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&//VER SI ESTAN ACEPTADOS LOS PERMISOS
-                (checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED))
+        if((checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED))//VER SI ESTAN ACEPTADOS LOS PERMISOS
             return true;
 
-        if((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) || (shouldShowRequestPermissionRationale(CAMERA))){//PEDIR PERMISOS
+        if((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){//PEDIR PERMISOS
             Snackbar.make(mRlView, "Los permisos son necesarios para poder usar la aplicación",//APARECE ESTO SI ALGUNO DE LOS PERMISOS NO SON ACEPTADOS
                     Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {//APARECE ESTE MENSAJE HASTA QUE EL USUARIO LE DE AL OK
                 @TargetApi(Build.VERSION_CODES.M)
                 @Override
                 public void onClick(View v) {
                     //ESTOS ES PARA CUANDO HAS ENTRADO UNA VEZ Y NO HAS ACEPTADO
-                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS);
                 }
             }).show();
         }else{
             //ESTO ES PARA LA PRIMERA VEZ
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS);
         }
 
         return false;
     }
 
     private void showOptions() {
-        final CharSequence[] option = {"Tomar foto", "Elegir de galeria", "Cancelar"};
+        final CharSequence[] option = {"Elegir de galeria", "Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActividadPrincipal.this);
         builder.setTitle("Eleige una opción");
         builder.setItems(option, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position) {
-                if(option[position] == "Tomar foto"){
-                    openCamera();
-                }else if(option[position] == "Elegir de galeria"){
+                if(option[position] == "Elegir de galeria"){
                     //ELEGIR IMAGEN DE GALERIA
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -305,31 +302,6 @@ public class ActividadPrincipal extends AppCompatActivity {
         builder.show();
     }
 
-    private void openCamera() {
-        //FILE GUARDA LA RUTA DEL ALMACENAMIENTO INTERNO DEL MÓVIL
-        File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
-        boolean isDirectoryCreated = file.exists();
-
-        if(!isDirectoryCreated)
-            isDirectoryCreated = file.mkdirs();
-
-        if(isDirectoryCreated){
-            Long timestamp = System.currentTimeMillis() / 1000;//PONER NOMBRE A LA FOTO
-            String imageName = timestamp.toString() + ".jpg";//TIMESTAMP SOBRE ESCRIBE LA IMAGEN
-
-            mPath = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY
-                    + File.separator + imageName;//DONDE QUEREMOS QUE SE GUARDE LA IMAGEN
-            //ABRIMOS LA CAMARA
-            try {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(mPath)));//EL PROBLEMA ESTA AQUÍ
-                startActivityForResult(intent, PHOTO_CODE);
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -350,24 +322,6 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         if(resultCode == RESULT_OK){
             switch (requestCode){
-                case PHOTO_CODE:
-                    MediaScannerConnection.scanFile(this,//PARA VER NUESTRAS FOTOS EN LA GALERIA
-                            new String[]{mPath}, null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(String path, Uri uri) {
-                                    Log.i("ExternalStorage", "Scanned " + path + ":");
-                                    Log.i("ExternalStorage", "-> Uri = " + uri);
-                                }
-                            });
-
-                    //PARA CONFIGURAR QUE LA IMAGEN SELECCIONADA QUE APARECEZCA EN EL IMAGEVIEW
-                   // Bitmap bitmap = BitmapFactory.decodeFile(mPath);
-                    /*SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constantes.KEY_IMAGEN, mPath);*/
-                    //subirImagen(bitmap);
-                    //mOptionButton.setImageBitmap(bitmap);
-                    break;
                 case SELECT_PICTURE:
                     Uri path = data.getData();
                     try {
@@ -393,7 +347,7 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         if(requestCode == MY_PERMISSIONS){
             if(grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(ActividadPrincipal.this, "Permisos aceptados", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActividadPrincipal.this, "Permiso aceptados", Toast.LENGTH_SHORT).show();
                 mOptionButton.setEnabled(true);
             }
         }else{
