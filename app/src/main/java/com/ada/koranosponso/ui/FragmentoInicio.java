@@ -79,7 +79,9 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");
                             url = peliculas.getJSONObject(i).getString("url");
                             idPelicula = peliculas.getJSONObject(i).getInt("id_pelicula");
-                            PELICULAS_POPULARES.add(i,new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
+                            if(!descripcion.equals("")) {
+                                PELICULAS_POPULARES.add(i, new Pelicula(idPelicula, nombre, descripcion, idDrawable, url));
+                            }
                         }
                         crearAdaptador();
                         pd.dismiss();
@@ -115,7 +117,12 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
     }
     public void verPelicula(Pelicula peliculas, int position) {
         Pelicula p = peliculas;
-        Intent intent = new Intent(getActivity(), infoEpisodios.class);
+        Intent intent;
+        if(p.getUrl().equals("")) {
+            intent = new Intent(getActivity(), infoEpisodios.class);
+        }else{
+            intent = new Intent(getActivity(), infoSoloPeliculas.class);
+        }
         intent.putExtra("username", userP);
         intent.putExtra("token", tokenP);
         intent.putExtra("peliculas", peliculas);

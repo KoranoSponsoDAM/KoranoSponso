@@ -69,6 +69,7 @@
         <activity android:name=".ui.InfoAmigo" />
         <activity android:name=".RecuperarPass" />
         <activity android:name=".ui.infoEpisodios"/>
+        <activity android:name=".ui.infoSoloPeliculas"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

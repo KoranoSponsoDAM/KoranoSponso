@@ -243,13 +243,9 @@ public class infoEpisodios extends AppCompatActivity implements LoadPeliculaInte
             }
 
         });
-        crearAdaptardor();
     }
 
     private void crearAdaptardor() {
-        if(listaEpisodios.size() == 0){
-            listaEpisodios.add(new Pelicula(pelicula.getIdPelicula(), pelicula.getNombre(), pelicula.getDescripcion(), pelicula.getIdDrawable(), pelicula.getUrl()));
-        }
         adaptador = new AdaptadorEpisodios(listaEpisodios, this);
         reciclador.setAdapter(adaptador);
     }
