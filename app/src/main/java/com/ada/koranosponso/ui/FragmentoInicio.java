@@ -73,7 +73,7 @@ public class FragmentoInicio extends Fragment implements LoadPeliculaInterface {
                     //If we are getting success from server
                       if (json.getString("res").equalsIgnoreCase(Constantes.SUCCESS)) {
                         peliculas = json.getJSONArray("peliculas");
-                        for(int i = 0; i < peliculas.length(); i++) {
+                        for(int i = 0; i < 5; i++) {
                             nombre = peliculas.getJSONObject(i).getString("nombre");
                             descripcion = peliculas.getJSONObject(i).getString("descripcion");
                             idDrawable = peliculas.getJSONObject(i).getString("imagen");

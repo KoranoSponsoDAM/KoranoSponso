@@ -3,7 +3,8 @@
     <string name="vacio">Debes completar todos los campos</string>
     <string name="errorEmail">Email incorrecto</string>
     <string name="errorPass">Las contraseñas no coinciden</string>
-    <string name="splash">Realizador por Alejandro Álvarez, Alejandro Belinchón y Daniel García©</string>
+    <string name="menor6Pass">La contraseña es menor a 6 caracteres</string>
+    <string name="splash">Realizado por Alejandro Álvarez, Alejandro Belinchón y Daniel García©</string>
     <string name="action_settings">Configuración</string>
     <string name="action_search">Buscar</string>
     <string name="olvContraseña">¿Olvidaste tu contraseña?</string>
@@ -12,6 +13,7 @@
     <string name="msgEnviar">Si no has recibido un email con tu nueva contraseña revisa la categoría de Spam</string>
     <string name="username">Nombre de usuario:</string>
     <string name="mensajeDialogo">¿Estás seguro de eliminar el amigo?</string>
+    <string name="mensajeDialogo2">¿Estás seguro de eliminar el mensaje?</string>
     <string name="aceptar">Aceptar</string>
     <string name="cancelar">Cancelar</string>
     <string name="item_inicio">Inicio</string>
@@ -21,7 +23,7 @@
     <string name="item_configuracion">Configuración</string>
     <string name="texto_Favorito">Vídeos Favoritos</string>
 
-    <string name="titulo_videos_populares">Video mas populares</string>
+    <string name="titulo_videos_populares">Vídeos más populares</string>
 
     <string name="titulo_tab_peliculas">Peliculas</string>
     <string name="titulo_tab_series">Series</string>
@@ -33,8 +35,6 @@
     <string name="titulo_tab_perfil">PERFIL</string>
     <string name="titulo_tab_favoritos">FAVORITOS</string>
     <string name="titulo_tab_amigos">AMIGOS</string>
-
-    <string name="texto_no_tarjetas">No tienes ninguna tarjeta asociada</string>
 
     <string name="texto_cambiar_contrasena">Cambia tu contraseña</string>
     <string name="etiqueta_contrasena">Contraseña</string>

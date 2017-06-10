@@ -13,7 +13,9 @@ import android.widget.MediaController;
 
 import com.ada.koranosponso.R;
 
-public class reproductoVideo extends AppCompatActivity implements MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, SurfaceHolder.Callback, MediaController.MediaPlayerControl {
+public class reproductoVideo extends AppCompatActivity implements
+        MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener,
+        MediaPlayer.OnPreparedListener, SurfaceHolder.Callback, MediaController.MediaPlayerControl {
     private MediaPlayer mediaPlayer;
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;

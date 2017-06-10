@@ -63,7 +63,9 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(getApplicationContext(), R.string.vacio, Toast.LENGTH_SHORT).show();
         }else if(!etEmail.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]+")){
             Toast.makeText(getApplicationContext(), R.string.errorEmail, Toast.LENGTH_SHORT).show();
-        } else if (password.equals(passwordConfirm)) {
+        } else if(password.length() <=6){
+            Toast.makeText(getApplicationContext(), R.string.menor6Pass, Toast.LENGTH_SHORT).show();
+        }else if (password.equals(passwordConfirm)) {
             showProgressDialog("CARGANDO", "Ingresando...");
             HashMap<String, String> hashMap = new HashMap<String, String>();
             hashMap.put(Constantes.KEY_USER, username);

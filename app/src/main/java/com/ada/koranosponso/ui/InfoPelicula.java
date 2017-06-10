@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -148,9 +150,37 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
 
 
     public void reproducir(View view) {
-        Intent intent = new Intent(this, reproductoVideo.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(InfoPelicula.this);
+        builderSingle.setTitle("Selecciona reproductor:");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(InfoPelicula.this, android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("Integrado");
+        arrayAdapter.add("Externo");
+
+        builderSingle.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String opcion = arrayAdapter.getItem(which);
+                AlertDialog.Builder builderInner = new AlertDialog.Builder(InfoPelicula.this);
+                if(opcion == "Integrado"){
+                    Intent intent = new Intent(InfoPelicula.this, reproductoVideo.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }else if (opcion == "Externo"){
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.setDataAndType(Uri.parse(url), "video/mp4");
+                    startActivity(intent);
+                }
+            }
+        });
+        builderSingle.show();
     }
 
 
@@ -189,7 +219,7 @@ public class InfoPelicula extends AppCompatActivity implements EliminarComentari
         if(idUsuario.equals(String.valueOf(comentario.getIdUsuario()))){
             new AlertDialog.Builder(this)
                     .setTitle("")
-                    .setMessage(this.getResources().getString(R.string.mensajeDialogo))
+                    .setMessage(this.getResources().getString(R.string.mensajeDialogo2))
                     .setPositiveButton(this.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             comentariosP.remove(position);
