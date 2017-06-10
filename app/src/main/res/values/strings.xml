@@ -3,6 +3,7 @@
     <string name="vacio">Debes completar todos los campos</string>
     <string name="errorEmail">Email incorrecto</string>
     <string name="errorPass">Las contraseñas no coinciden</string>
+    <string name="menor6Pass">La contraseña es menor a 6 caracteres</string>
     <string name="splash">Realizado por Alejandro Álvarez, Alejandro Belinchón y Daniel García©</string>
     <string name="action_settings">Configuración</string>
     <string name="action_search">Buscar</string>
