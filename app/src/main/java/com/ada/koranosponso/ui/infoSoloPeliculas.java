@@ -208,8 +208,8 @@ public class infoSoloPeliculas extends AppCompatActivity implements EliminarCome
         builderSingle.setTitle("Selecciona reproductor:");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(infoSoloPeliculas.this, android.R.layout.select_dialog_singlechoice);
-        arrayAdapter.add("Nativo");
-        arrayAdapter.add("Otro");
+        arrayAdapter.add("Integrado");
+        arrayAdapter.add("Externo");
 
         builderSingle.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
@@ -223,11 +223,11 @@ public class infoSoloPeliculas extends AppCompatActivity implements EliminarCome
             public void onClick(DialogInterface dialog, int which) {
                 String opcion = arrayAdapter.getItem(which);
                 AlertDialog.Builder builderInner = new AlertDialog.Builder(infoSoloPeliculas.this);
-                if(opcion == "Nativo"){
+                if(opcion == "Integrado"){
                     Intent intent = new Intent(infoSoloPeliculas.this, reproductoVideo.class);
                     intent.putExtra("url", url);
                     startActivity(intent);
-                }else if (opcion == "Otro"){
+                }else if (opcion == "Externo"){
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     intent.setDataAndType(Uri.parse(url), "video/mp4");
                     startActivity(intent);
@@ -328,7 +328,7 @@ public class infoSoloPeliculas extends AppCompatActivity implements EliminarCome
         if(idUsuario.equals(String.valueOf(comentario.getIdUsuario()))){
             new AlertDialog.Builder(this)
                     .setTitle("")
-                    .setMessage(this.getResources().getString(R.string.mensajeDialogo))
+                    .setMessage(this.getResources().getString(R.string.mensajeDialogo2))
                     .setPositiveButton(this.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             comentariosP.remove(position);
