@@ -32,11 +32,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.ActividadConfiguracion"
-            android:label="@string/titulo_actividad_configuracion"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".Login"
             android:screenOrientation="portrait" />
         <activity
