@@ -78,7 +78,7 @@ public class AdaptadorComentarioSoloPelicula
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Comentario item = comentarios.get(i);
         viewHolder.nombre.setText(item.getUsername());
-        viewHolder.fecha.setText(item.getFecha());
+        viewHolder.fecha.setText(item.getFecha().substring(0, 10));
         viewHolder.texto.setText(item.getTexto());
         if(!item.getImagen().isEmpty()) {
             Glide.with(viewHolder.itemView.getContext())

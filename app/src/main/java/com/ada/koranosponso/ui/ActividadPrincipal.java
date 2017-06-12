@@ -138,9 +138,6 @@ public class ActividadPrincipal extends AppCompatActivity {
                 fragmentoGenerico = new FragmentoCategorias();
                 setTitle(itemDrawer.getTitle());
                 break;
-            case R.id.item_configuracion:
-                startActivity(new Intent(this, ActividadConfiguracion.class));
-                break;
         }
         if (fragmentoGenerico != null) {
             fragmentManager
