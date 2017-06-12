@@ -18,7 +18,7 @@
         android:id="@+id/txtFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registro:"
+        android:text="@string/registro_registro"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_below="@+id/imageView6"/>
@@ -52,7 +52,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Usuario" />
+                android:text="@string/usuario_registro" />
 
             <EditText
                 android:id="@+id/etUser"
@@ -66,7 +66,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contraseña" />
+                android:text="@string/contrasenia_registro" />
 
             <EditText
                 android:id="@+id/etPassword"
@@ -80,7 +80,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Repita Contraseña" />
+                android:text="@string/repita_contrasenia_registro" />
 
             <EditText
                 android:id="@+id/etPasswordConfirm"
@@ -94,7 +94,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="E-mail" />
+                android:text="@string/email_registro" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -109,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="REGISTRARSE" />
+                android:text="@string/registrarse_registro" />
         </LinearLayout>
     </ScrollView>
 

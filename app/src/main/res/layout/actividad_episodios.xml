@@ -45,7 +45,7 @@
             android:id="@+id/tvDescrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción:" />
+            android:text="@string/descripcion_episodios" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Episodios"
+            android:text="@string/episodios"
             android:textSize="30sp" />
 
         <android.support.v7.widget.RecyclerView

@@ -42,7 +42,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Usuario:"
+                android:text="@string/usuario_login"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
                 android:ems="10"
-                android:hint="Usuario"
+                android:hint="@string/usuario_login_hint"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
-                android:text="Contraseña:"
+                android:text="@string/contrasenia_login"
                 android:textSize="24sp"
                 android:textStyle="normal|bold" />
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:ems="10"
-                android:hint="Contraseña"
+                android:hint="@string/contrasenia_login_hint"
                 android:inputType="textPassword" />
 
             <TextView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:text="Entrar" />
+                    android:text="@string/entrar_login" />
 
                 <CheckBox
                     android:id="@+id/chRecordar"
@@ -102,7 +102,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:text="Recordar usuario" />
+                    android:text="@string/recordar_usuario_login" />
 
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="REGISTRARSE" />
+                android:text="@string/registrarse_login" />
 
         </LinearLayout>
     </ScrollView>

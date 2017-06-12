@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Comentarios"
+            android:text="@string/comentarios_peliculas"
             android:textSize="30sp" />
 
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.81"
             android:ems="10"
-            android:hint="Escribe aqui tu comentario..."
+            android:hint="@string/escribir_comentario_peliculas"
             android:inputType="textMultiLine" />
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
             android:onClick="publicarComentario"
-            android:text="Publicar" />
+            android:text="@string/publicar_peliculas" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reciclador"

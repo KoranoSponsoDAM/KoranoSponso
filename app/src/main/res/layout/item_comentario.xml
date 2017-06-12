@@ -29,7 +29,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="15dp"
         android:autoLink="none"
-        android:text="Usuario"
+        android:text="@string/usuario_item_comentario"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -44,7 +44,7 @@
         android:layout_marginStart="17dp"
         android:layout_toEndOf="@+id/txtUsuario"
         android:layout_toRightOf="@+id/txtUsuario"
-        android:text="Fecha"
+        android:text="@string/fecha_item_comentario"
         android:textStyle="italic" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_alignStart="@+id/txtUsuario"
         android:layout_below="@+id/txtUsuario"
         android:layout_marginTop="7dp"
-        android:text="Comentario"
+        android:text="@string/comentario_item_comentario"
         android:textColor="@color/color_light" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="15dp"
-                android:text="James Revelo"
+                android:text="TextView"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </GridLayout>
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="180dp"
             android:layout_marginTop="20dp"
-            android:text="Eliminar" />
+            android:text="@string/eliminar_item_amigos_actuales" />
 
     </android.support.v7.widget.CardView>
 

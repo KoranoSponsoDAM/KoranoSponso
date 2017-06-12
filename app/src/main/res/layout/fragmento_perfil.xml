@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="32dp"
-                android:text="James Revelo"
+                android:text="TextView"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageView
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="james@mail.com"
+                android:text="TextView"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </GridLayout>
     </android.support.v7.widget.CardView>
