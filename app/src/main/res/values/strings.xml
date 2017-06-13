@@ -43,4 +43,43 @@
     <string name="etiqueta_logout">Salir</string>
     <string name="texto_logout">Salir de tu cuenta</string>
     <string name="buscar_amigos">Buscar amigos...</string>
+
+    <string name="descripcion_episodios">Descripción:</string>
+    <string name="episodios">Episodios</string>
+
+    <string name="comentarios_peliculas">Comentarios</string>
+    <string name="descripcion_peliculas">Descripción:</string>
+    <string name="escribir_comentario_peliculas">Escribe aqui tu comentario...</string>
+    <string name="publicar_peliculas">Publicar</string>
+
+    <string name="aceptar_cambio_pw">ACEPTAR</string>
+    <string name="contrasenia_actual_cambio_pw">Contraseña Actual:</string>
+    <string name="confirmar_cambio_pw">Confirmar Nueva Contraseña:</string>
+    <string name="nueva_cambio_pw">Nueva Contraseña:</string>
+
+    <string name="contrasenia_login_hint">Contraseña</string>
+    <string name="contrasenia_login">Contraseña:</string>
+    <string name="entrar_login">Entrar</string>
+    <string name="registrarse_login">REGISTRARSE</string>
+    <string name="recordar_usuario_login">Recordar usuario</string>
+    <string name="usuario_login_hint">Usuario</string>
+    <string name="usuario_login">Usuario:</string>
+
+    <string name="contrasenia_registro">Contraseña</string>
+    <string name="email_registro">E-mail</string>
+    <string name="registrarse_registro">REGISTRARSE</string>
+    <string name="registro_registro">Registro:</string>
+    <string name="repita_contrasenia_registro">Repita Contraseña</string>
+    <string name="usuario_registro">Usuario</string>
+
+    <string name="aceptar_item_aceptar_amigos">Aceptar</string>
+    <string name="rechazar_item_aceptar_amigos">Rechazar</string>
+
+    <string name="comentario_item_comentario">Comentario</string>
+    <string name="fecha_item_comentario">Fecha</string>
+    <string name="usuario_item_comentario">Usuario</string>
+
+    <string name="eliminar_item_amigos_actuales">Eliminar</string>
+    <string name="agregar_item_lista_amigos">Agregar</string>
+    <string name="enviado_item_lista_amigos">Enviado...</string>
 </resources>
