@@ -63,10 +63,7 @@ public class ActividadPrincipal extends AppCompatActivity {
     Menu menu;
     MenuItem nav_amigos;
     ImageView mOptionButton;
-    private static String APP_DIRECTORY = "KoranoSponsoApp/";
-    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "KoranoSponso";
     private final int MY_PERMISSIONS = 100;
-    private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
     private LinearLayout mRlView;
     private String mPath;
